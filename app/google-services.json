@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "470716760212",
+    "project_id": "jodimilan-69c41",
+    "storage_bucket": "jodimilan-69c41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470716760212:android:0d93a06709471319653481",
+        "android_client_info": {
+          "package_name": "com.example.jodimilan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470716760212-f41cem97sth5od1v0q03qrsh2q90g54a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxi0pE2lilXkIr-1UDDYZ8iio9p0Z-dGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470716760212-f41cem97sth5od1v0q03qrsh2q90g54a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
