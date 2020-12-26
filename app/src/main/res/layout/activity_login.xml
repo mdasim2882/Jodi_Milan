@@ -68,6 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_margin="5dp"
+                android:onClick="registerMe"
                 android:layout_weight="1"
                 android:text="Register"
                 android:textColor="@color/pink"

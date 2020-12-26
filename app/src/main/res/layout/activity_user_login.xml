@@ -64,12 +64,13 @@
                         app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/contactno"
+                            android:id="@+id/email_login_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Email Address"
                             android:inputType="phone"
                             android:text=""
+
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +87,7 @@
                         app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/otpnum"
+                            android:id="@+id/login_pass_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Password"

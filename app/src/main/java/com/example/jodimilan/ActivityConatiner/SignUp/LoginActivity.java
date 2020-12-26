@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.jodimilan.ActivityConatiner.SignUp.RegisterUser.RegisterActivity;
 import com.example.jodimilan.R;
 import com.example.jodimilan.ViewPagerAdapter.mViewPagerAdapter;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -195,8 +196,12 @@ public class LoginActivity extends AppCompatActivity {
         gotoActivity(UserLoginActivity.class);
     }
 
-    private  void gotoActivity(Class<UserLoginActivity> to){
+    private  void gotoActivity(Class<?> to){
         Intent i=new Intent(LoginActivity.this,to);
         startActivity(i);
+    }
+
+    public void registerMe(View view) {
+        gotoActivity(RegisterActivity.class);
     }
 }
