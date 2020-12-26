@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/basell"
     android:layout_height="match_parent"
     android:background="@color/cardview_shadow_start_color"
     tools:context=".ActivityConatiner.SignUp.LoginActivity">
@@ -51,49 +52,55 @@
             android:weightSum="2">
 
             <com.google.android.material.button.MaterialButton
-        app:cornerRadius="0dp"
+                android:id="@+id/email_sign_in_btn"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="Login"
+                android:onClick="loginPress"
                 android:textColor="@color/purple_500"
-                app:backgroundTint="@color/white" />
+                app:backgroundTint="@color/white"
+                app:cornerRadius="0dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/emai_register_btn"
                 android:layout_width="0dp"
-                app:cornerRadius="0dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="Register"
                 android:textColor="@color/pink"
-                app:backgroundTint="@color/white" />
+                app:backgroundTint="@color/white"
+                app:cornerRadius="0dp" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/google_sign_in_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:onClick="signIn"
+            android:text="Sign in with Google"
+            android:textColor="@color/pink"
             app:backgroundTint="@color/white"
-            app:icon="@drawable/googlelogo"
             app:cornerRadius="0dp"
+            app:icon="@drawable/googlelogo"
             app:iconSize="30dp"
             app:iconTint="@android:color/transparent"
-            app:iconTintMode="add"
-            android:textColor="@color/pink"
-            android:text="Sign in with Google"
-            />
+            app:iconTintMode="add" />
 
         <com.google.android.material.button.MaterialButton
 
+            android:id="@+id/guest_sign_in_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Login as Guest"
-            app:cornerRadius="0dp"
             android:layout_margin="5dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="logout"
+            android:text="Login as Guest"
+            app:cornerRadius="0dp" />
 
     </LinearLayout>
 </RelativeLayout>

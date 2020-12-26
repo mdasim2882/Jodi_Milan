@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "470716760212-50g2434m2m3dtjpe3ku3ksviemomr4an.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jodimilan",
+            "certificate_hash": "92868152e3738fb39da6b0ebf03e095b3a396d0a"
+          }
+        },
+        {
           "client_id": "470716760212-f41cem97sth5od1v0q03qrsh2q90g54a.apps.googleusercontent.com",
           "client_type": 3
         }
