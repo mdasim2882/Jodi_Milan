@@ -1,5 +1,6 @@
 package com.example.jodimilan.ActivityConatiner.SignUp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -191,5 +192,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginPress(View view) {
+        gotoActivity(UserLoginActivity.class);
+    }
+
+    private  void gotoActivity(Class<UserLoginActivity> to){
+        Intent i=new Intent(LoginActivity.this,to);
+        startActivity(i);
     }
 }

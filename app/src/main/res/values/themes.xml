@@ -13,4 +13,23 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="Widget.JodiMilan.TextInputLayout." parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@style/TextAppearance.JodiMilan.TextInputLayout.HintText
+        </item>
+        <item name="hintTextColor">@color/pink</item>
+
+        <item name="android:paddingBottom">8dp</item>
+        <item name="boxStrokeColor">@color/pink</item>
+    </style>
+
+    <style name="TextAppearance.JodiMilan.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="AppLayoutJodiMilan.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+<!--        <item name="android:fontFamily">@font/mclaren</item>-->
+    </style>
 </resources>
