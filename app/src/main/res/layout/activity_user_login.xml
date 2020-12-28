@@ -68,7 +68,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Email Address"
-                            android:inputType="phone"
+                            android:inputType="textEmailAddress"
                             android:text=""
 
                             android:textColor="@color/purple_700"
@@ -91,7 +91,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Password"
-                            android:inputType="numberPassword"
+                            android:inputType="textPassword"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
 
@@ -129,14 +129,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="bottom">
+            android:layout_weight="1">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/google_sign_in_btn"
                         android:layout_width="match_parent"
                         android:layout_height="65dp"
                         android:layout_margin="15dp"
-
+                        android:layout_alignParentBottom="true"
                         android:onClick="sgnInwithGoogleButton"
                         android:text="Sign in with Google"
                         android:textColor="@color/pink"
@@ -147,6 +147,12 @@
                         app:iconTint="@android:color/transparent"
                         app:iconTintMode="add" />
 
+            <ImageView
+                android:id="@+id/profile_dp"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_above="@id/google_sign_in_btn"
+                />
         </RelativeLayout>
 
     </LinearLayout>

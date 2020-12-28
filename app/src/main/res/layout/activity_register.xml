@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/root_rel_ll"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity">
 
@@ -20,19 +20,21 @@
             android:layout_marginLeft="10dp"
             android:textAlignment="center"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:title="Personal Details"
+            app:title="Registration Details"
             app:titleTextAppearance="@style/AppLayoutJodiMilan.ActiveItemTextAppearance"
             app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:id="@+id/reg_ll"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
         android:layout_above="@id/nextbtn"
+        android:layout_marginTop="56dp"
         android:elevation="6dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <ScrollView
@@ -46,6 +48,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/textlines"
+                    android:padding="5dp"
+                    android:text="Personal Info"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/pink"
+
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,43 +72,44 @@
                     android:orientation="vertical">
 
 
-                        <RadioGroup
-                            android:id="@+id/group_rdbtn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="3"
-                            >
-                            <TextView
-                                android:id="@+id/header"
-                                android:text="Gender*"
-                                android:textSize="16sp"
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                />
-                            <RadioButton
-                                android:id="@+id/female_rdbtn"
-                                android:layout_weight="1"
-                                android:text="Female"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <RadioButton
-                                android:id="@+id/male_rdbtn"
-                                android:text="Male"
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                    <RadioGroup
+                        android:id="@+id/group_rdbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
-                        </RadioGroup>
+                        <TextView
+                            android:id="@+id/header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Gender*"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/female_rdbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Female" />
+
+                        <RadioButton
+                            android:id="@+id/male_rdbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Male" />
+
+                    </RadioGroup>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/dateOfBirth_ll"
                         style="@style/Widget.JodiMilan.TextInputLayout."
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
                         android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
                         android:textColor="@color/purple_200"
                         app:hintAnimationEnabled="true">
 
@@ -101,11 +117,11 @@
                             android:id="@+id/dateOfBirth_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
                             android:hint="Date of Birth*"
                             android:inputType="none"
                             android:text=""
-                            android:clickable="true"
-                           android:focusable="false"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -118,22 +134,22 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/purple_200"
-                        app:hintAnimationEnabled="true"
-                        >
+                        app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/height_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Height*"
-                            android:tag="hgt"
-                            android:inputType="none"
                             android:clickable="false"
                             android:focusable="false"
+                            android:hint="Height*"
+                            android:inputType="none"
+                            android:tag="hgt"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/country_ll"
                         style="@style/Widget.JodiMilan.TextInputLayout."
@@ -141,45 +157,46 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/purple_200"
-                        app:hintAnimationEnabled="true"
-                        >
+                        app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/country_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Country*"
-                            android:tag="cty"
-                            android:inputType="none"
                             android:clickable="false"
                             android:focusable="false"
+                            android:hint="Country*"
+                            android:inputType="none"
+                            android:tag="cty"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
 
-                    </com.google.android.material.textfield.TextInputLayout>  <com.google.android.material.textfield.TextInputLayout
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/state_ll"
                         style="@style/Widget.JodiMilan.TextInputLayout."
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/purple_200"
-                        app:hintAnimationEnabled="true"
-                        >
+                        app:hintAnimationEnabled="true">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/state_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:tag="stt"
-                        android:hint="State*"
-                        android:inputType="none"
-                        android:textColor="@color/purple_700"
-                        android:textColorHint="@color/purple_200" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/state_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="State*"
+                            android:inputType="none"
+                            android:tag="stt"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
 
                     </com.google.android.material.textfield.TextInputLayout>
-                  <com.google.android.material.textfield.TextInputLayout
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/city_ll"
                         style="@style/Widget.JodiMilan.TextInputLayout."
                         android:layout_width="match_parent"
@@ -187,26 +204,348 @@
                         android:backgroundTint="@color/white"
 
                         android:textColor="@color/purple_200"
-                        app:hintAnimationEnabled="true"
-                        >
+                        app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/city_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="City*"
-                            android:textAllCaps="true"
                             android:inputType="textCapWords"
+
+                            android:textAllCaps="true"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="* Indicates mandatory fields"
-                  />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:padding="5dp"
+                        android:text="Career Details"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/education_ll"
+
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/education_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Highest Education*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/employed_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/employed_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Employed In*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/occupation_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/occupation_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Occupation*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/income_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/income_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Income*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:padding="5dp"
+                        android:text="Social Details"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/marital_status_ll"
+
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/marital_status_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Marital Status*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/have_children_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/have_children_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Have Children*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motherTongue_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motherTongue_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Mother Tongue*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/religion_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/religion_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Religion*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:padding="5dp"
+                        android:text="Login Details"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/fullname_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/regfullname_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Full Name*"
+                            android:inputType="none"
+                            android:tag="cty"
+
+
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:id="@+id/reg_emailId_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/reg_emailId_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Email Id*"
+                            android:inputType="textEmailAddress"
+                            android:tag="cty"
+
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/reg_pass_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/reg_pass_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password*"
+                            android:inputType="textPassword"
+                            android:tag="cty"
+
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regMobile_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/regMobile_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0123456789+"
+                            android:hint="Mobile no."
+                            android:inputType="phone"
+                            android:text="+91"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="* Indicates mandatory fields" />
                 </LinearLayout>
 
 
