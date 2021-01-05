@@ -3,6 +3,9 @@
     package="com.example.jodimilan">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JodiMilan">
-        <activity android:name=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity"
-            android:windowSoftInputMode="adjustNothing" ></activity>
+        <activity android:name=".ActivityConatiner.Body.PictureSetter"></activity>
+        <activity android:name=".ActivityConatiner.SignUp.RegisterUser.OTPVerificationActivity" />
+        <activity
+            android:name=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ActivityConatiner.SignUp.UserLoginActivity"
             android:windowSoftInputMode="adjustNothing" />

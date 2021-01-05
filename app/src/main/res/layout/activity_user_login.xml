@@ -147,12 +147,7 @@
                         app:iconTint="@android:color/transparent"
                         app:iconTintMode="add" />
 
-            <ImageView
-                android:id="@+id/profile_dp"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_above="@id/google_sign_in_btn"
-                />
+
         </RelativeLayout>
 
     </LinearLayout>

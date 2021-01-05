@@ -1,12 +1,15 @@
 package com.example.jodimilan.ActivityConatiner.SignUp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -96,45 +99,42 @@ public class LoginActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
 
-                            String a="Email: "+user.getEmail()
-                                    +"\nName: "+user.getDisplayName()+"\nL= "+user.getProviderData();
-                            Log.d(TAG, "onComplete: USER DATA:\n"+a);
+                        String a="Email: "+user.getEmail()
+                                +"\nName: "+user.getDisplayName()+"\nL= "+user.getProviderData();
+                        Log.d(TAG, "onComplete: USER DATA:\n"+a);
 
-                            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
-                            if (acct != null) {
-                                String personName = acct.getDisplayName();
-                                String personGivenName = acct.getGivenName();
-                                String personFamilyName = acct.getFamilyName();
-                                String personEmail = acct.getEmail();
-                                String personId = acct.getId();
-                                Uri personPhoto = acct.getPhotoUrl();
-                                Log.d(TAG, "onComplete: RESULT--> "+"Name: "+personName+"\n"+
-                                        "Email: "+personEmail+"\n"+
-                                        "ID: "+personId+"\n"+
-                                        "Photo: "+personPhoto+"\n"+
-                                        "PersonGiven Name: "+personGivenName+"\n");
-                            }
+                        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
+                        if (acct != null) {
+                            String personName = acct.getDisplayName();
+                            String personGivenName = acct.getGivenName();
+                            String personFamilyName = acct.getFamilyName();
+                            String personEmail = acct.getEmail();
+                            String personId = acct.getId();
+                            Uri personPhoto = acct.getPhotoUrl();
+                            Log.d(TAG, "onComplete: RESULT--> "+"Name: "+personName+"\n"+
+                                    "Email: "+personEmail+"\n"+
+                                    "ID: "+personId+"\n"+
+                                    "Photo: "+personPhoto+"\n"+
+                                    "PersonGiven Name: "+personGivenName+"\n");
+                        }
 
 
 
 //                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(r, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Snackbar.make(r, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 //                            updateUI(null);
-                        }
-
-                        // ...
                     }
+
+                    // ...
                 });
     }
 
@@ -194,9 +194,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginPress(View view) {
+
         gotoActivity(UserLoginActivity.class);
     }
+private  void popupSelector(ArrayAdapter<String> shownAdapter){
+    AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+    builderSingle.setIcon(R.drawable.jodi_milan_logo);
+    builderSingle.setTitle("Select One Name:-");
 
+
+    final ArrayAdapter<String> arrayAdapter = shownAdapter;
+
+    builderSingle.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+    builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
+        String strName = arrayAdapter.getItem(which);
+        Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
+
+    });
+    builderSingle.show();
+}
     private  void gotoActivity(Class<?> to){
         Intent i=new Intent(LoginActivity.this,to);
         startActivity(i);

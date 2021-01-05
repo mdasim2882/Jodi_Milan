@@ -2,10 +2,11 @@ package com.example.jodimilan.ActivityConatiner.SignUp.RegisterUser;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,16 +16,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.jodimilan.ActivityConatiner.Body.PictureSetter;
+import com.example.jodimilan.HelperClasses.FormDataVariables;
 import com.example.jodimilan.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,24 +35,54 @@ import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    public static final String MANDATORY = "All fields are mandatory";
     private EditText pDob_editText, pHeight_edt, pCountry_edt, pState_edt, pCity_edt;
     private EditText cEducation_edt, cEmployedIn_edt, cOccupation_edt, cIncome_edt;
     private EditText sMarital_edt, sChildren_edt, sMotherTongue_edt, sReligion_edt;
     private EditText lregFullName_edt, lregEmailId_edt, lregPassword_edt, lMobileno_edt;
+
+    private EditText fathersName_edt, address_edt;
+    private TextInputLayout fullnameLayout, fathersNameLayout, stateLayout,
+            cityLayout, dateOfbirthLayout, heightLayout, countrylayout, addressLayout;
+
+    private TextInputLayout highestEduLayout, employedInLayout, incomeLayout, occupationLayout;
+    private TextInputLayout maritalStatusLayout, religionLayout, haveChildrenLayout, motherTongueLayout;
+    private TextInputLayout emailIdLayout, passwordLayout, mobnoLayout;
+
     private Calendar myCalendar;
-    private ListPopupWindow heightStatus, countryStatus, stateStatus,
-            highestEducation, employedIn, occupation, income,
-            maritalStatus, haveChildren, motherTongue, religion;
+
     private String carrerDetails[] = new String[4];
     private String socialDetails[] = new String[4];
     private String loginDetails[] = new String[4];
     private LinearLayout ll;
-    RadioGroup radioGroup;
+    RadioGroup rGender, rBody, rColour;
     private AlertDialog.Builder builder;
     private DialogInterface.OnClickListener dialogClickListener;
     private String data;
     private Toolbar toolbar;
     private FirebaseAuth fAuth;
+    private android.app.AlertDialog.Builder heightStatus, countryStatus, stateStatus,
+            highestEducation, employedIn, occupation, income,
+            maritalStatus, haveChildren, motherTongue, religion;
+
+    private String inputDob;
+    private String inputheight;
+    private String inputCountry;
+    private String inputState;
+    private String inputCity;
+    private String inputEducation;
+    private String inputEmployment;
+    private String inputOccupation;
+    private String inputIncome;
+    private String inputMaritalStatus;
+    private String inputHaveChildren;
+    private String inputMotherTongue;
+    private String inputReligion;
+    private String inputFullName;
+    private String inputFathersName;
+    private String inputAddress;
+    private String inputPassword;
+    private String inputEmailID;
 
 
     @Override
@@ -61,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        fAuth=FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
         findCalendarAndsetText();
         initializeViews();
         setUpToolbar();
@@ -77,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Personal Details
         setHeightPopupList();
         setCounty_edt();
-        setState_edt();
+//        setState_edt();
 
         //Career Details
         setHighestEducation_edt();
@@ -100,11 +129,61 @@ public class RegisterActivity extends AppCompatActivity {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
-                      //  Toast.makeText(RegisterActivity.this, "USER DATA \n" + data, Toast.LENGTH_SHORT).show();
-                        String email=lregEmailId_edt.getText().toString();
-                        String password=lregPassword_edt.getText().toString();
-                        createAccount(email,password);
+                        //  Toast.makeText(RegisterActivity.this, "USER DATA \n" + data, Toast.LENGTH_SHORT).show();
+                        String gender,body,colour;
+                        int selectedId = rGender.getCheckedRadioButtonId();
+                        int colorSelectID = rColour.getCheckedRadioButtonId();
+                        int bodySelectID = rBody.getCheckedRadioButtonId();
+                        RadioButton genderradioButton = findViewById(selectedId);
+                        RadioButton bodyradioButton = findViewById(bodySelectID);
+                        RadioButton colourradioButton = findViewById(colorSelectID);
 
+
+
+                        if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
+                                && socialDetailsCheckValidity() && loginDetailsCheckValidity()
+                                && selectedId != -1 && bodySelectID!= -1 &&  colorSelectID != -1) {
+                            gender = genderradioButton.getText().toString();
+                            body = bodyradioButton.getText().toString();
+                            colour = colourradioButton.getText().toString();
+                            String mobnp = lMobileno_edt.getText().toString();
+
+                            Intent intent = new Intent(RegisterActivity.this, OTPVerificationActivity.class);
+                            intent.putExtra(FormDataVariables.bGender, gender);
+                            intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
+                            intent.putExtra(FormDataVariables.bFullName, inputFullName);
+                            intent.putExtra(FormDataVariables.bDoB, inputDob);
+                            intent.putExtra(FormDataVariables.bHeight, inputCountry);
+                            intent.putExtra(FormDataVariables.bState, inputState);
+                            intent.putExtra(FormDataVariables.bCountry, inputCountry);
+                            intent.putExtra(FormDataVariables.bCity, inputCity);
+                            intent.putExtra(FormDataVariables.bAddress, inputAddress);
+                            intent.putExtra(FormDataVariables.bColor, colour);
+                            intent.putExtra(FormDataVariables.bBody, body);
+                            intent.putExtra(FormDataVariables.bEducation, inputEducation);
+                            intent.putExtra(FormDataVariables.bEmployedIn, inputEmployment);
+                            intent.putExtra(FormDataVariables.bOccupation, inputOccupation);
+                            intent.putExtra(FormDataVariables.bIncome, inputIncome);
+                            intent.putExtra(FormDataVariables.bMaritalStatus, inputMaritalStatus);
+                            intent.putExtra(FormDataVariables.bHaveChildren, inputHaveChildren);
+                            intent.putExtra(FormDataVariables.bMotherTongue, inputMotherTongue);
+                            intent.putExtra(FormDataVariables.bReligion, inputReligion);
+                            intent.putExtra(FormDataVariables.bEmail, inputEmailID);
+                            intent.putExtra(FormDataVariables.bPassword, inputPassword);
+                            intent.putExtra(FormDataVariables.bMobile, mobnp);
+
+                            startActivity(intent);
+                        } else {
+                            dialog.dismiss();
+                        }
+//                        String email=lregEmailId_edt.getText().toString();
+//                        String password=lregPassword_edt.getText().toString();
+//                        if (email.length()>0 && password.length()>0) {
+//                            createAccount(email,password);
+//                        }
+//                        else {
+//                            Toast.makeText(RegisterActivity.this, "Please enter login credentials", Toast.LENGTH_SHORT).show();
+//                        }
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -154,18 +233,40 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void loginDetails() {
         lregFullName_edt = findViewById(R.id.regfullname_edt);
+        fathersName_edt = findViewById(R.id.fathersName_edt);
+        address_edt = findViewById(R.id.address_edt);
         lregEmailId_edt = findViewById(R.id.reg_emailId_edt);
         lregPassword_edt = findViewById(R.id.reg_pass_edt);
         lMobileno_edt = findViewById(R.id.regMobile_edt);
+
+        emailIdLayout = findViewById(R.id.reg_emailId_ll);
+        passwordLayout = findViewById(R.id.reg_pass_ll);
+       mobnoLayout = findViewById(R.id.regMobile_ll);
+
+
     }
 
     private void personalDetails() {
         pHeight_edt = findViewById(R.id.height_edt);
-        radioGroup = findViewById(R.id.group_rdbtn);
+        rGender = findViewById(R.id.group_rdbtn);
+        rBody = findViewById(R.id.groupbodytype_rdbtn);
+        rColour = findViewById(R.id.group_complexion_rdbtn);
         pCountry_edt = findViewById(R.id.country_edt);
         pState_edt = findViewById(R.id.state_edt);
         pCity_edt = findViewById(R.id.city_edt);
         ll = findViewById(R.id.reg_ll);
+
+
+        heightLayout = findViewById(R.id.height_ll);
+        countrylayout = findViewById(R.id.country_ll);
+        stateLayout = findViewById(R.id.state_ll);
+        cityLayout = findViewById(R.id.city_ll);
+        fullnameLayout = findViewById(R.id.fullname_ll);
+        fathersNameLayout = findViewById(R.id.fathersName_ll);
+        dateOfbirthLayout = findViewById(R.id.dateOfBirth_ll);
+        addressLayout = findViewById(R.id.address_ll);
+
+
     }
 
     private void careerDetails() {
@@ -174,6 +275,11 @@ public class RegisterActivity extends AppCompatActivity {
         cOccupation_edt = findViewById(R.id.occupation_edt);
         cIncome_edt = findViewById(R.id.income_edt);
 
+        highestEduLayout = findViewById(R.id.education_ll);
+        employedInLayout = findViewById(R.id.employed_ll);
+        occupationLayout = findViewById(R.id.occupation_ll);
+        incomeLayout = findViewById(R.id.income_ll);
+
     }
 
     private void socialDetails() {
@@ -181,6 +287,11 @@ public class RegisterActivity extends AppCompatActivity {
         sChildren_edt = findViewById(R.id.have_children_edt);
         sMotherTongue_edt = findViewById(R.id.motherTongue_edt);
         sReligion_edt = findViewById(R.id.religion_edt);
+
+        maritalStatusLayout = findViewById(R.id.marital_status_ll);
+        haveChildrenLayout = findViewById(R.id.have_children_ll);
+        motherTongueLayout = findViewById(R.id.motherTongue_ll);
+        religionLayout = findViewById(R.id.religion_ll);
     }
 
     private void setListeners() {
@@ -196,16 +307,17 @@ public class RegisterActivity extends AppCompatActivity {
                 countryStatus.show();
             }
         });
-        pState_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stateStatus.show();
-            }
-        });
+//        pState_edt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                stateStatus.show();
+//            }
+//        });
 
         cEducation_edt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                highestEducation.show();
                 highestEducation.show();
             }
         });
@@ -255,32 +367,57 @@ public class RegisterActivity extends AppCompatActivity {
         sReligion_edt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               religion.show();
+                religion.show();
             }
         });
 
         Button nextbtn = findViewById(R.id.nextbtn);
         nextbtn.setOnClickListener(v -> {
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-            RadioButton genderradioButton = (RadioButton) findViewById(selectedId);
+
             String gender = "Nothing Selected";
-            if (selectedId != -1) {
-                gender = genderradioButton.getText().toString();
-            }
+            String body = "Nothing Selected";
+            String colour = "Nothing Selected";
+
+            inputDob = pDob_editText.getText().toString();
+            inputheight = pHeight_edt.getText().toString();
+            inputCountry = pCountry_edt.getText().toString();
+            inputState = pState_edt.getText().toString();
+            inputCity = pCity_edt.getText().toString().toUpperCase();
+            inputEducation = cEducation_edt.getText().toString().toUpperCase();
+            inputEmployment = cEmployedIn_edt.getText().toString();
+            inputOccupation = cOccupation_edt.getText().toString();
+            inputIncome = cIncome_edt.getText().toString();
+            inputMaritalStatus = sMarital_edt.getText().toString();
+            inputHaveChildren = sChildren_edt.getText().toString();
+            inputMotherTongue = sMotherTongue_edt.getText().toString().toUpperCase();
+            inputReligion = sReligion_edt.getText().toString();
+            inputFullName =lregFullName_edt.getText().toString();
+            inputFathersName =fathersName_edt.getText().toString();
+            inputAddress =address_edt.getText().toString();
+            inputEmailID =lregEmailId_edt.getText().toString();
+            inputPassword =lregPassword_edt.getText().toString();
+
             data = "Gender: " + gender + "\n" +
-                    "DOB: " + pDob_editText.getText().toString() + "\n" +
-                    "Height: " + pHeight_edt.getText().toString() + "\n" +
-                    "Country: " + pCountry_edt.getText().toString() + "\n" +
-                    "State: " + pState_edt.getText().toString() + "\n" +
-                    "City: " + pCity_edt.getText().toString().toUpperCase()+"\n"+
-                    "Education: " + cEducation_edt.getText().toString().toUpperCase()+"\n"+
-                    "Employed In: " + cEmployedIn_edt.getText().toString()+"\n"+
-                    "Occupation: " + cOccupation_edt.getText().toString()+"\n"+
-                    "Income: " + cIncome_edt.getText().toString()+"\n"+
-                    "Marital Status: " + sMarital_edt.getText().toString()+"\n"+
-                    "Have Children: " + sChildren_edt.getText().toString()+"\n"+
-                    "Mother Tongue: " + sMotherTongue_edt.getText().toString().toUpperCase()+"\n"+
-                    "Religion: " + sReligion_edt.getText().toString();
+                    "Full Name: " + inputFullName + "\n" +
+                    "Fathers Name: " + inputFathersName + "\n" +
+                    "DOB: " + inputDob + "\n" +
+                    "Height: " + inputheight + "\n" +
+                    "Country: " + inputCountry + "\n" +
+                    "State: " + inputState + "\n" +
+                    "Address: " + inputAddress + "\n" +
+                    "City: " + inputCity + "\n" +
+                    "Education: " + inputEducation + "\n" +
+                    "Employed In: " + inputEmployment + "\n" +
+                    "Occupation: " + inputOccupation + "\n" +
+                    "Income: " + inputIncome + "\n" +
+                    "Body: " + body + "\n" +
+                    "Colour: " + colour + "\n" +
+                    "Marital Status: " + inputMaritalStatus + "\n" +
+                    "Have Children: " + inputHaveChildren + "\n" +
+                    "Mother Tongue: " + inputMotherTongue +"\n" +
+                    "Religion: " + inputReligion+"\n" +
+                    "Email_Id: " + inputEmailID+"\n"+
+                    "Password: " + inputPassword;
 
 
             Log.d("TAG", "setListeners: Clicked with data: -->\n" + data);
@@ -317,8 +454,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Status 9");
         status.add("Status 10");
 
-        heightStatus = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
+       /* ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         heightStatus.setAnchorView(toolbar); //this let as set the popup below the EditText
         //this let as set the popup below the EditText
 
@@ -334,6 +470,19 @@ public class RegisterActivity extends AppCompatActivity {
 
 
             }
+        });*/
+        heightStatus = new android.app.AlertDialog.Builder(this);
+        heightStatus.setIcon(R.drawable.jodi_milan_logo);
+        heightStatus.setTitle("Select Height:-");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
+
+        heightStatus.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        heightStatus.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            pHeight_edt.setText(strName);//we set the selected element in the EditText
+
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -352,8 +501,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Sout Africa");
         status.add("Pakistan");
 
-        countryStatus = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
+      /*  ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         countryStatus.setAnchorView(toolbar); //this let as set the popup below the EditText
         //this let as set the popup below the EditText
 
@@ -366,6 +514,19 @@ public class RegisterActivity extends AppCompatActivity {
 
 
             }
+        });*/
+        countryStatus = new android.app.AlertDialog.Builder(this);
+        countryStatus.setIcon(R.drawable.jodi_milan_logo);
+        countryStatus.setTitle("Select Country-");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
+
+        countryStatus.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        countryStatus.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            pCountry_edt.setText(strName);//we set the selected element in the EditText
+
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -382,22 +543,33 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Car 9");
         status.add("Car 10");
 
-        stateStatus = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
+      /*  ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         stateStatus.setAnchorView(toolbar); //this let as set the popup below the EditText
         //this let as set the popup below the EditText
 
         stateStatus.setAdapter(adapter);
-        stateStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pState_edt.setText(status.get(position));//we set the selected element in the EditText
+        stateStatus.setOnItemClickListener((parent, view, position, id) -> {
+            pState_edt.setText(status.get(position));//we set the selected element in the EditText
 
-                stateStatus.dismiss();
+            stateStatus.dismiss();
 
 
-            }
+        });*/
+
+        stateStatus = new android.app.AlertDialog.Builder(this);
+        stateStatus.setIcon(R.drawable.jodi_milan_logo);
+        stateStatus.setTitle("Select State-");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
+
+        stateStatus.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        stateStatus.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            pState_edt.setText(strName);//we set the selected element in the EditText
+
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
+
     }
 
     private void setHighestEducation_edt() {
@@ -414,21 +586,30 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("B.C.A");
         status.add("M.C.A");
 
-        highestEducation = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        highestEducation.setAnchorView(toolbar); //this let as set the popup below the EditText
+//        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
+        highestEducation = new android.app.AlertDialog.Builder(this);
+        highestEducation.setIcon(R.drawable.jodi_milan_logo);
+        highestEducation.setTitle("Highest Education-");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
+
+        highestEducation.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        highestEducation.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            cEducation_edt.setText(strName);//we set the selected element in the EditText
+
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
+        });
+      /*  highestEducation.setAnchorView(toolbar); //this let as set the popup below the EditText
         //this let as set the popup below the EditText
 
         highestEducation.setAdapter(adapter);
-        highestEducation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cEducation_edt.setText(status.get(position));//we set the selected element in the EditText
+        highestEducation.setOnItemClickListener((parent, view, position, id) -> {
+            cEducation_edt.setText(status.get(position));//we set the selected element in the EditText
 
-                highestEducation.dismiss();
+            highestEducation.dismiss();
 
-            }
-        });
+        });*/
     }
 
     private void setEmployedIn_edt() {
@@ -444,22 +625,32 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Car 9");
         status.add("Car 10");
 
-        employedIn = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
+        employedIn = new android.app.AlertDialog.Builder(this);
+        employedIn.setIcon(R.drawable.jodi_milan_logo);
+        employedIn.setTitle("Employed In-");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
+
+        employedIn.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        employedIn.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            cEmployedIn_edt.setText(strName);//we set the selected element in the EditText
+
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
+        });
+
+     /*   ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         employedIn.setAnchorView(toolbar); //this let as set the popup below the EditText
         //this let as set the popup below the EditText
 
         employedIn.setAdapter(adapter);
-        employedIn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cEmployedIn_edt.setText(status.get(position));//we set the selected element in the EditText
+        employedIn.setOnItemClickListener((parent, view, position, id) -> {
+            cEmployedIn_edt.setText(status.get(position));//we set the selected element in the EditText
 
-                employedIn.dismiss();
+            employedIn.dismiss();
 
 
-            }
-        });
+        });*/
     }
 
     private void setOccupation_edt() {
@@ -475,21 +666,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Car 9");
         status.add("Car 10");
 
-        occupation = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        occupation.setAnchorView(toolbar); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        occupation = new android.app.AlertDialog.Builder(this);
+        occupation.setIcon(R.drawable.jodi_milan_logo);
+        occupation.setTitle("Select State-");
 
-        occupation.setAdapter(adapter);
-        occupation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cOccupation_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                occupation.dismiss();
+        occupation.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        occupation.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            cOccupation_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -506,21 +694,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Car 9");
         status.add("Car 10");
 
-        income = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        income.setAnchorView(toolbar); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        income = new android.app.AlertDialog.Builder(this);
+        income.setIcon(R.drawable.jodi_milan_logo);
+        income.setTitle("Select Income-");
 
-        income.setAdapter(adapter);
-        income.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cIncome_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                income.dismiss();
+        income.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        income.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            cIncome_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -531,21 +716,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Married");
 
 
-        maritalStatus = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        maritalStatus.setAnchorView(sMarital_edt); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        maritalStatus = new android.app.AlertDialog.Builder(this);
+        maritalStatus.setIcon(R.drawable.jodi_milan_logo);
+        maritalStatus.setTitle("Select Marital Status-");
 
-        maritalStatus.setAdapter(adapter);
-        maritalStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sMarital_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                maritalStatus.dismiss();
+        maritalStatus.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        maritalStatus.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            sMarital_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -554,21 +736,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Yes");
         status.add("No");
 
-        haveChildren = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        haveChildren.setAnchorView(sChildren_edt); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        haveChildren = new android.app.AlertDialog.Builder(this);
+        haveChildren.setIcon(R.drawable.jodi_milan_logo);
+        haveChildren.setTitle("Have children-");
 
-        haveChildren.setAdapter(adapter);
-        haveChildren.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sChildren_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                haveChildren.dismiss();
+        haveChildren.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        haveChildren.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            sChildren_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -585,21 +764,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Parsi");
         status.add("Madrasi");
 
-        motherTongue = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        motherTongue.setAnchorView(sMotherTongue_edt); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        motherTongue = new android.app.AlertDialog.Builder(this);
+        motherTongue.setIcon(R.drawable.jodi_milan_logo);
+        motherTongue.setTitle("Select Mother Tongue-");
 
-        motherTongue.setAdapter(adapter);
-        motherTongue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sMotherTongue_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                motherTongue.dismiss();
+        motherTongue.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        motherTongue.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            sMotherTongue_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -611,21 +787,18 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Jain");
         status.add("Christian");
 
-        religion = new ListPopupWindow(RegisterActivity.this);
-        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
-        religion.setAnchorView(sReligion_edt); //this let as set the popup below the EditText
-        //this let as set the popup below the EditText
+        religion = new android.app.AlertDialog.Builder(this);
+        religion.setIcon(R.drawable.jodi_milan_logo);
+        religion.setTitle("Select Religion-");
 
-        religion.setAdapter(adapter);
-        religion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sReligion_edt.setText(status.get(position));//we set the selected element in the EditText
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
-                religion.dismiss();
+        religion.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        religion.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            sReligion_edt.setText(strName);//we set the selected element in the EditText
 
-
-            }
+//            Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -667,4 +840,450 @@ public class RegisterActivity extends AppCompatActivity {
 
         pDob_editText.setText(sdf.format(myCalendar.getTime()));
     }
+
+    private boolean personalDetailsCheckValidity() {
+        if (fullNameValidityInputs() && fathernameValidityInputs() && cityValidityInputs()
+                && stateValidityInputs() && countryValidityInputs() && dateOfBirthValidityInputs() && addressValidityInputs() && heightValidityInputs()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean careerDetailsCheckValidity() {
+        if (highestEducValidityInputs() && employedInValidityInputs() && occupationValidityInputs() && incomeValidityInputs()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean socialDetailsCheckValidity() {
+        if (maritalValidityInputs() && haveChildrenValidityInputs() && religionValidityInputs() && motherTongueValidityInputs()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean loginDetailsCheckValidity() {
+        if (emailIdValidityInputs() && passwordValidityInputs() && mobileNoValidityInputs()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean fullNameValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(lregFullName_edt.getText().toString())) {
+            fullnameLayout.setErrorEnabled(true);
+            fullnameLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            fullnameLayout.setErrorEnabled(false);
+            fullnameLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean fathernameValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(fathersName_edt.getText().toString())) {
+            fathersNameLayout.setErrorEnabled(true);
+            fathersNameLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            fathersNameLayout.setErrorEnabled(false);
+            fathersNameLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean cityValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(pCity_edt.getText().toString())) {
+            cityLayout.setErrorEnabled(true);
+            cityLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            cityLayout.setErrorEnabled(false);
+            cityLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean stateValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(pState_edt.getText().toString())) {
+            stateLayout.setErrorEnabled(true);
+            stateLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            stateLayout.setErrorEnabled(false);
+            stateLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean countryValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(pCountry_edt.getText().toString())) {
+            countrylayout.setErrorEnabled(true);
+            countrylayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            countrylayout.setErrorEnabled(false);
+            countrylayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean dateOfBirthValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(pDob_editText.getText().toString())) {
+            dateOfbirthLayout.setErrorEnabled(true);
+            dateOfbirthLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            dateOfbirthLayout.setErrorEnabled(false);
+            dateOfbirthLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean addressValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(address_edt.getText().toString())) {
+            addressLayout.setErrorEnabled(true);
+            addressLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            addressLayout.setErrorEnabled(false);
+            addressLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean heightValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(pHeight_edt.getText().toString())) {
+            heightLayout.setErrorEnabled(true);
+            heightLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            heightLayout.setErrorEnabled(false);
+            heightLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+
+    public boolean highestEducValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(cEducation_edt.getText().toString())) {
+            highestEduLayout.setErrorEnabled(true);
+            highestEduLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            highestEduLayout.setErrorEnabled(false);
+            highestEduLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+    }
+
+    public boolean employedInValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(cEmployedIn_edt.getText().toString())) {
+
+            employedInLayout.setErrorEnabled(true);
+            employedInLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            employedInLayout.setErrorEnabled(false);
+            employedInLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean occupationValidityInputs() {
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(cOccupation_edt.getText().toString())) {
+
+            occupationLayout.setErrorEnabled(true);
+            occupationLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            occupationLayout.setErrorEnabled(false);
+            occupationLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean incomeValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(cIncome_edt.getText().toString())) {
+            incomeLayout.setErrorEnabled(true);
+            incomeLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            incomeLayout.setErrorEnabled(false);
+            incomeLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean maritalValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(sMarital_edt.getText().toString())) {
+
+            maritalStatusLayout.setErrorEnabled(true);
+            maritalStatusLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            maritalStatusLayout.setErrorEnabled(false);
+            maritalStatusLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+    }
+
+    public boolean haveChildrenValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(sChildren_edt.getText().toString())) {
+
+            haveChildrenLayout.setErrorEnabled(true);
+            haveChildrenLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            haveChildrenLayout.setErrorEnabled(false);
+            haveChildrenLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean motherTongueValidityInputs() {
+
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(sMotherTongue_edt.getText().toString())) {
+            motherTongueLayout.setErrorEnabled(true);
+            motherTongueLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+            motherTongueLayout.setErrorEnabled(false);
+            motherTongueLayout.setError(null);
+            contactStatus = true;
+        }
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean religionValidityInputs() {
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(sReligion_edt.getText().toString())) {
+
+            religionLayout.setErrorEnabled(true);
+            religionLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            religionLayout.setErrorEnabled(false);
+            religionLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean emailIdValidityInputs() {
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(lregEmailId_edt.getText().toString())) {
+
+            emailIdLayout.setErrorEnabled(true);
+            emailIdLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            emailIdLayout.setErrorEnabled(false);
+            emailIdLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean passwordValidityInputs() {
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(lregPassword_edt.getText().toString())) {
+
+            passwordLayout.setErrorEnabled(true);
+            passwordLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            passwordLayout.setErrorEnabled(false);
+            passwordLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+    public boolean mobileNoValidityInputs() {
+        boolean contactStatus;
+
+        if (TextUtils.isEmpty(lMobileno_edt.getText().toString())) {
+
+            mobnoLayout.setErrorEnabled(true);
+            mobnoLayout.setError(MANDATORY);
+            contactStatus = false;
+        } else {
+
+            mobnoLayout.setErrorEnabled(false);
+            mobnoLayout.setError(null);
+            contactStatus = true;
+        }
+
+
+        if (contactStatus == true)
+            return true;
+        return false;
+
+
+    }
+
+
 }

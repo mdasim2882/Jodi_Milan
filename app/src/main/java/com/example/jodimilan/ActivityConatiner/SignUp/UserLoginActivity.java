@@ -30,12 +30,11 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class UserLoginActivity extends AppCompatActivity {
-
+private  final String TAG=getClass().getSimpleName();
     public static final int GALLERY_CODE = 1001;
     EditText logEmail, logPass;
     private FirebaseAuth fAuth;
-    ImageView profilePic;
-    StorageReference storageReference;
+
 
 
     @Override
@@ -46,37 +45,23 @@ public class UserLoginActivity extends AppCompatActivity {
         setUpToolbar();
 
         fAuth = FirebaseAuth.getInstance();
-        storageReference= FirebaseStorage.getInstance().getReference();
         logEmail = findViewById(R.id.email_login_edt);
         logPass = findViewById(R.id.login_pass_edt);
-        profilePic = findViewById(R.id.profile_dp);
 
-        profilePic.setOnClickListener(v -> {
-            Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(openGallery, GALLERY_CODE);
-        });
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri imageUri = data.getData();
-              //  profilePic.setImageURI(imageUri);
-                FirebaseUser user = fAuth.getCurrentUser();
-                if (user!=null) {
-                    updateUI(user, imageUri);
-                }
-            }
-        }
-    }
+
 
     public void loginWithEmail(View view) {
         String email = logEmail.getText().toString();
         String pass = logPass.getText().toString();
-        signInwithEmailPassword(email, pass);
+        if (email.length()>0 && pass.length()>0) {
+            signInwithEmailPassword(email, pass);
+        }
+        else{
+            Toast.makeText(this, "Invalid Credentials.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signInwithEmailPassword(String email, String password) {
@@ -89,13 +74,16 @@ public class UserLoginActivity extends AppCompatActivity {
                         Toast.makeText(UserLoginActivity.this, "Email: " + user.getEmail() + "\n" +
                                 "Name: " + user.getDisplayName() + "\n" +
                                 "Photo: " + user.getPhotoUrl(), Toast.LENGTH_LONG).show();
-                        Picasso.get().load(user.getPhotoUrl()).into(profilePic);
-//                            updateUI(user, imageUri);
+//                        Picasso.get().load(user.getPhotoUrl()).into(profilePic);
+                        Log.e(TAG, "signInwithEmailPassword: \n" +
+                                "Name:" + user.getDisplayName() + "\n" +
+                                "Photo: " + user.getPhotoUrl()+"\n"+
+                                "Mobile: " + user.getPhoneNumber()+"\n"
+                        );
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "LoginWithEmail:failure", task.getException());
-                        Toast.makeText(UserLoginActivity.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserLoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 //                            updateUI(null);
                         // ...
                     }
@@ -105,47 +93,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(FirebaseUser user, Uri imageUri) {
-        StorageReference spaceRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/MyprofilePic.jpg");
 
-
-        spaceRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(UserLoginActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-                spaceRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic);
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName("Harry Potter")
-                                .setPhotoUri(uri)
-                                .build();
-                        user.updateProfile(profileUpdates)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.d("TAGGY--->", "User profile updated.");
-                                        }
-                                    }
-                                });
-
-
-
-
-
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserLoginActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     public void sgnInwithGoogleButton(View view) {
     }
@@ -153,11 +101,6 @@ public class UserLoginActivity extends AppCompatActivity {
     private void setUpToolbar() {
         Toolbar toolbar = findViewById(R.id.login_details_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 }
