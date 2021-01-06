@@ -14,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JodiMilan">
-        <activity android:name=".ActivityConatiner.Body.PictureSetter"></activity>
+        <activity android:name=".ActivityConatiner.Body.ui.PeopleHome"></activity>
+        <activity
+            android:name=".ActivityConatiner.Body.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.JodiMilan.NoActionBar" />
+        <activity android:name=".ActivityConatiner.Body.PictureSetter" />
         <activity android:name=".ActivityConatiner.SignUp.RegisterUser.OTPVerificationActivity" />
         <activity
             android:name=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity"

@@ -105,6 +105,7 @@ public class PictureSetter extends AppCompatActivity {
         fAuth=FirebaseAuth.getInstance();
         database=FirebaseFirestore.getInstance();
         progressDialog=new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
 
 
         profilePic.setOnClickListener(v -> {
@@ -487,7 +488,16 @@ public class PictureSetter extends AppCompatActivity {
 
             if (userNAME.size() > 0) {
                 // If not exists then create collection And then merge that data
-                database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(task -> progressDialog.dismiss());
+                database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                   Intent intent=new Intent(PictureSetter.this,HomeActivity.class);
+                   startActivity(intent);
+                   progressDialog.dismiss();
+                    }
+                });
+
+
 
             }
 

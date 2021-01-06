@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Jodi Milan</string>
     <string name="default_new_web_client_id">470716760212-f41cem97sth5od1v0q03qrsh2q90g54a.apps.googleusercontent.com</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Jodi Milan</string>
+    <string name="nav_header_subtitle">jodimilanmatrimoni@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_filter">Filter</string>
+    <string name="menu_privacyPolicy">Privacy Policy</string>
+    <string name="menu_aboutUs">About Us</string>
+    <string name="product_title">Username</string>
+    <string name="menu_subscription">Subscriptions</string>
 
 </resources>

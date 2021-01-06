@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_round_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_round_person_search_24"
+            android:title="@string/menu_search" />
+        <item
+            android:id="@+id/nav_filter"
+            android:icon="@drawable/ic_round_filter_alt_24"
+            android:title="@string/menu_filter" />
+        <item
+            android:id="@+id/nav_subscriptions"
+            android:icon="@drawable/ic_round_monetization_on_24"
+            android:title="@string/menu_subscription" />
+    </group>
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/nav_privacyPolicy"
+                android:icon="@drawable/ic_baseline_policy_24"
+                android:title="Privacy Policy" />
+            <item
+                android:id="@+id/nav_aboutUs"
+                android:icon="@drawable/ic_baseline_info_24"
+                android:title="About Us" />
+        </menu>
+    </item>
+</menu>

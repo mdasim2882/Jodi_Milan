@@ -30,6 +30,15 @@
 
     <style name="AppLayoutJodiMilan.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">18sp</item>
-<!--        <item name="android:fontFamily">@font/mclaren</item>-->
+        <!--        <item name="android:fontFamily">@font/mclaren</item>-->
     </style>
+
+    <style name="Theme.JodiMilan.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.JodiMilan.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.JodiMilan.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

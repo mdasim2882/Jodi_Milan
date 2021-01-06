@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
+import com.example.jodimilan.ActivityConatiner.Body.ui.PeopleHome;
 import com.example.jodimilan.ActivityConatiner.SignUp.RegisterUser.RegisterActivity;
 import com.example.jodimilan.R;
 import com.example.jodimilan.ViewPagerAdapter.mViewPagerAdapter;
@@ -181,16 +183,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Log.d(TAG, "logout: Done");
-        mAuth.signOut();
-
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                     //   updateUI(null);
-                    }
-                });
+//        Log.d(TAG, "logout: Done");
+//        mAuth.signOut();
+//
+//        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                     //   updateUI(null);
+//                    }
+//                });
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     public void loginPress(View view) {
