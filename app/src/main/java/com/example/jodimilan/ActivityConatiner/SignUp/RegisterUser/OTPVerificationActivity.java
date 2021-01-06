@@ -314,7 +314,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
         intent.putExtra(FormDataVariables.bFullName, inputFullName);
         intent.putExtra(FormDataVariables.bDoB, inputDob);
-        intent.putExtra(FormDataVariables.bHeight, inputCountry);
+        intent.putExtra(FormDataVariables.bHeight, inputheight);
         intent.putExtra(FormDataVariables.bState, inputState);
         intent.putExtra(FormDataVariables.bCountry, inputCountry);
         intent.putExtra(FormDataVariables.bCity, inputCity);

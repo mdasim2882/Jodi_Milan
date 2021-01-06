@@ -37,18 +37,24 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import static com.example.jodimilan.ActivityConatiner.SignUp.UserLoginActivity.GALLERY_CODE;
 
@@ -63,6 +69,8 @@ public class PictureSetter extends AppCompatActivity {
     ImageView profilePic;
     StorageReference storageReference;
     private FirebaseAuth fAuth;
+    private FirebaseFirestore database;
+
     private String inputDob;
     private String inputheight;
     private String inputCountry;
@@ -95,6 +103,7 @@ public class PictureSetter extends AppCompatActivity {
         storageReference= FirebaseStorage.getInstance().getReference();
         profilePic = findViewById(R.id.profile_dp);
         fAuth=FirebaseAuth.getInstance();
+        database=FirebaseFirestore.getInstance();
         progressDialog=new ProgressDialog(this);
 
 
@@ -192,7 +201,9 @@ public class PictureSetter extends AppCompatActivity {
             user.updateProfile(nameUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    progressDialog.dismiss();
+//                    String userdp=spaceRef.getDownloadUrl().toString();
+                    savedToStorageDatabase(null);
+
                 }
             });
         }else {
@@ -214,7 +225,7 @@ public class PictureSetter extends AppCompatActivity {
                                             "Email:" + user.getEmail() + "\n" +
                                             "Name: " + user.getDisplayName() + "\n" +
                                             "Photo URL: " + user.getPhotoUrl());
-                                    progressDialog.dismiss();
+                                    savedToStorageDatabase(user.getPhotoUrl().toString());
                                 }
                             });
 
@@ -410,6 +421,7 @@ public class PictureSetter extends AppCompatActivity {
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
+        FormDataVariables.gp=new GeoPoint(lat,lng);
 
         addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
@@ -432,6 +444,53 @@ public class PictureSetter extends AppCompatActivity {
         );
 
     }
+    private void savedToStorageDatabase(String userdp) {
 
+        String uniqueID = UUID.randomUUID().toString();
+        //Extracting user inputs
+//        retrieveInputs();
+            HashMap<String, Object> userNAME = new HashMap<>();
+
+            //  Personal Info
+
+
+            userNAME.put(FormDataVariables.bFullName, inputFullName);
+            userNAME.put(FormDataVariables.bFathersName, inputFathersName);
+            userNAME.put(FormDataVariables.bDoB, inputDob);
+            userNAME.put(FormDataVariables.bHeight, inputheight);
+            userNAME.put(FormDataVariables.bCountry, inputCountry.toUpperCase());
+            userNAME.put(FormDataVariables.bCity, inputCity.toUpperCase());
+            userNAME.put(FormDataVariables.bState, inputState.toUpperCase());
+            userNAME.put(FormDataVariables.bAddress, inputAddress);
+            userNAME.put(FormDataVariables.bColor, colour);
+            userNAME.put(FormDataVariables.bGender, gender);
+
+            userNAME.put(FormDataVariables.bGeopoint, FormDataVariables.gp);
+            userNAME.put(FormDataVariables.bBody, body);
+            userNAME.put(FormDataVariables.bEducation,inputEducation);
+            userNAME.put(FormDataVariables.bEmployedIn, inputEmployment);
+            userNAME.put(FormDataVariables.bOccupation, inputOccupation);
+            userNAME.put(FormDataVariables.bIncome, inputIncome);
+
+            userNAME.put(FormDataVariables.bMaritalStatus, inputMaritalStatus);
+            userNAME.put(FormDataVariables.bHaveChildren, inputHaveChildren);
+            userNAME.put(FormDataVariables.bMotherTongue, inputMotherTongue);
+            userNAME.put(FormDataVariables.bReligion, inputReligion);
+
+            userNAME.put(FormDataVariables.bMobile, mobnp);
+            userNAME.put(FormDataVariables.bEmail, inputEmailID);
+            userNAME.put(FormDataVariables.bUID, fAuth.getCurrentUser().getUid());
+            userNAME.put(FormDataVariables.bProfilePicture, userdp);
+            userNAME.put(FormDataVariables.bProfileID, uniqueID);
+
+
+
+            if (userNAME.size() > 0) {
+                // If not exists then create collection And then merge that data
+                database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(task -> progressDialog.dismiss());
+
+            }
+
+    }
 
 }

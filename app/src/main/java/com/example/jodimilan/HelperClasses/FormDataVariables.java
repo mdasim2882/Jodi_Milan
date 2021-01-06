@@ -1,8 +1,13 @@
 package com.example.jodimilan.HelperClasses;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class FormDataVariables {
 
     public static final String bGender="Gender";
+    public static final String bUID="UID";
+    public static final String bProfilePicture="photoLink";
+    public static GeoPoint gp;
 
     public static final String bFullName="FullName";
     public static final String bFathersName="FathersName";
@@ -31,4 +36,6 @@ public class FormDataVariables {
     public static final String bMobile="Mobile";
 
 
+    public static final String  bProfileID="profileID";
+    public static final String bGeopoint="Geopoint";
 }

@@ -153,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
                             intent.putExtra(FormDataVariables.bFullName, inputFullName);
                             intent.putExtra(FormDataVariables.bDoB, inputDob);
-                            intent.putExtra(FormDataVariables.bHeight, inputCountry);
+                            intent.putExtra(FormDataVariables.bHeight, inputheight);
                             intent.putExtra(FormDataVariables.bState, inputState);
                             intent.putExtra(FormDataVariables.bCountry, inputCountry);
                             intent.putExtra(FormDataVariables.bCity, inputCity);
@@ -1242,10 +1242,10 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean passwordValidityInputs() {
         boolean contactStatus;
 
-        if (TextUtils.isEmpty(lregPassword_edt.getText().toString())) {
+        if (TextUtils.isEmpty(lregPassword_edt.getText().toString()) && lregPassword_edt.getText().toString().length()<7 ) {
 
             passwordLayout.setErrorEnabled(true);
-            passwordLayout.setError(MANDATORY);
+            passwordLayout.setError("Password should be atleast 7 characters long.");
             contactStatus = false;
         } else {
 
