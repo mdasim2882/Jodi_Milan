@@ -12,25 +12,26 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
 import com.example.jodimilan.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class FilterFragment extends Fragment {
 
-    private FilterViewModel filterViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        filterViewModel =
-                new ViewModelProvider(this).get(FilterViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_filter, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        filterViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+            textView.setText("FILTER FRAGMENT");
+        FloatingActionButton floatingActionButton = ((HomeActivity) getActivity()).getFloatingActionButton();
+        if (floatingActionButton != null) {
+            floatingActionButton.show();
+        }
+
         return root;
     }
 }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.jodimilan.R;
 
-public class PeopleHome extends AppCompatActivity {
+public class SelectPlanActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

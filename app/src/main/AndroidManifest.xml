@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JodiMilan">
-        <activity android:name=".ActivityConatiner.Body.ui.PeopleHome"></activity>
+        <activity android:name=".ActivityConatiner.Body.ui.SelectPlanActivity"></activity>
         <activity
             android:name=".ActivityConatiner.Body.HomeActivity"
             android:label="@string/title_activity_home"

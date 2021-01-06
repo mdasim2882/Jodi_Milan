@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
 import com.example.jodimilan.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AboutUsFragment extends Fragment {
 
@@ -22,7 +24,10 @@ public class AboutUsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_about_us, container, false);
-
+        FloatingActionButton floatingActionButton = ((HomeActivity) getActivity()).getFloatingActionButton();
+        if (floatingActionButton != null) {
+            floatingActionButton.hide();
+        }
         return root;
     }
 }

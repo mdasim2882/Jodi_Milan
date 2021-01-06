@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
 import com.example.jodimilan.ActivityConatiner.Interfaces.LoadAllProfiles;
 import com.example.jodimilan.ActivityConatiner.RecyclerViewSetup.Adapters.PeoplesCardRecyclerViewAdapter;
 import com.example.jodimilan.ActivityConatiner.RecyclerViewSetup.ProductGridItemDecoration;
@@ -19,6 +20,7 @@ import com.example.jodimilan.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -63,6 +65,10 @@ public class HomeFragment extends Fragment implements LoadAllProfiles {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
        setRecyclerView(root);
         loadEveryUsers();
+        FloatingActionButton floatingActionButton = ((HomeActivity) getActivity()).getFloatingActionButton();
+        if (floatingActionButton != null) {
+            floatingActionButton.show();
+        }
         return root;
     }
     private void loadEveryUsers() {

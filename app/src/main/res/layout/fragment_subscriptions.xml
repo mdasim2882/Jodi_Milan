@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Subscriptions"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"
-        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_above="@id/choose_a_plan_btn"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/subscriptionText"
+            android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:text="@string/nice_html"
+            android:textSize="24sp" />
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choose_a_plan_btn"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp"
+        android:text="Choose a Plan"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp" />
     </RelativeLayout>
