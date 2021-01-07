@@ -83,7 +83,6 @@ LinearLayout linearLayout;
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         Toast.makeText(getApplicationContext(),country[position] , Toast.LENGTH_LONG).show();
-
         String item=country[position];
         if(!item.equals(CHOOSE_A_PLAN)){
             linearLayout.setVisibility(View.VISIBLE);
