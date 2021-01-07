@@ -5,11 +5,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityConatiner.Body.ui.SelectPlanActivity">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="SELECT PLAN ACTIVITY"
-    android:layout_centerInParent="true"
-    android:textSize="24sp"
-    />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#36A13A"
+
+
+        android:elevation="6dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/personal_details_toolbar"
+            android:layout_width="match_parent"
+            android:background="#36A13A"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="center"
+            app:navigationIcon="@drawable/ic_round_arrow_back_24"
+            app:title="Subscriptions"
+            app:titleTextAppearance="@style/AppLayoutJodiMilan.ActiveItemTextAppearance"
+            app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/subs_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:focusable="true"
+        android:layout_above="@id/purchase_now_btn"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/backView"
+        android:layout_width="match_parent"
+        android:padding="15dp"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/plan_selection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/catamaran_thin"
+                android:text="Select a plan to continue..."
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+            <Spinner
+                android:id="@+id/spinnerPlans"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gradient_spinner"
+                android:backgroundTint="@color/light_pink"
+                android:layout_marginTop="10dp"
+                 />
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:id="@+id/plan_container"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/plan_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/amarante"
+                    android:textColor="@color/dark_brown"
+                    android:text="Silver Plan (3 Months)"
+                    android:textSize="22sp" />
+                <TextView
+                    android:id="@+id/plan_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/catamaran"
+                    android:textColor="@color/dark_brown"
+                    android:text="Rs 3500"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/plan_amount"
+                    android:layout_marginTop="30dp"
+                    android:textSize="20sp"
+                    android:text="Top features: "
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/amarante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/plan_detailsfirst"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/catamaran_thin"
+                    android:text="&#8888; Total access to contacts 120"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/plan_detailslast_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/catamaran_thin"
+                    android:textColor="@color/black"
+                    android:textAlignment="viewStart"
+                    android:text="&#8888; Express Interest -Express Interest messages to anyone you like."
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/plan_detaillastpoint"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/catamaran_thin"
+                    android:text="&#8888; You can CHAT with other members."
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/purchase_now_btn"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/catamaran"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp"
+        android:visibility="gone"
+        android:text="PURCHASE NOW"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp" />
 </RelativeLayout>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Jodi Milan</string>
-    <string name="default_new_web_client_id">470716760212-f41cem97sth5od1v0q03qrsh2q90g54a.apps.googleusercontent.com</string>
+    <string name="default_new_web_client_id">418534357603-ntp7jv73131jjai2h5gmdv74ab8fcs75.apps.googleusercontent.com</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -113,5 +113,6 @@ Paid Membership Benefits</li>
 
 ]]>
 </string>
+    <string name="action_logout">Logout</string>
 
 </resources>
