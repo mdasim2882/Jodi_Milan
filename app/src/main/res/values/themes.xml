@@ -44,10 +44,16 @@
         <item name="android:fontFamily">@font/catamaran</item>
         <!--        <item name="android:fontFamily">@font/mclaren</item>-->
     </style>
+    <style name="AppLayoutJodiMilan.ActiveItemTextApp" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/catamaran</item>
+        <!--        <item name="android:fontFamily">@font/mclaren</item>-->
+    </style>
 
     <style name="Theme.JodiMilan.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="fontFamily">@font/catamaran</item>
     </style>
 
     <style name="Theme.JodiMilan.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

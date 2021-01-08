@@ -18,99 +18,101 @@
 
     <string name="nice_html">
 <![CDATA[
-<h2><font color=#8f0e0e>Membership</h2>
-<h2>Free Membership Benefits</h2></font>
-<ul>
-  <li>You can Add and Manage your displayed profiles</li>
-  <li>Edit your profile.</li>
-  <li>Upload your photo.</li>
-  <li>Express Interest - send "Express Interest" messages to anyone you like.</li>
-  <li>Reply to Personalised Messages - you can reply to personalised messages sent by paid members.</li>
-  <li>Your profile will be available to all our paid members. There will be one way traffic. Our paid members can get your details from jodimilanmatrimonial.com and can contact you but you cannot get their contact details so you cannot contact them.
-Paid Membership Benefits</li>
-  <li>You can Add and Manage your displayed profiles</li>
-  <li>Edit your profile.</li>
-  <li>Upload your photo.</li>
-  <li>Advance Search Facility</li>
-  <li>Send personalised messages with your contact details to all members</li>
-  <li>Receive Messages (Conveying interest) in your mail Box.</li>
-  <li>Express Interest - send "Express Interest" messages to anyone you like.</li>
-  <li> Reply to Personalised Messages you can reply to personalised messages sent by paid members.</li>
-  <li></li>
-  </ul>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="card-deck">
+  	<div class="card">
+    <div class="card-body">
+        <h5 style="text-align: center; color: red;">Free Membership plan</h5>
+    <br>
+   <h6> • You can Add and Manage your displayed profiles</h6>
+    <h6> • Edit your profile.</h6>
+   <h6> • Upload your photo</h6>
+   <h6> • Express Interest - send "Express Interest" messages to anyone you like.</h6>
+   <h6> • Reply to Personalised Messages - you can reply to personalised messages sent by paid members</h6>
+   <h6> • Your profile will be available to all our paid members. There will be one way traffic. Our paid members can get your details from jodimilanmatrimonial.com and can contact you but you cannot get their contact details so you cannot contact them.</h6>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+    	<h5 style="text-align: center; color: red;">Paid Membership Benefits</h5>
+    <br>
+   <h6> • You can Add and Manage your displayed profiles</h6>
+    <h6>• Edit your profile.</h6>
+   <h6> • Send personalised messages with your contact details to all members.</h6>
+   <h6> • Receive Messages (Conveying interest) in your mail Box.</h6>
+   <h6> • Express Interest - send "Express Interest" messages to anyone you like.</h6>
+   <h6> • Reply to Personalised Messages - you can reply to personalised messages sent by paid members</h6>
+   <h6> • Advance Search Facility</h6>
 
-  <h2><font color=#8f0e0e>SILVER PLAN(Duration: 3 Month)</font></h2>
-  <p>Total Contact: 120 Costs Rs.: 5600/-</p>
-  <p>You can add and manage your displayed profile.</p>
-  <ul>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-  <li>For Upgrade Your Membership Click Here.</li>
-</ul>
-
-  <h3><font color=#8f0e0e>GOLD PLAN(Duration: 6 Month)</font></h3>
-  <p>Total Contact: 160 Costs Rs.: 8500/-</p>
-<ul>
-  <li>You can add and manage your displayed profile.</li>
-  <li>You can modify your profile.</li>
-  <li>You can create your photo album with 5 photos.</li>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>You can CHAT with other members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-</ul>
-
-
-
-<h2><font color=#8f0e0e>DIAMOND PLAN(Duration: 12 Month)</font></h2>
-  <p>Total Contact: 200 Costs Rs.: 11000/-</p>
-
-<ul>
-  <li>You can modify your profile.</li>
-  <li>You can create your photo album with 5 photos.</li>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>You can CHAT with other members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-</ul>
-
-<h2><font color=#8f0e0e>PLATINUM PLAN(Duration: 18 Month)</font></h2>
-  <p>Total Contact: 300 Costs Rs.: 15000/-</p>
-  <p>You can add and manage your displayed profile.</p>
-<ul>
-  <li>You can modify your profile.</li>
-  <li>You can create your photo album with 8 photos.</li>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>You can CHAT with other members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-</ul>
-
-<h2><font color=#8f0e0e>TITANIUM PLAN(Duration: 28 Month)</font></h2>
-  <p>Total Contact: 450 Costs Rs.: 35000/-</p>
-  <p>You can add and manage your displayed profile.</p>
-<ul>
-  <li>You can modify your profile.</li>
-  <li>You can create your photo album with 10 photos.</li>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>You can CHAT with other members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-</ul>
-
-<h2><font color=#8f0e0e>PERSONAL PLAN(Duration: 36 Month)</font></h2>
-  <p>Total Contact: 620 Costs Rs.: 55000/-</p>
-  <p>You can add and manage your displayed profile.</p>
-<ul>
-  <li>You can modify your profile.</li>
-  <li>You can create your photo album with Unlimited photos.</li>
-  <li>Send personalized messages - You can send personalized message to the members.</li>
-  <li>You can CHAT with other members.</li>
-  <li>Personalized reply to messages - You can reply to personalized message sent by members.</li>
-  <li>Express Interest -"Express Interest" messages to anyone you like.</li>
-</ul>
-
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+       <h5 style="text-align: center; color: red;">SILVER PLAN(Duration: 3 Month)</h5>
+    <br>
+   <h6> •Total Contact: 120 Costs Rs.: 5600/-</h6>
+    <h6>•Edit your profile.</h6>
+   <h6> • Upload your photo</h6>
+   <h6> • Send personalized messages - You can send personalized message to the members.</h6>
+   <h6> • Personalized reply to messages - You can reply to personalized message sent by members.</h6>
+   <h6> • Express Interest -"Express Interest" messages to anyone you like.</h6>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="card-deck">
+  	<div class="card">
+    <div class="card-body">
+        <h5 style="text-align: center; color: red;">GOLD PLAN(Duration: 6 Month)</h5>
+    <br>
+    <h6> Total Contact: 160 Costs Rs.: 8500/-</h6>
+   <h6> • You can Add and Manage your displayed profiles</h6>
+    <h6> • You can modify your profile.</h6>
+   <h6> • You can create your photo album with 5 photos.</h6>
+   <h6> • Express Interest - send "Express Interest" messages to anyone you like.</h6>
+   <h6> • Send personalized messages - You can send personalized message to the members.</h6>
+   <h6>•  Personalized reply to messages - You can reply to personalized message sent by members.</h6>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 style="text-align: center; color: red;">DIMOND PLAN(Duration: 12 Month)</h5>
+    <br>
+    <h6>Total Contact: 200 Costs Rs.: 11000/-</h6>
+  <h6> • You can Add and Manage your displayed profiles</h6>
+    <h6>• Edit your profile.</h6>
+   <h6> • Send personalised messages with your contact details to all members.</h6>
+   <h6> • Receive Messages (Conveying interest) in your mail Box.</h6>
+   <h6> • Express Interest - send "Express Interest" messages to anyone you like.</h6>
+   <h6> • You can CHAT with other members.</h6>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 style="text-align: center; color: red;">PLATINUM PLAN(Duration: 18 Month)</h5>
+    <br>
+   <h6> •Total Contact: 120 Costs Rs.: 5600/-</h6>
+    <h6>•Edit your profile.</h6>
+   <h6> • Upload your photo</h6>
+   <h6> • Send personalized messages - You can send personalized message to the members.</h6>
+   <h6> • Personalized reply to messages - You can reply to personalized message sent by members.</h6>
+   <h6> • Express Interest -"Express Interest" messages to anyone you like.</h6>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+  </div>
+</body>
 ]]>
 </string>
     <string name="action_logout">Logout</string>

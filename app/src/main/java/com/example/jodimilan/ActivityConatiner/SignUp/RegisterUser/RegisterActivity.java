@@ -123,59 +123,57 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setAlertDialog() {
-        dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
-                        //  Toast.makeText(RegisterActivity.this, "USER DATA \n" + data, Toast.LENGTH_SHORT).show();
-                        String gender,body,colour;
-                        int selectedId = rGender.getCheckedRadioButtonId();
-                        int colorSelectID = rColour.getCheckedRadioButtonId();
-                        int bodySelectID = rBody.getCheckedRadioButtonId();
-                        RadioButton genderradioButton = findViewById(selectedId);
-                        RadioButton bodyradioButton = findViewById(bodySelectID);
-                        RadioButton colourradioButton = findViewById(colorSelectID);
+        dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    //  Toast.makeText(RegisterActivity.this, "USER DATA \n" + data, Toast.LENGTH_SHORT).show();
+                    String gender,body,colour;
+                    int selectedId = rGender.getCheckedRadioButtonId();
+                    int colorSelectID = rColour.getCheckedRadioButtonId();
+                    int bodySelectID = rBody.getCheckedRadioButtonId();
+                    RadioButton genderradioButton = findViewById(selectedId);
+                    RadioButton bodyradioButton = findViewById(bodySelectID);
+                    RadioButton colourradioButton = findViewById(colorSelectID);
 
 
 
-                        if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
-                                && socialDetailsCheckValidity() && loginDetailsCheckValidity()
-                                && selectedId != -1 && bodySelectID!= -1 &&  colorSelectID != -1) {
-                            gender = genderradioButton.getText().toString();
-                            body = bodyradioButton.getText().toString();
-                            colour = colourradioButton.getText().toString();
-                            String mobnp = lMobileno_edt.getText().toString();
+                    if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
+                            && socialDetailsCheckValidity() && loginDetailsCheckValidity()
+                            && selectedId != -1 && bodySelectID!= -1 &&  colorSelectID != -1) {
+                        gender = genderradioButton.getText().toString();
+                        body = bodyradioButton.getText().toString();
+                        colour = colourradioButton.getText().toString();
+                        String mobnp = lMobileno_edt.getText().toString();
 
-                            Intent intent = new Intent(RegisterActivity.this, OTPVerificationActivity.class);
-                            intent.putExtra(FormDataVariables.bGender, gender);
-                            intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
-                            intent.putExtra(FormDataVariables.bFullName, inputFullName);
-                            intent.putExtra(FormDataVariables.bDoB, inputDob);
-                            intent.putExtra(FormDataVariables.bHeight, inputheight);
-                            intent.putExtra(FormDataVariables.bState, inputState);
-                            intent.putExtra(FormDataVariables.bCountry, inputCountry);
-                            intent.putExtra(FormDataVariables.bCity, inputCity);
-                            intent.putExtra(FormDataVariables.bAddress, inputAddress);
-                            intent.putExtra(FormDataVariables.bColor, colour);
-                            intent.putExtra(FormDataVariables.bBody, body);
-                            intent.putExtra(FormDataVariables.bEducation, inputEducation);
-                            intent.putExtra(FormDataVariables.bEmployedIn, inputEmployment);
-                            intent.putExtra(FormDataVariables.bOccupation, inputOccupation);
-                            intent.putExtra(FormDataVariables.bIncome, inputIncome);
-                            intent.putExtra(FormDataVariables.bMaritalStatus, inputMaritalStatus);
-                            intent.putExtra(FormDataVariables.bHaveChildren, inputHaveChildren);
-                            intent.putExtra(FormDataVariables.bMotherTongue, inputMotherTongue);
-                            intent.putExtra(FormDataVariables.bReligion, inputReligion);
-                            intent.putExtra(FormDataVariables.bEmail, inputEmailID);
-                            intent.putExtra(FormDataVariables.bPassword, inputPassword);
-                            intent.putExtra(FormDataVariables.bMobile, mobnp);
+                        Intent intent = new Intent(RegisterActivity.this, OTPVerificationActivity.class);
+                        intent.putExtra(FormDataVariables.bGender, gender);
+                        intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
+                        intent.putExtra(FormDataVariables.bFullName, inputFullName);
+                        intent.putExtra(FormDataVariables.bDoB, inputDob);
+                        intent.putExtra(FormDataVariables.bHeight, inputheight);
+                        intent.putExtra(FormDataVariables.bState, inputState);
+                        intent.putExtra(FormDataVariables.bCountry, inputCountry);
+                        intent.putExtra(FormDataVariables.bCity, inputCity);
+                        intent.putExtra(FormDataVariables.bAddress, inputAddress);
+                        intent.putExtra(FormDataVariables.bColor, colour);
+                        intent.putExtra(FormDataVariables.bBody, body);
+                        intent.putExtra(FormDataVariables.bEducation, inputEducation);
+                        intent.putExtra(FormDataVariables.bEmployedIn, inputEmployment);
+                        intent.putExtra(FormDataVariables.bOccupation, inputOccupation);
+                        intent.putExtra(FormDataVariables.bIncome, inputIncome);
+                        intent.putExtra(FormDataVariables.bMaritalStatus, inputMaritalStatus);
+                        intent.putExtra(FormDataVariables.bHaveChildren, inputHaveChildren);
+                        intent.putExtra(FormDataVariables.bMotherTongue, inputMotherTongue);
+                        intent.putExtra(FormDataVariables.bReligion, inputReligion);
+                        intent.putExtra(FormDataVariables.bEmail, inputEmailID);
+                        intent.putExtra(FormDataVariables.bPassword, inputPassword);
+                        intent.putExtra(FormDataVariables.bMobile, mobnp);
 
-                            startActivity(intent);
-                        } else {
-                            dialog.dismiss();
-                        }
+                        startActivity(intent);
+                    } else {
+                        dialog.dismiss();
+                    }
 //                        String email=lregEmailId_edt.getText().toString();
 //                        String password=lregPassword_edt.getText().toString();
 //                        if (email.length()>0 && password.length()>0) {
@@ -184,13 +182,12 @@ public class RegisterActivity extends AppCompatActivity {
 //                        else {
 //                            Toast.makeText(RegisterActivity.this, "Please enter login credentials", Toast.LENGTH_SHORT).show();
 //                        }
-                        break;
+                    break;
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        showToaster("No I have opt for the correct details in the fields");
-                        break;
-                }
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    showToaster("No I have opt for the correct details in the fields");
+                    break;
             }
         };
 
@@ -443,16 +440,13 @@ public class RegisterActivity extends AppCompatActivity {
         LinearLayout ll = findViewById(R.id.reg_ll);
 
         final List<String> status = new ArrayList<>();
-        status.add("Status 1");
-        status.add("Status 2");
-        status.add("Status 3");
-        status.add("Status 4");
-        status.add("Status 5");
-        status.add("Status 6");
-        status.add("Status 7");
-        status.add("Status 8");
-        status.add("Status 9");
-        status.add("Status 10");
+        status.add("3.0ft-3.5ft");
+        status.add("3.5ft-4.0ft");
+        status.add("4.0ft-4.5ft");
+        status.add("4.5ft-5.0ft");
+        status.add("5.0ft-5.5ft");
+        status.add("5.5ft-6.0ft");
+        status.add("6.0ft-6.5ft");
 
        /* ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         heightStatus.setAnchorView(toolbar); //this let as set the popup below the EditText
@@ -534,7 +528,7 @@ public class RegisterActivity extends AppCompatActivity {
         final List<String> status = new ArrayList<>();
         status.add("Uttar Pradesh");
         status.add("Karachi");
-        status.add("Car 3");
+        status.add("Rajasthan");
         status.add("Car 4");
         status.add("Car 5");
         status.add("Car 6");
@@ -614,16 +608,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setEmployedIn_edt() {
         final List<String> status = new ArrayList<>();
-        status.add("Car 1");
-        status.add("Car 2");
-        status.add("Car 3");
-        status.add("Car 4");
-        status.add("Car 5");
-        status.add("Car 6");
-        status.add("Car 7");
-        status.add("Car 8");
-        status.add("Car 9");
-        status.add("Car 10");
+        status.add("Amazon");
+        status.add("Honda");
+        status.add("Tata Motors");
+        status.add("Microsoft");
+        status.add("Wipro");
+        status.add("TCS");
+        status.add("Adobe");
+        status.add("Car 24");
+        status.add("OLA");
+        status.add("Uber");
+        status.add("Uipropitome");
+        status.add("Facebook");
 
         employedIn = new android.app.AlertDialog.Builder(this);
         employedIn.setIcon(R.drawable.jodi_milan_logo);
@@ -655,16 +651,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setOccupation_edt() {
         final List<String> status = new ArrayList<>();
-        status.add("Car 1");
-        status.add("Car 2");
-        status.add("Car 3");
-        status.add("Car 4");
-        status.add("Car 5");
-        status.add("Car 6");
-        status.add("Car 7");
-        status.add("Car 8");
-        status.add("Car 9");
-        status.add("Car 10");
+        status.add("Software Engineer");
+        status.add("Product Engineer");
+        status.add("Software Tester");
+        status.add("Mechanical Engineer");
+        status.add("Manufacturer");
+        status.add("Product Supplier");
+        status.add("Web Developer");
+        status.add("Businessman");
+        status.add("Builder");
+        status.add("Enterpreneur");
 
         occupation = new android.app.AlertDialog.Builder(this);
         occupation.setIcon(R.drawable.jodi_milan_logo);
@@ -683,16 +679,19 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setIncome_edt() {
         final List<String> status = new ArrayList<>();
-        status.add("Car 1");
-        status.add("Car 2");
-        status.add("Car 3");
-        status.add("Car 4");
-        status.add("Car 5");
-        status.add("Car 6");
-        status.add("Car 7");
-        status.add("Car 8");
-        status.add("Car 9");
-        status.add("Car 10");
+        status.add("10k-15k");
+        status.add("15k-20k");
+        status.add("20k-25k");
+        status.add("25k-30k");
+        status.add("30k-35k");
+        status.add("35k-40k");
+        status.add("40k-50k");
+        status.add("50k-60k");
+        status.add("60k-70k");
+        status.add("70k-80k");
+        status.add("80k-90k");
+        status.add("90k-100k");
+        status.add("More than 100k");
 
         income = new android.app.AlertDialog.Builder(this);
         income.setIcon(R.drawable.jodi_milan_logo);

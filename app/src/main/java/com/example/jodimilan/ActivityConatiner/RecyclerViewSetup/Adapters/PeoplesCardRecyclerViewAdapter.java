@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jodimilan.ActivityConatiner.Body.ProfileDetailsActivity;
 import com.example.jodimilan.ActivityConatiner.RecyclerViewSetup.Holders.PeoplesCardItemsViewHolder;
+import com.example.jodimilan.HelperClasses.FormDataVariables;
 import com.example.jodimilan.HelperClasses.ProductEntry;
 import com.example.jodimilan.R;
 import com.google.firebase.Timestamp;
@@ -93,12 +96,43 @@ public class PeoplesCardRecyclerViewAdapter extends RecyclerView.Adapter<Peoples
             holder.personName.setText(fullName);
             holder.personProfession.setText(profession);
             holder.personLocation.setText(city);
-
-        Log.e(TAG, "onBindViewHolder: "+"\n"+"Name: "+fullName+
+                Log.e(TAG, "onBindViewHolder: "+"\n"+"Name: "+fullName+
                 "\nMobile no.: "+mobileno+"\n"+
                 "City: " +city+
                 "\nProfile Id: " +profileId+
                 "\nUID: "+uid );
+
+        holder.productCard.setOnClickListener(v ->{
+            Intent userData =new Intent(v.getContext(), ProfileDetailsActivity.class);
+            ProductEntry person=productList.get(position);
+            Bundle intent=new Bundle();
+            intent.putString(FormDataVariables.bGender,person.getGender());
+            intent.putString(FormDataVariables.bHeight,person.getHeight());
+            intent.putString(FormDataVariables.bFathersName, person.getFathersName());
+            intent.putString(FormDataVariables.bFullName, person.getFullName());
+            intent.putString(FormDataVariables.bDoB, person.getDOB());
+            intent.putString(FormDataVariables.bState, person.getState());
+            intent.putString(FormDataVariables.bCountry, person.getCountry());
+            intent.putString(FormDataVariables.bCity, person.getCity());
+            intent.putString(FormDataVariables.bAddress, person.getAddress());
+            intent.putString(FormDataVariables.bColor, person.getColour());
+            intent.putString(FormDataVariables.bBody, person.getBody());
+            intent.putString(FormDataVariables.bEducation, person.getEducation());
+            intent.putString(FormDataVariables.bEmployedIn, person.getEmployedIn());
+            intent.putString(FormDataVariables.bOccupation, person.getOccupation());
+            intent.putString(FormDataVariables.bIncome, person.getIncome());
+            intent.putString(FormDataVariables.bMaritalStatus, person.getMaritalStatus());
+            intent.putString(FormDataVariables.bHaveChildren, person.getHaveChildren());
+            intent.putString(FormDataVariables.bMotherTongue, person.getMotherTongue());
+            intent.putString(FormDataVariables.bReligion, person.getReligion());
+            intent.putString(FormDataVariables.bMobile, person.getMobile());
+            intent.putString(FormDataVariables.bProfilePicture, person.getPhotoLink());
+            userData.putExtra("bidiUser", intent);
+
+            v.getContext().startActivity(userData);
+
+        });
+
     }
 
 

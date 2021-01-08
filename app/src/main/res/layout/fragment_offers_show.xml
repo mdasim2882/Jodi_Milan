@@ -13,10 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/white"
         android:layout_margin="50dp"
         android:textAlignment="center"
         android:textSize="16sp"
-   android:text="1-Blah Blah Blah!!!" />
+        android:fontFamily="@font/catamaran"
+        android:text="1-Blah Blah Blah!!!" />
 
 </RelativeLayout>

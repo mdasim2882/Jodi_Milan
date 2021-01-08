@@ -45,7 +45,7 @@ public class SelectPlanActivity extends AppCompatActivity  implements
 
     TextView featureOne,featurePrice,heading;
     Button purchaseButton;
-    String[] country = {CHOOSE_A_PLAN,SILVER_PLAN_3_MONTHS, GOLD_PLAN_6_MONTHS, DIAMOND_HEADING,
+    String[] country = {SILVER_PLAN_3_MONTHS, GOLD_PLAN_6_MONTHS, DIAMOND_HEADING,
             PLATINUM_PLAN_18_MONTHS,
             TITANIUM_PLAN_28_MONTHS, PERSONAL_PLAN_36_MONTHS};
 
@@ -84,10 +84,10 @@ LinearLayout linearLayout;
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         Toast.makeText(getApplicationContext(),country[position] , Toast.LENGTH_LONG).show();
         String item=country[position];
-        if(!item.equals(CHOOSE_A_PLAN)){
+//        if(!item.equals(CHOOSE_A_PLAN)){
             linearLayout.setVisibility(View.VISIBLE);
-            featurePrice.setText(price[position-1]);
-            PAID_PRICE=price[position-1];
+            featurePrice.setText(price[position]);
+            PAID_PRICE=price[position];
             SELECT_ITEM=item;
             purchaseButton.setVisibility(View.VISIBLE);
             if(item.equals(SILVER_PLAN_3_MONTHS)){
@@ -120,15 +120,15 @@ LinearLayout linearLayout;
 
             }
         }
-        else {
-            linearLayout.setVisibility(View.GONE);
-        }
+//        else {
+//            linearLayout.setVisibility(View.GONE);
+//        }
 
 
 
 
-
-    }
+//
+//    }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub

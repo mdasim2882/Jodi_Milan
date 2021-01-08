@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
 import com.example.jodimilan.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -80,6 +81,7 @@ private  final String TAG=getClass().getSimpleName();
                                 "Photo: " + user.getPhotoUrl()+"\n"+
                                 "Mobile: " + user.getPhoneNumber()+"\n"
                         );
+                        startActivity(new Intent(this, HomeActivity.class));
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "LoginWithEmail:failure", task.getException());

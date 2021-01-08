@@ -48,8 +48,9 @@ private final String TAG=getClass().getSimpleName();
         setSupportActionBar(toolbar);
         fAuth=FirebaseAuth.getInstance();
          fabtn= findViewById(R.id.fab);
-        fabtn.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext()) //Use app context to prevent leaks using activity
                 //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -79,7 +80,14 @@ private final String TAG=getClass().getSimpleName();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        fabtn.setOnClickListener(v -> {
+            Snackbar.make(v, "Set your search filter that matches your choice", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 
+            navigationView.getMenu().getItem(2).setChecked(true);
+            navigationView.setCheckedItem(R.id.nav_filter);
+
+        });
     }
     public FloatingActionButton getFloatingActionButton() {
         return fabtn;

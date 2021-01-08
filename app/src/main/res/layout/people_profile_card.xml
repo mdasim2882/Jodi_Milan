@@ -22,11 +22,10 @@
             <ImageView
                 android:id="@+id/combinationImage"
                 android:layout_width="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_marginTop="2dp"
                 android:layout_height="400dp"
-                android:background="@drawable/profilebackground"
-              />
+                />
 
         </RelativeLayout>
 
@@ -35,9 +34,9 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -46,26 +45,68 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/product_title"
-                    android:textAlignment="textStart"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/dark_brown"
+                    android:fontFamily="@font/catamaran"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/product_validity"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fetching info..."
-                    android:textAlignment="textStart"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+                    <TextView
+                        android:id="@+id/employed_in_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Employed In: "
+                        android:layout_weight="1.2"
+                        android:fontFamily="@font/catamaran"
+                        android:textSize="20sp"
+                        android:textColor="@color/dark_brown"
+                        />
+                    <TextView
+                        android:id="@+id/product_validity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Fetching info..."
+                        android:textColor="@color/dark_brown"
+                        android:layout_weight="1.8"
+                        android:fontFamily="@font/catamaran"
+                        android:textAlignment="textStart"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+                    <TextView
+                        android:id="@+id/lives_in_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Lives in: "
+                        android:layout_weight="1.2"
+                        android:fontFamily="@font/catamaran"
+                        android:textSize="20sp"
+                        android:textColor="@color/dark_brown"
+                        />
                 <TextView
                     android:id="@+id/combinationPrice"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:textColor="@color/dark_brown"
                     android:layout_height="wrap_content"
                     android:text="Location: "
+                    android:fontFamily="@font/catamaran"
+                    android:layout_weight="1.8"
                     android:textAlignment="textStart"
                     android:textSize="18sp"
                     android:textAppearance="?attr/textAppearanceSubtitle1" />
-
+                </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>

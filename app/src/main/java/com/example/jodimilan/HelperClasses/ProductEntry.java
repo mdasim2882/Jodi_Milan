@@ -28,7 +28,10 @@ public class ProductEntry {
     String UID;
     String photoLink;
     String profileID;
+    public ProductEntry()
+    {
 
+    }
     public String getAddress() {
         return Address;
     }
