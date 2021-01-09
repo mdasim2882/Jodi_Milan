@@ -6,462 +6,519 @@
     android:layout_height="match_parent"
     tools:context=".ActivityConatiner.Body.ui.filter.FilterFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/filter_search_btn">
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ScrollView
+                android:id="@+id/filterScroller"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:layout_above="@id/filter_search_btn">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:fontFamily="@font/catamaran"
+                        android:padding="5dp"
+                        android:text="Search by filter"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/filtergroup_rdbtn"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:fontFamily="@font/catamaran"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/filterheader"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Gender*"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/filterfemale_rdbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_weight="1"
+                            android:text="Female" />
+
+                        <RadioButton
+                            android:id="@+id/filtermale_rdbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/catamaran"
+                            android:text="Male" />
+
+                    </RadioGroup>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filterheight_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filterheight_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:fontFamily="@font/catamaran"
+                            android:focusable="false"
+                            android:hint="Height*"
+                            android:inputType="none"
+                            android:tag="hgt"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filtercountry_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filtercountry_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/catamaran"
+                            android:hint="Country*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filterstate_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filterstate_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/catamaran"
+
+                            android:hint="State"
+                            android:inputType="none"
+                            android:tag="stt"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filtercity_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filtercity_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/catamaran"
+                            android:hint="City"
+                            android:inputType="textCapWords"
+
+                            android:textAllCaps="true"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/filtercolorType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Colour*"
+                        android:fontFamily="@font/catamaran"
+                        android:textSize="16sp" />
+
+                    <RadioGroup
+                        android:id="@+id/filtergroup_complexion_rdbtn"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/catamaran"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/filterfairbtn"
+                            android:fontFamily="@font/catamaran"
+                            android:checked="true"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fair" />
+
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/filterwhitish"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="Whitish" />
+
+                        <RadioButton
+                            android:id="@+id/filtermedium"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Medium" />
+
+                        <RadioButton
+                            android:id="@+id/filterdark"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_height="wrap_content"
+                            android:text="Dark" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/filterbodyType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Body Type*"
+                        android:fontFamily="@font/catamaran"
+                        android:textSize="16sp" />
+
+                    <RadioGroup
+                        android:id="@+id/filtergroupbodytype_rdbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <RadioButton
+                            android:id="@+id/filterslimType"
+                            android:checked="true"
+                            android:fontFamily="@font/catamaran"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Slim" />
+
+                        <RadioButton
+                            android:id="@+id/filteraverageBody"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Average" />
+
+                        <RadioButton
+                            android:id="@+id/filterathletic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/catamaran"
+                            android:text="Athletic" />
+
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:padding="5dp"
+                        android:text="Career Details"
+                        android:fontFamily="@font/catamaran"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filtereducation_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filtereducation_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Highest Education*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:fontFamily="@font/catamaran"
+
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filteremployed_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/catamaran"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filteremployed_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/catamaran"
+
+                            android:hint="Employed In"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filteroccupation_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/catamaran"
+
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filteroccupation_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/catamaran"
+                            android:hint="Occupation"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filterincome_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/catamaran"
+
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filterincome_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/catamaran"
+                            android:hint="Income"
+
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/textlines"
+                        android:padding="5dp"
+                        android:text="Social Details"
+                        android:fontFamily="@font/catamaran"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pink"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filtermarital_status_ll"
+
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/catamaran"
+
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filtermarital_status_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/catamaran"
+                            android:hint="Marital Status"
+
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/filterreligion_ll"
+                        style="@style/Widget.JodiMilan.TextInputLayout."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/catamaran"
+
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/purple_200"
+                        app:hintAnimationEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/filterreligion_edt"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Religion*"
+                            android:inputType="none"
+                            android:tag="cty"
+                            android:textColor="@color/purple_700"
+                            android:textColorHint="@color/purple_200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/catamaran"
+                        android:layout_height="wrap_content"
+                        android:text="* Indicates mandatory fields" />
+                </LinearLayout>
+            </ScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_search_btn"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/catamaran"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="8dp"
+
+                android:text="SEARCH "
+                android:layout_alignParentBottom="true"
+                android:textSize="18sp" />
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="25dp"
-            android:orientation="vertical">
+            >
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/textlines"
+                android:id="@+id/nouserfoundtxt"
+                android:textSize="25sp"
+                android:visibility="gone"
                 android:fontFamily="@font/catamaran"
-                android:padding="5dp"
-                android:text="Search by filter"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/pink"
-
-                android:textSize="16sp"
-                android:textStyle="bold" />
-            <RadioGroup
-                android:id="@+id/filtergroup_rdbtn"
-                android:layout_width="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:fontFamily="@font/catamaran"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/filterheader"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Gender*"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/filterfemale_rdbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_weight="1"
-                    android:text="Female" />
-
-                <RadioButton
-                    android:id="@+id/filtermale_rdbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/catamaran"
-                    android:text="Male" />
-
-            </RadioGroup>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filterheight_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
+                android:text="No user found!!!"
+                android:layout_centerInParent="true"
+                android:gravity="center"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filterheight_edt"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="8dp"
+                android:paddingStart="@dimen/cardview_default_elevation"
+                android:paddingTop="5dp"
+                android:paddingEnd="@dimen/cardview_default_elevation"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/filter_search_recView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:fontFamily="@font/catamaran"
-                    android:focusable="false"
-                    android:hint="Height*"
-                    android:inputType="none"
-                    android:tag="hgt"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
+                    android:visibility="gone"
+                    android:layout_height="match_parent" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filtercountry_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filtercountry_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:fontFamily="@font/catamaran"
-                    android:hint="Country*"
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filterstate_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filterstate_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/catamaran"
-
-                    android:hint="State*"
-                    android:inputType="none"
-                    android:tag="stt"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filtercity_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filtercity_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="City*"
-                    android:inputType="textCapWords"
-                    android:fontFamily="@font/catamaran"
-
-                    android:textAllCaps="true"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/filtercolorType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Colour*"
-                android:fontFamily="@font/catamaran"
-                android:textSize="16sp" />
-
-            <RadioGroup
-                android:id="@+id/filtergroup_complexion_rdbtn"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/catamaran"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/filterfairbtn"
-                    android:fontFamily="@font/catamaran"
-                    android:checked="true"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fair" />
-
-                <RadioButton
-                    android:layout_weight="1"
-                    android:id="@+id/filterwhitish"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Whitish" />
-
-                <RadioButton
-                    android:id="@+id/filtermedium"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Medium" />
-
-                <RadioButton
-                    android:id="@+id/filterdark"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_height="wrap_content"
-                    android:text="Dark" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/filterbodyType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Body Type*"
-                android:fontFamily="@font/catamaran"
-                android:textSize="16sp" />
-
-            <RadioGroup
-                android:id="@+id/filtergroupbodytype_rdbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <RadioButton
-                    android:id="@+id/filterslimType"
-                    android:checked="true"
-                    android:fontFamily="@font/catamaran"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Slim" />
-
-                <RadioButton
-                    android:id="@+id/filteraverageBody"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Average" />
-
-                <RadioButton
-                    android:id="@+id/filterathletic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/catamaran"
-                    android:text="Athletic" />
-
-
-            </RadioGroup>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/textlines"
-                android:padding="5dp"
-                android:text="Career Details"
-                android:fontFamily="@font/catamaran"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/pink"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filtereducation_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filtereducation_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Highest Education*"
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:fontFamily="@font/catamaran"
-
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filteremployed_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/catamaran"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filteremployed_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:fontFamily="@font/catamaran"
-
-                    android:hint="Employed In*"
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filteroccupation_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/catamaran"
-
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filteroccupation_edt"
-                    android:layout_width="match_parent"
-                    android:fontFamily="@font/catamaran"
-
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Occupation*"
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filterincome_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:fontFamily="@font/catamaran"
-
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filterincome_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Income*"
-                    android:fontFamily="@font/catamaran"
-
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/textlines"
-                android:padding="5dp"
-                android:text="Social Details"
-                android:fontFamily="@font/catamaran"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/pink"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filtermarital_status_ll"
-
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/catamaran"
-
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filtermarital_status_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Marital Status*"
-                    android:fontFamily="@font/catamaran"
-
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filterreligion_ll"
-                style="@style/Widget.JodiMilan.TextInputLayout."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/catamaran"
-
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                app:hintAnimationEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/filterreligion_edt"
-                    android:layout_width="match_parent"
-                    android:fontFamily="@font/catamaran"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:hint="Religion*"
-                    android:inputType="none"
-                    android:tag="cty"
-                    android:textColor="@color/purple_700"
-                    android:textColorHint="@color/purple_200" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-    </ScrollView>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/filter_search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="8dp"
-        android:fontFamily="@font/catamaran"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="8dp"
-
-        android:text="SEARCH "
-        android:layout_alignParentBottom="true"
-        android:textSize="18sp" />
+    </LinearLayout>
 </RelativeLayout>

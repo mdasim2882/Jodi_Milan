@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JodiMilan">
-        <activity android:name=".ActivityConatiner.Body.ProfileDetailsActivity"></activity>
+        <activity android:name=".ActivityConatiner.Body.ui.filter.FilterResultsActivity"></activity>
+        <activity android:name=".ActivityConatiner.Body.Settings" />
+        <activity android:name=".ActivityConatiner.Body.ProfileDetailsActivity" />
         <activity android:name=".ActivityConatiner.Body.ui.SelectPlanActivity" />
         <activity
             android:name=".ActivityConatiner.Body.HomeActivity"
@@ -40,6 +42,30 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".Service.MyNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_name" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/pink" />
+
+        <!--        <meta-data-->
+        <!--            android:name="com.razorpay."-->
+        <!--            android:value="rzp_test_PWXNtHUD6Un5Yo"/>-->
+
+
     </application>
 
 </manifest>

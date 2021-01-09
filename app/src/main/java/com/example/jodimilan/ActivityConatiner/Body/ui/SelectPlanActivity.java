@@ -183,8 +183,6 @@ LinearLayout linearLayout;
     @Override
     public void onPaymentSuccess(String s) {
         try {
-
-
             Toast.makeText(this, "Payment ID: " + s, Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Transaction successful", Toast.LENGTH_SHORT).show();
 

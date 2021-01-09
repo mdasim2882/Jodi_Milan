@@ -41,36 +41,25 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/backView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_above="@id/createProfilebtn"
-        android:layout_marginTop="56dp">
     <ImageView
         android:id="@+id/profile_dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
         android:layout_marginRight="10dp"
         android:src="@drawable/profilebackground"
-        android:layout_height="match_parent" />
+        android:layout_height="400dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap to set you profile picture"
             android:layout_gravity="center"
             android:textSize="18dp"
+            android:fontFamily="@font/catamaran"
             android:layout_marginTop="8dp"
             />
     </LinearLayout>
-    </ScrollView>
-    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/createProfilebtn"
         android:onClick="saveProfilePcture"
@@ -78,6 +67,7 @@
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
+        android:fontFamily="@font/catamaran"
         android:layout_margin="15dp"
         android:text="CREATE PROFILE"
         android:textSize="15sp" />

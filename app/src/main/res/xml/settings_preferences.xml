@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Sync Information">
+        <Preference
+            android:title="Change my Profile picture"
+            android:key="dpChange_button_preference" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="perform_sync"
+            android:title="Enable Auto Sync"
+            android:summary="@string/syncSummary" />
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/updateInterval"
+            android:entryValues="@array/updateIntervalValues"
+            android:key="sync_interval"
+            android:title="Sync Interval"
+            android:summary="Define how often synchronization will be performed"
+            android:dependency="perform_sync" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Others">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="notifications_status"
+            android:title="Notify me"
+            android:summary="Get notifications about newly added items" />
+       <Preference
+            android:title="Delete my Account"
+            android:key="logout_button_preference" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Support Us">
+        <EditTextPreference
+            android:defaultValue=""
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Feedback"
+            android:dialogTitle="Feedback"
+            android:dialogMessage="Give us feedback to make our app better"
+            android:summary="Give us feedback to make our app better"
+            android:key="feedback_user" />
+        <Preference
+            android:title="About"
+            android:summary="v1.0.0"
+            android:key="about_version_info" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

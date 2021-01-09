@@ -38,4 +38,5 @@ public class FormDataVariables {
 
     public static final String  bProfileID="profileID";
     public static final String bGeopoint="Geopoint";
+    public static final String bFeedback="Feedback";
 }

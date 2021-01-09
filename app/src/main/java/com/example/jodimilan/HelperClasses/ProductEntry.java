@@ -231,4 +231,35 @@ public class ProductEntry {
     public void setProfileID(String profileID) {
         this.profileID = profileID;
     }
+
+    @Override
+    public String toString() {
+        return "ProductEntry{" +
+                "Address='" + Address + '\'' +
+                ", Body='" + Body + '\'' +
+                ", City='" + City + '\'' +
+                ", Colour='" + Colour + '\'' +
+                ", Country='" + Country + '\'' +
+                ", DOB='" + DOB + '\'' +
+                ", Education='" + Education + '\'' +
+                ", EmailID='" + EmailID + '\'' +
+                ", EmployedIn='" + EmployedIn + '\'' +
+                ", FathersName='" + FathersName + '\'' +
+                ", FullName='" + FullName + '\'' +
+                ", Gender='" + Gender + '\'' +
+                ", Geopoint=" + Geopoint +
+                ", HaveChildren='" + HaveChildren + '\'' +
+                ", Height='" + Height + '\'' +
+                ", Income='" + Income + '\'' +
+                ", MaritalStatus='" + MaritalStatus + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", MotherTongue='" + MotherTongue + '\'' +
+                ", Occupation='" + Occupation + '\'' +
+                ", Religion='" + Religion + '\'' +
+                ", State='" + State + '\'' +
+                ", UID='" + UID + '\'' +
+                ", photoLink='" + photoLink + '\'' +
+                ", profileID='" + profileID + '\'' +
+                '}';
+    }
 }

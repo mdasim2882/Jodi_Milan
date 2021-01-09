@@ -124,13 +124,13 @@ private final String TAG=getClass().getSimpleName();
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             //Goto Settings
+            startActivity(new Intent(this,Settings.class));
+
         }
         else if (item.getItemId() == R.id.action_logout) {
             Log.d(TAG, "logout: Done");
         fAuth.signOut();
         signOut();
-
-
         }return super.onOptionsItemSelected(item);
     }
 

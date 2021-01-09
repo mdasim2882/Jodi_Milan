@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                     "ID: "+personId+"\n"+
                                     "Photo: "+personPhoto+"\n"+
                                     "PersonGiven Name: "+personGivenName+"\n");
-                            startActivity(new Intent(this,HomeActivity.class));
+                            startActivity(new Intent(this,RegisterActivity.class));
                         }
 
 
@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void logout(View view) {
+    public void loginUserasGuest(View view) {
 //        Log.d(TAG, "logout: Done");
 //        mAuth.signOut();
 //

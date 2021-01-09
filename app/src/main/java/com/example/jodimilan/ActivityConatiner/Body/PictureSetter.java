@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,8 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.jodimilan.ActivityConatiner.SignUp.RegisterUser.RegisterActivity;
-import com.example.jodimilan.ActivityConatiner.SignUp.UserLoginActivity;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
 import com.example.jodimilan.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,18 +36,17 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -90,60 +88,73 @@ public class PictureSetter extends AppCompatActivity {
     private String inputPassword;
     private String inputEmailID;
     private Uri imageUri;
-    private String gender,body,colour,mobnp;
+    private String gender, body, colour, mobnp;
     ProgressDialog progressDialog;
+    private boolean change;
 
+    private Button createProfilebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_setter);
-        mFusedLocationClient
-                = LocationServices
-                .getFusedLocationProviderClient(this);
-        storageReference= FirebaseStorage.getInstance().getReference();
-        profilePic = findViewById(R.id.profile_dp);
-        fAuth=FirebaseAuth.getInstance();
-        database=FirebaseFirestore.getInstance();
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setCanceledOnTouchOutside(false);
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+        profilePic = findViewById(R.id.profile_dp);
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        createProfilebtn=findViewById(R.id.createProfilebtn);
 
         profilePic.setOnClickListener(v -> {
             Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(openGallery, GALLERY_CODE);
         });
         // method to get the location
-        getLastLocation();
+        mFusedLocationClient
+                = LocationServices
+                .getFusedLocationProviderClient(this);
+        change = getIntent().getBooleanExtra("onlydp", false);
+        Log.d(TAG, "onCreate: changed value: " + change);
+        if (change) {
+            createProfilebtn.setText("Update");
+        }
+        else {
+            createProfilebtn.setText("Create Profile");
+            getLastLocation();
 
-        Runnable run= () -> {
-            Intent getter=getIntent();
-            inputDob = getter.getStringExtra(FormDataVariables.bDoB);
-            inputheight = getter.getStringExtra(FormDataVariables.bHeight);
+            Runnable run = () -> {
+                Intent getter = getIntent();
+                inputDob = getter.getStringExtra(FormDataVariables.bDoB);
+                inputheight = getter.getStringExtra(FormDataVariables.bHeight);
 //            inputCountry = getter.getStringExtra(FormDataVariables.bCountry);
 //            inputState = getter.getStringExtra(FormDataVariables.bState);
 //            inputCity = getter.getStringExtra(FormDataVariables.bCity);
-            inputEducation = getter.getStringExtra(FormDataVariables.bEducation);
-            inputEmployment = getter.getStringExtra(FormDataVariables.bEmployedIn);
-            inputOccupation = getter.getStringExtra(FormDataVariables.bOccupation);
-            inputIncome = getter.getStringExtra(FormDataVariables.bIncome);
-            inputMaritalStatus = getter.getStringExtra(FormDataVariables.bMaritalStatus);
-            inputHaveChildren = getter.getStringExtra(FormDataVariables.bHaveChildren);
-            inputMotherTongue =getter.getStringExtra(FormDataVariables.bMotherTongue);
-            inputReligion = getter.getStringExtra(FormDataVariables.bReligion);
-            inputFullName =getter.getStringExtra(FormDataVariables.bFullName);
-            inputFathersName =getter.getStringExtra(FormDataVariables.bFathersName);
-            inputAddress =getter.getStringExtra(FormDataVariables.bAddress);
-            inputEmailID =getter.getStringExtra(FormDataVariables.bEmail);
-            inputPassword =getter.getStringExtra(FormDataVariables.bPassword);
+                inputEducation = getter.getStringExtra(FormDataVariables.bEducation);
+                inputEmployment = getter.getStringExtra(FormDataVariables.bEmployedIn);
+                inputOccupation = getter.getStringExtra(FormDataVariables.bOccupation);
+                inputIncome = getter.getStringExtra(FormDataVariables.bIncome);
+                inputMaritalStatus = getter.getStringExtra(FormDataVariables.bMaritalStatus);
+                inputHaveChildren = getter.getStringExtra(FormDataVariables.bHaveChildren);
+                inputMotherTongue = getter.getStringExtra(FormDataVariables.bMotherTongue);
+                inputReligion = getter.getStringExtra(FormDataVariables.bReligion);
+                inputFullName = getter.getStringExtra(FormDataVariables.bFullName);
+                inputFathersName = getter.getStringExtra(FormDataVariables.bFathersName);
+                inputAddress = getter.getStringExtra(FormDataVariables.bAddress);
+                inputEmailID = getter.getStringExtra(FormDataVariables.bEmail);
+                inputPassword = getter.getStringExtra(FormDataVariables.bPassword);
 
-            gender = getter.getStringExtra(FormDataVariables.bGender);
-            colour=getter.getStringExtra(FormDataVariables.bColor);
-         body=getter.getStringExtra(FormDataVariables.bBody);
-             mobnp=getter.getStringExtra(FormDataVariables.bMobile);
-        };
-        Handler h=new Handler();
-        h.post(run);
+                gender = getter.getStringExtra(FormDataVariables.bGender);
+                colour = getter.getStringExtra(FormDataVariables.bColor);
+                body = getter.getStringExtra(FormDataVariables.bBody);
+                mobnp = getter.getStringExtra(FormDataVariables.bMobile);
+            };
+            Handler h = new Handler();
+            h.post(run);
+        }
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -152,14 +163,19 @@ public class PictureSetter extends AppCompatActivity {
                 imageUri = data.getData();
                 //  profilePic.setImageURI(imageUri);
                 FirebaseUser user = fAuth.getCurrentUser();
-                if (user!=null) {
-                    Log.e(TAG, "onActivityResult: UID after authentication"+user.getUid() );
-                    profilePic.setImageURI(imageUri);
+                if (user != null) {
+                    Log.e(TAG, "onActivityResult: UID after authentication" + user.getUid());
+                    try {
+                        profilePic.setImageURI(imageUri);
+                    } catch (Exception e) {
+                        showToaster("Size is too big to upload");
+                    }
 //                    updateUI(user, imageUri);
                 }
             }
         }
     }
+
     private void createAccount(String email, String password) {
         fAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
@@ -167,14 +183,37 @@ public class PictureSetter extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.e(TAG, "createUserWithEmail:success");
                         FirebaseUser user = fAuth.getCurrentUser();
-                        updateUI(user, imageUri,inputFullName);
+                        updateUI(user, imageUri, inputFullName, false);
+
+                        UserInfo auth1user=  user.getProviderData().get(0);
+                        UserInfo authSeconduser=  user.getProviderData().get(1);
+
+                        String uid1 = auth1user.getUid();
+                        String uid2 = authSeconduser.getUid();
+
+                        String emailFirst = auth1user.getEmail();
+                        String emailSecond = authSeconduser.getEmail();
+
+                        String numberFirst = auth1user.getPhoneNumber();
+                        String numberSecond = authSeconduser.getPhoneNumber();
+
+
                         Log.e(TAG, "Create Account: \n " +
-                                "UID : "+user.getUid()+
-                                "\n EMAIL: "+user.getEmail()+
-                                "\n NAME: "+inputFullName+
-                                "\n PROVIDER: "+user.getProviderData()+
-                                "\n PHOTO: "+user.getPhotoUrl()+
-                                "\n MOBILE_NO: "+mobnp);
+                                "UID : " + fAuth.getUid() +
+                                "Current User UID : " + user.getUid() +
+                                "\n EMAIL: " + user.getEmail() +
+                                "\n NAME: " + inputFullName +
+                                "\n PROVIDER: " + user.getProviderData() +
+                                "\n PHOTO: " + user.getPhotoUrl() +
+                                "\n MOBILE_NO: " + mobnp +
+                                "\n UID PROVIDERS--->" + user.getProviderData() +
+                                "\n UID-1: " + uid1 +
+                                "\n UID-2: " + uid2+
+                                "\n Email-1: " + emailFirst +
+                                "\n Email-2: " + emailSecond+
+                                "\n number-1: " + numberFirst +
+                                "\n number-2: " + numberSecond
+                        );
 
 
                         Toast.makeText(PictureSetter.this, "Registration Done.", Toast.LENGTH_SHORT).show();
@@ -191,23 +230,23 @@ public class PictureSetter extends AppCompatActivity {
     }
 
 
-    private void updateUI(FirebaseUser user, Uri imageUri,String named) {
-        StorageReference spaceRef = storageReference.child("USERS/"+fAuth.getCurrentUser().getUid()+"/MyPhotos.jpg");
+    private void updateUI(FirebaseUser user, Uri imageUri, String named, boolean status) {
+        StorageReference spaceRef = storageReference.child("USERS/" + fAuth.getCurrentUser().getUid() + "/MyPhotos.jpg");
 
         if (imageUri == null) {
+
+
             UserProfileChangeRequest nameUpdate = new UserProfileChangeRequest.Builder()
                     .setDisplayName(named)
                     .build();
 
-            user.updateProfile(nameUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
+            user.updateProfile(nameUpdate).addOnCompleteListener(task -> {
 //                    String userdp=spaceRef.getDownloadUrl().toString();
-                    savedToStorageDatabase(null);
+                savedToStorageDatabase(null);
 
-                }
             });
-        }else {
+
+        } else {
             spaceRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
                 Toast.makeText(PictureSetter.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
                 spaceRef.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -226,7 +265,7 @@ public class PictureSetter extends AppCompatActivity {
                                             "Email:" + user.getEmail() + "\n" +
                                             "Name: " + user.getDisplayName() + "\n" +
                                             "Photo URL: " + user.getPhotoUrl());
-                                    savedToStorageDatabase(user.getPhotoUrl().toString());
+                                   savedToStorageDatabase(user.getPhotoUrl().toString());
                                 }
                             });
 
@@ -236,13 +275,59 @@ public class PictureSetter extends AppCompatActivity {
         }
 
     }
+
     public void saveProfilePcture(View view) {
-        progressDialog.setMessage("Creating Account... please wait");
-        progressDialog.show();
-        createAccount(inputEmailID,inputPassword);
+        if (change) {
+
+            if (imageUri != null) {
+                if (fAuth.getCurrentUser()!=null) {
+                    progressDialog.setMessage("Updating your picture...");
+                    progressDialog.show();
+                    updateUI();
+                }
+                else{
+                    showToaster("Account not created yet.");
+                }
+            } else {
+                showToaster("Image not selected");
+            }
+        } else {
+            progressDialog.setMessage("Creating Account... please wait");
+            progressDialog.show();
+            createAccount(inputEmailID, inputPassword);
+        }
+    }
+
+    private void updateUI() {
+        StorageReference spaceRef = storageReference.child("USERS/" + fAuth.getCurrentUser().getUid() + "/MyPhotos.jpg");
+        spaceRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(PictureSetter.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+            spaceRef.getDownloadUrl().addOnSuccessListener(uri -> {
+//                Picasso.get().load(uri).into(profilePic);
+                Glide.with(this).load(uri).into(profilePic);
+                Log.e(TAG, "updateUI: PHOTO URL TO BE SAVED: " + uri);
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setPhotoUri(uri)
+                        .build();
+                FirebaseUser user = fAuth.getCurrentUser();
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.e(TAG, "User profile updated.\n" +
+                                        "Email:" + user.getEmail() + "\n" +
+                                        "Name: " + user.getDisplayName() + "\n" +
+                                        "Photo URL: " + user.getPhotoUrl());
+                                updateToStorageDatabase(user.getPhotoUrl().toString());
+                            }
+                        });
+
+
+            });
+        }).addOnFailureListener(e -> Toast.makeText(PictureSetter.this, "Failed.", Toast.LENGTH_SHORT).show());
     }
 
     //*****************************************************************************************//
+
     @SuppressLint("MissingPermission")
     private void requestNewLocationData() {
 
@@ -272,6 +357,7 @@ public class PictureSetter extends AppCompatActivity {
     private void showToaster(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
     private LocationCallback
             mLocationCallback
             = new LocationCallback() {
@@ -286,7 +372,6 @@ public class PictureSetter extends AppCompatActivity {
                     "Longitude: " + mLastLocation.getLongitude());
         }
     };
-
 
 
     private void requestPermissions() {
@@ -376,6 +461,7 @@ public class PictureSetter extends AppCompatActivity {
 
     // method to check
     // if location is enabled
+
     private boolean isLocationEnabled() {
         LocationManager
                 locationManager
@@ -389,8 +475,8 @@ public class PictureSetter extends AppCompatActivity {
                 .isProviderEnabled(
                         LocationManager.NETWORK_PROVIDER);
     }
-
     // If everything is alright then
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
@@ -409,12 +495,13 @@ public class PictureSetter extends AppCompatActivity {
             }
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        if (checkPermissions()) {
-            getLastLocation();
+        if (!change) {
+            if (checkPermissions()) {
+                getLastLocation();
+            }
         }
     }
 
@@ -422,85 +509,98 @@ public class PictureSetter extends AppCompatActivity {
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
-        FormDataVariables.gp=new GeoPoint(lat,lng);
+        FormDataVariables.gp = new GeoPoint(lat, lng);
 
         addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
         String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
         String city = addresses.get(0).getLocality();
-        inputCity=city;
+        inputCity = city;
         String state = addresses.get(0).getAdminArea();
-        inputState=state;
+        inputState = state;
         String country = addresses.get(0).getCountryName();
-        inputCountry=country;
+        inputCountry = country;
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
         Log.e(TAG, "getAddress: Adress:\n" +
-                        "City: " + city + "\n"
-                        +"State: " + state + "\n"
-                        +"Country: " + country + "\n"
-                        +"Postal Code: " + postalCode + "\n"
-                        + "Known name: " + knownName + "\n"
+                "City: " + city + "\n"
+                + "State: " + state + "\n"
+                + "Country: " + country + "\n"
+                + "Postal Code: " + postalCode + "\n"
+                + "Known name: " + knownName + "\n"
         );
 
     }
+
     private void savedToStorageDatabase(String userdp) {
 
         String uniqueID = UUID.randomUUID().toString();
         //Extracting user inputs
 //        retrieveInputs();
-            HashMap<String, Object> userNAME = new HashMap<>();
+        HashMap<String, Object> userNAME = new HashMap<>();
 
-            //  Personal Info
+        //  Personal Info
 
+        userNAME.put(FormDataVariables.bFullName, inputFullName);
+        userNAME.put(FormDataVariables.bFathersName, inputFathersName);
+        userNAME.put(FormDataVariables.bDoB, inputDob);
+        userNAME.put(FormDataVariables.bHeight, inputheight);
+        userNAME.put(FormDataVariables.bCountry, inputCountry.toUpperCase());
+        userNAME.put(FormDataVariables.bCity, inputCity.toUpperCase());
+        userNAME.put(FormDataVariables.bState, inputState.toUpperCase());
+        userNAME.put(FormDataVariables.bAddress, inputAddress);
+        userNAME.put(FormDataVariables.bColor, colour);
+        userNAME.put(FormDataVariables.bGender, gender);
 
-            userNAME.put(FormDataVariables.bFullName, inputFullName);
-            userNAME.put(FormDataVariables.bFathersName, inputFathersName);
-            userNAME.put(FormDataVariables.bDoB, inputDob);
-            userNAME.put(FormDataVariables.bHeight, inputheight);
-            userNAME.put(FormDataVariables.bCountry, inputCountry.toUpperCase());
-            userNAME.put(FormDataVariables.bCity, inputCity.toUpperCase());
-            userNAME.put(FormDataVariables.bState, inputState.toUpperCase());
-            userNAME.put(FormDataVariables.bAddress, inputAddress);
-            userNAME.put(FormDataVariables.bColor, colour);
-            userNAME.put(FormDataVariables.bGender, gender);
+        userNAME.put(FormDataVariables.bGeopoint, FormDataVariables.gp);
+        userNAME.put(FormDataVariables.bBody, body);
+        userNAME.put(FormDataVariables.bEducation, inputEducation);
+        userNAME.put(FormDataVariables.bEmployedIn, inputEmployment);
+        userNAME.put(FormDataVariables.bOccupation, inputOccupation);
+        userNAME.put(FormDataVariables.bIncome, inputIncome);
 
-            userNAME.put(FormDataVariables.bGeopoint, FormDataVariables.gp);
-            userNAME.put(FormDataVariables.bBody, body);
-            userNAME.put(FormDataVariables.bEducation,inputEducation);
-            userNAME.put(FormDataVariables.bEmployedIn, inputEmployment);
-            userNAME.put(FormDataVariables.bOccupation, inputOccupation);
-            userNAME.put(FormDataVariables.bIncome, inputIncome);
+        userNAME.put(FormDataVariables.bMaritalStatus, inputMaritalStatus);
+        userNAME.put(FormDataVariables.bHaveChildren, inputHaveChildren);
+        userNAME.put(FormDataVariables.bMotherTongue, inputMotherTongue);
+        userNAME.put(FormDataVariables.bReligion, inputReligion);
 
-            userNAME.put(FormDataVariables.bMaritalStatus, inputMaritalStatus);
-            userNAME.put(FormDataVariables.bHaveChildren, inputHaveChildren);
-            userNAME.put(FormDataVariables.bMotherTongue, inputMotherTongue);
-            userNAME.put(FormDataVariables.bReligion, inputReligion);
-
-            userNAME.put(FormDataVariables.bMobile, mobnp);
-            userNAME.put(FormDataVariables.bEmail, inputEmailID);
-            userNAME.put(FormDataVariables.bUID, fAuth.getCurrentUser().getUid());
-            userNAME.put(FormDataVariables.bProfilePicture, userdp);
-            userNAME.put(FormDataVariables.bProfileID, uniqueID);
-
+        userNAME.put(FormDataVariables.bMobile, mobnp);
+        userNAME.put(FormDataVariables.bEmail, inputEmailID);
+        userNAME.put(FormDataVariables.bUID, fAuth.getCurrentUser().getUid());
+        userNAME.put(FormDataVariables.bProfilePicture, userdp);
+        userNAME.put(FormDataVariables.bProfileID, uniqueID);
 
 
-            if (userNAME.size() > 0) {
-                // If not exists then create collection And then merge that data
-                database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                   Intent intent=new Intent(PictureSetter.this,HomeActivity.class);
-                   startActivity(intent);
-                   progressDialog.dismiss();
-                    }
-                });
+        if (userNAME.size() > 0) {
+            // If not exists then create collection And then merge that data
+            database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(PictureSetter.this, HomeActivity.class);
+                    startActivity(intent);
+                    progressDialog.dismiss();
+                }
+            });
 
 
-
-            }
+        }
 
     }
 
+
+    private void updateToStorageDatabase(String image) {
+        HashMap<String, Object> userNAME = new HashMap<>();
+        userNAME.put(FormDataVariables.bProfilePicture, image);
+        if (userNAME.size() > 0) {
+            // If not exists then create collection And then merge that data
+            database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(task -> {
+                finish();
+                progressDialog.dismiss();
+            });
+
+
+        }
+
+    }
 }
