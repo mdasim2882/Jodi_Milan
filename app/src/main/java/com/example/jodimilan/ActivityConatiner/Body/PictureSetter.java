@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -68,7 +69,8 @@ public class PictureSetter extends AppCompatActivity {
     StorageReference storageReference;
     private FirebaseAuth fAuth;
     private FirebaseFirestore database;
-
+    public final String LOGIN_STATS = "loginJodiMilan";
+    public final String ISLOGIN = "islogin";
     private String inputDob;
     private String inputheight;
     private String inputCountry;
@@ -91,6 +93,7 @@ public class PictureSetter extends AppCompatActivity {
     private String gender, body, colour, mobnp;
     ProgressDialog progressDialog;
     private boolean change;
+    public static final String IS_REGISTERED = "isRegistered";
 
     private Button createProfilebtn;
     @Override
@@ -184,6 +187,12 @@ public class PictureSetter extends AppCompatActivity {
                         Log.e(TAG, "createUserWithEmail:success");
                         FirebaseUser user = fAuth.getCurrentUser();
                         updateUI(user, imageUri, inputFullName, false);
+                        SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(ISLOGIN, true);
+                        editor.putBoolean(IS_REGISTERED, true);
+                        editor.commit();
+
 
                         UserInfo auth1user=  user.getProviderData().get(0);
                         UserInfo authSeconduser=  user.getProviderData().get(1);
@@ -578,6 +587,7 @@ public class PictureSetter extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(PictureSetter.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     progressDialog.dismiss();
                 }

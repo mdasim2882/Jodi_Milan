@@ -1,6 +1,8 @@
 package com.example.jodimilan.ActivityConatiner.Body;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +40,8 @@ private final String TAG=getClass().getSimpleName();
     FirebaseAuth fAuth;
     private GoogleApiClient mGoogleApiClient;
 
-
+    public final String LOGIN_STATS = "loginJodiMilan";
+    public final String ISLOGIN = "isLogin";
     FloatingActionButton fabtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +132,11 @@ private final String TAG=getClass().getSimpleName();
         }
         else if (item.getItemId() == R.id.action_logout) {
             Log.d(TAG, "logout: Done");
+            SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ISLOGIN, false);
+            editor.commit();
+            finish();
         fAuth.signOut();
         signOut();
         }return super.onOptionsItemSelected(item);

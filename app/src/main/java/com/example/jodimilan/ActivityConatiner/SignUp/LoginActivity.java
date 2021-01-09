@@ -1,7 +1,9 @@
 package com.example.jodimilan.ActivityConatiner.SignUp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     Button mLoginButton,mEmailLoginButton,mRegisterBtn, mGuestLoginBtn;
     String TAG=getClass().getSimpleName();
     private GoogleSignInClient mGoogleSignInClient;
+    public final String ISLOGIN = "isLogin";
+    public final String LOGIN_STATS = "loginJodiMilan";
+
+    SharedPreferences sharedPreferences;
 
     RelativeLayout r;
 
@@ -48,6 +54,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        try {
+            //Shared preferences is used to save login session after authentication on the same device
+            sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+            Boolean statusLogin = sharedPreferences.getBoolean(ISLOGIN, false);
+            if (statusLogin) {
+                //
+                startActivity(new Intent(this,HomeActivity.class));
+                return;
+            }
+        } catch (Exception e) {
+
+        }
+
+
         mLoginButton=findViewById(R.id.google_sign_in_btn);
         mEmailLoginButton=findViewById(R.id.email_sign_in_btn);
         mRegisterBtn=findViewById(R.id.emai_register_btn);

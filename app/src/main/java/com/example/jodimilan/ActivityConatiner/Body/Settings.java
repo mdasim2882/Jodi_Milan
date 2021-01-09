@@ -167,10 +167,10 @@ public class Settings extends AppCompatActivity {
             });
             EditTextPreference feedback_pref = (EditTextPreference) findPreference("feedback_user");
             if (feedback_pref != null) {
-                feedback_pref.getEditText().setText("Wah");
-//                Log.d("Settings", "onCreate() called with: "+feedback);
-//                HashMap<String, Object> userNAME = new HashMap<>();
-//                userNAME.put(FormDataVariables.bFeedback, feedback);
+                String feedback=feedback_pref.getEditText().getText().toString();
+                Log.d("Settings", "onCreate() called with: "+feedback);
+                HashMap<String, Object> userNAME = new HashMap<>();
+                userNAME.put(FormDataVariables.bFeedback, feedback);
                 saveFeedback();
             }
 
