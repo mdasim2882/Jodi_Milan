@@ -1,6 +1,7 @@
 package com.example.jodimilan.ActivityConatiner.Body.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jodimilan.HelperClasses.PrefVariables;
 import com.example.jodimilan.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
@@ -58,6 +60,7 @@ LinearLayout linearLayout;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_home);
         initializeViews();
+        setUpToolbar();
         Checkout.preload(getApplicationContext());
         fAuth=FirebaseAuth.getInstance();
         //Creating the ArrayAdapter instance having the country list
@@ -67,7 +70,12 @@ LinearLayout linearLayout;
         spin.setAdapter(aa);
         spin.setSelection(0);
     }
-
+    private void setUpToolbar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.subscription_details_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+    }
     private void initializeViews() {
         spin = (Spinner) findViewById(R.id.spinnerPlans);
         purchaseButton =  findViewById(R.id.purchase_now_btn);
@@ -195,6 +203,7 @@ LinearLayout linearLayout;
             FirebaseFirestore database=FirebaseFirestore.getInstance();
             Map<String, Object> itemData = new HashMap<>();
             itemData.put("boughtBy", fAuth.getUid());
+            itemData.put("planBought", SELECT_ITEM);
             itemData.put("purchaseInfo", purchseInfo);
             database.collection("Users").document(fAuth.getUid()).set(itemData, SetOptions.merge())
                         .addOnCompleteListener(task -> {

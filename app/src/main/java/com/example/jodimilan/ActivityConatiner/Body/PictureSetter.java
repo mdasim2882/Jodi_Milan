@@ -27,18 +27,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.jodimilan.ActivityConatiner.Interfaces.LoadRegActivity;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
+import com.example.jodimilan.HelperClasses.PrefVariables;
 import com.example.jodimilan.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -69,8 +70,7 @@ public class PictureSetter extends AppCompatActivity {
     StorageReference storageReference;
     private FirebaseAuth fAuth;
     private FirebaseFirestore database;
-    public final String LOGIN_STATS = "loginJodiMilan";
-    public final String ISLOGIN = "islogin";
+    LoadRegActivity loadRegActivity;
     private String inputDob;
     private String inputheight;
     private String inputCountry;
@@ -93,21 +93,22 @@ public class PictureSetter extends AppCompatActivity {
     private String gender, body, colour, mobnp;
     ProgressDialog progressDialog;
     private boolean change;
-    public static final String IS_REGISTERED = "isRegistered";
 
     private Button createProfilebtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_setter);
-
+        setUpToolbar();
         storageReference = FirebaseStorage.getInstance().getReference();
         profilePic = findViewById(R.id.profile_dp);
         fAuth = FirebaseAuth.getInstance();
+
         database = FirebaseFirestore.getInstance();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
-        createProfilebtn=findViewById(R.id.createProfilebtn);
+        createProfilebtn = findViewById(R.id.createProfilebtn);
 
         profilePic.setOnClickListener(v -> {
             Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -121,8 +122,7 @@ public class PictureSetter extends AppCompatActivity {
         Log.d(TAG, "onCreate: changed value: " + change);
         if (change) {
             createProfilebtn.setText("Update");
-        }
-        else {
+        } else {
             createProfilebtn.setText("Create Profile");
             getLastLocation();
 
@@ -187,15 +187,15 @@ public class PictureSetter extends AppCompatActivity {
                         Log.e(TAG, "createUserWithEmail:success");
                         FirebaseUser user = fAuth.getCurrentUser();
                         updateUI(user, imageUri, inputFullName, false);
-                        SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(PrefVariables.LOGIN_STATS, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(ISLOGIN, true);
-                        editor.putBoolean(IS_REGISTERED, true);
+                        editor.putBoolean(PrefVariables.ISLOGIN, true);
+                        editor.putBoolean(PrefVariables.IS_REGISTERED, true);
                         editor.commit();
 
 
-                        UserInfo auth1user=  user.getProviderData().get(0);
-                        UserInfo authSeconduser=  user.getProviderData().get(1);
+                        UserInfo auth1user = user.getProviderData().get(0);
+                        UserInfo authSeconduser = user.getProviderData().get(1);
 
                         String uid1 = auth1user.getUid();
                         String uid2 = authSeconduser.getUid();
@@ -217,9 +217,9 @@ public class PictureSetter extends AppCompatActivity {
                                 "\n MOBILE_NO: " + mobnp +
                                 "\n UID PROVIDERS--->" + user.getProviderData() +
                                 "\n UID-1: " + uid1 +
-                                "\n UID-2: " + uid2+
+                                "\n UID-2: " + uid2 +
                                 "\n Email-1: " + emailFirst +
-                                "\n Email-2: " + emailSecond+
+                                "\n Email-2: " + emailSecond +
                                 "\n number-1: " + numberFirst +
                                 "\n number-2: " + numberSecond
                         );
@@ -229,8 +229,8 @@ public class PictureSetter extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(PictureSetter.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PictureSetter.this, "Authentication failed: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
 //                            updateUI(null);
                     }
 
@@ -240,7 +240,7 @@ public class PictureSetter extends AppCompatActivity {
 
 
     private void updateUI(FirebaseUser user, Uri imageUri, String named, boolean status) {
-        StorageReference spaceRef = storageReference.child("USERS/" + fAuth.getCurrentUser().getUid() + "/MyPhotos.jpg");
+        StorageReference spaceRef = storageReference.child("USERS/" + user.getUid() + "/MyPhotos.jpg");
 
         if (imageUri == null) {
 
@@ -274,7 +274,7 @@ public class PictureSetter extends AppCompatActivity {
                                             "Email:" + user.getEmail() + "\n" +
                                             "Name: " + user.getDisplayName() + "\n" +
                                             "Photo URL: " + user.getPhotoUrl());
-                                   savedToStorageDatabase(user.getPhotoUrl().toString());
+                                    savedToStorageDatabase(user.getPhotoUrl().toString());
                                 }
                             });
 
@@ -289,12 +289,11 @@ public class PictureSetter extends AppCompatActivity {
         if (change) {
 
             if (imageUri != null) {
-                if (fAuth.getCurrentUser()!=null) {
+                if (fAuth.getCurrentUser() != null) {
                     progressDialog.setMessage("Updating your picture...");
                     progressDialog.show();
                     updateUI();
-                }
-                else{
+                } else {
                     showToaster("Account not created yet.");
                 }
             } else {
@@ -334,7 +333,12 @@ public class PictureSetter extends AppCompatActivity {
             });
         }).addOnFailureListener(e -> Toast.makeText(PictureSetter.this, "Failed.", Toast.LENGTH_SHORT).show());
     }
-
+    private void setUpToolbar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.set_profile_details_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+    }
     //*****************************************************************************************//
 
     @SuppressLint("MissingPermission")
@@ -363,6 +367,7 @@ public class PictureSetter extends AppCompatActivity {
                         mLocationCallback,
                         Looper.myLooper());
     }
+
     private void showToaster(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
@@ -504,6 +509,7 @@ public class PictureSetter extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -583,14 +589,11 @@ public class PictureSetter extends AppCompatActivity {
 
         if (userNAME.size() > 0) {
             // If not exists then create collection And then merge that data
-            database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Intent intent = new Intent(PictureSetter.this, HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    progressDialog.dismiss();
-                }
+            database.collection("Users").document(fAuth.getCurrentUser().getUid()).set(userNAME, SetOptions.merge()).addOnCompleteListener(task -> {
+                Intent intent = new Intent(PictureSetter.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                progressDialog.dismiss();
             });
 
 
@@ -613,4 +616,6 @@ public class PictureSetter extends AppCompatActivity {
         }
 
     }
+
+
 }

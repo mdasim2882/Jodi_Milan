@@ -9,6 +9,8 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -26,10 +28,10 @@
         <activity android:name=".ActivityConatiner.SignUp.RegisterUser.OTPVerificationActivity" />
         <activity
             android:name=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ActivityConatiner.SignUp.UserLoginActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ActivityConatiner.SignUp.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

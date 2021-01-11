@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,13 @@ public class AboutUsFragment extends Fragment {
         if (floatingActionButton != null) {
             floatingActionButton.hide();
         }
+
+        WebView webView = (WebView) root.findViewById(R.id.aboutUsWebView);
+        // displaying content in WebView from html file that stored in assets folder
+        webView.getSettings().setJavaScriptEnabled(true);
+        String fileName="about.html";
+        webView.loadUrl("file:///android_asset/" + fileName);
+
         return root;
     }
 }

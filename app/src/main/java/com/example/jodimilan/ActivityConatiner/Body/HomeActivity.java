@@ -10,48 +10,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.jodimilan.ActivityConatiner.SignUp.LoginActivity;
-import com.example.jodimilan.R;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthCredential;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.jodimilan.ActivityConatiner.SignUp.LoginActivity;
+import com.example.jodimilan.HelperClasses.PrefVariables;
+import com.example.jodimilan.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
-private final String TAG=getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth fAuth;
     private GoogleApiClient mGoogleApiClient;
 
-    public final String LOGIN_STATS = "loginJodiMilan";
-    public final String ISLOGIN = "isLogin";
+
     FloatingActionButton fabtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fAuth=FirebaseAuth.getInstance();
-         fabtn= findViewById(R.id.fab);
-
+        fAuth = FirebaseAuth.getInstance();
+        fabtn = findViewById(R.id.fab);
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext()) //Use app context to prevent leaks using activity
@@ -63,12 +57,12 @@ private final String TAG=getClass().getSimpleName();
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername =headerView.findViewById(R.id.nameHeaderView);
-        if (fAuth.getCurrentUser()!=null) {
+        TextView navUsername = headerView.findViewById(R.id.nameHeaderView);
+        if (fAuth.getCurrentUser() != null) {
             navUsername.setText(fAuth.getCurrentUser().getDisplayName());
-            TextView navEmail =  headerView.findViewById(R.id.emailHeaderView);
-            String s=fAuth.getCurrentUser().getEmail();
-            if(s!=null) {
+            TextView navEmail = headerView.findViewById(R.id.emailHeaderView);
+            String s = fAuth.getCurrentUser().getEmail();
+            if (s != null) {
                 navEmail.setText(s);
             }
         }
@@ -77,7 +71,7 @@ private final String TAG=getClass().getSimpleName();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_search, R.id.nav_filter,R.id.nav_subscriptions,R.id.nav_privacyPolicy,R.id.nav_aboutUs)
+                R.id.nav_home, R.id.nav_search, R.id.nav_filter, R.id.nav_subscriptions, R.id.nav_privacyPolicy, R.id.nav_aboutUs)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -92,15 +86,18 @@ private final String TAG=getClass().getSimpleName();
 
         });
     }
+
     public FloatingActionButton getFloatingActionButton() {
         return fabtn;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -120,26 +117,29 @@ private final String TAG=getClass().getSimpleName();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             mGoogleApiClient.disconnect();
             mGoogleApiClient.connect();
-            startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             //Goto Settings
-            startActivity(new Intent(this,Settings.class));
+            startActivity(new Intent(this, Settings.class));
 
-        }
-        else if (item.getItemId() == R.id.action_logout) {
+        } else if (item.getItemId() == R.id.action_logout) {
             Log.d(TAG, "logout: Done");
-            SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(PrefVariables.LOGIN_STATS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(ISLOGIN, false);
+            editor.putBoolean(PrefVariables.ISLOGIN, false);
+            editor.putBoolean(PrefVariables.IS_REGISTERED, false);
             editor.commit();
+
+            fAuth.signOut();
+            signOut();
             finish();
-        fAuth.signOut();
-        signOut();
-        }return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

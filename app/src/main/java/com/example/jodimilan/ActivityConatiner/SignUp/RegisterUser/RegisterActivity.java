@@ -20,12 +20,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
 import com.example.jodimilan.ActivityConatiner.Body.PictureSetter;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
 import com.example.jodimilan.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,6 +95,15 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         fAuth = FirebaseAuth.getInstance();
+
+//        if (fAuth.getCurrentUser() != null) {
+//            FirebaseFirestore.getInstance().collection("Users").whereEqualTo(FormDataVariables.bUID,fAuth.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+//                Intent i=new Intent(RegisterActivity.this, HomeActivity.class);
+//                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(i);
+//                finish();
+//            });
+//        }
         findCalendarAndsetText();
         initializeViews();
         setUpToolbar();
@@ -170,6 +183,7 @@ public class RegisterActivity extends AppCompatActivity {
                         intent.putExtra(FormDataVariables.bPassword, inputPassword);
                         intent.putExtra(FormDataVariables.bMobile, mobnp);
 
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
                         dialog.dismiss();
@@ -186,7 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 case DialogInterface.BUTTON_NEGATIVE:
                     //No button clicked
-                    showToaster("No I have opt for the correct details in the fields");
+//                    showToaster("No I have opt for the correct details in the fields");
                     break;
             }
         };
@@ -292,18 +306,18 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
-        pHeight_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                heightStatus.show();
-            }
-        });
-        pCountry_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                countryStatus.show();
-            }
-        });
+//        pHeight_edt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                heightStatus.show();
+//            }
+//        });
+//        pCountry_edt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                countryStatus.show();
+//            }
+//        });
 //        pState_edt.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -311,62 +325,24 @@ public class RegisterActivity extends AppCompatActivity {
 //            }
 //        });
 
-        cEducation_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cEducation_edt.setOnClickListener(v -> {
 //                highestEducation.show();
-                highestEducation.show();
-            }
+            highestEducation.show();
         });
 
-        cEmployedIn_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                employedIn.show();
-            }
-        });
+        cEmployedIn_edt.setOnClickListener(v -> employedIn.show());
 
-        cOccupation_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                occupation.show();
-            }
-        });
+        cOccupation_edt.setOnClickListener(v -> occupation.show());
 
-        cIncome_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                income.show();
-            }
-        });
+        cIncome_edt.setOnClickListener(v -> income.show());
 
-        sMarital_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                maritalStatus.show();
-            }
-        });
+        sMarital_edt.setOnClickListener(v -> maritalStatus.show());
 
-        sChildren_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                haveChildren.show();
-            }
-        });
+        sChildren_edt.setOnClickListener(v -> haveChildren.show());
 
-        sMotherTongue_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                motherTongue.show();
-            }
-        });
+        sMotherTongue_edt.setOnClickListener(v -> motherTongue.show());
 
-        sReligion_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                religion.show();
-            }
-        });
+        sReligion_edt.setOnClickListener(v -> religion.show());
 
         Button nextbtn = findViewById(R.id.nextbtn);
         nextbtn.setOnClickListener(v -> {
@@ -579,6 +555,8 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Bachelor in Archaeology");
         status.add("B.C.A");
         status.add("M.C.A");
+        status.add("Others");
+
 
 //        ArrayAdapter adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.item_simple_status, R.id.tv_element, status);
         highestEducation = new android.app.AlertDialog.Builder(this);
@@ -618,8 +596,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Car 24");
         status.add("OLA");
         status.add("Uber");
-        status.add("Uipropitome");
-        status.add("Facebook");
+        status.add("Others");
 
         employedIn = new android.app.AlertDialog.Builder(this);
         employedIn.setIcon(R.drawable.jodi_milan_logo);
@@ -661,6 +638,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Businessman");
         status.add("Builder");
         status.add("Enterpreneur");
+        status.add("Others");
 
         occupation = new android.app.AlertDialog.Builder(this);
         occupation.setIcon(R.drawable.jodi_milan_logo);
@@ -732,8 +710,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setHaveChildren_edt() {
         final List<String> status = new ArrayList<>();
-        status.add("Yes");
         status.add("No");
+        status.add("Yes");
+
 
         haveChildren = new android.app.AlertDialog.Builder(this);
         haveChildren.setIcon(R.drawable.jodi_milan_logo);
@@ -762,6 +741,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Gujrati");
         status.add("Parsi");
         status.add("Madrasi");
+        status.add("Others");
 
         motherTongue = new android.app.AlertDialog.Builder(this);
         motherTongue.setIcon(R.drawable.jodi_milan_logo);
@@ -785,6 +765,7 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Sikh");
         status.add("Jain");
         status.add("Christian");
+        status.add("Others");
 
         religion = new android.app.AlertDialog.Builder(this);
         religion.setIcon(R.drawable.jodi_milan_logo);

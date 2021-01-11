@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.example.jodimilan.ActivityConatiner.Body.PictureSetter;
@@ -87,7 +88,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_o_t_p_verification);
 
         initializeViews();
-
+        setUpToolbar();
         Handler h=new Handler();
         Runnable runnable=new Runnable() {
             @Override
@@ -122,7 +123,12 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
 
     }
-
+    private void setUpToolbar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.otp_details_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+    }
 
     private void initializeViews() {
         oTpEdt = findViewById(R.id.otp_edt);
@@ -273,10 +279,10 @@ public class OTPVerificationActivity extends AppCompatActivity {
                         autoverifiedStatus = true;
                         if (autoverifiedStatus) {
                             //Start the Welcome Fragments to the user
-                            SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(ISLOGIN, true);
-                            editor.commit();
+//                            SharedPreferences sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = sharedPreferences.edit();
+//                            editor.putBoolean(ISLOGIN, true);
+//                            editor.commit();
                             // Start Profile Picture Page Navigation View
                             setPictureAndCreateProfile();
                         }
@@ -332,6 +338,8 @@ public class OTPVerificationActivity extends AppCompatActivity {
         intent.putExtra(FormDataVariables.bEmail, inputEmailID);
         intent.putExtra(FormDataVariables.bPassword, inputPassword);
         intent.putExtra(FormDataVariables.bMobile, mobnp);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

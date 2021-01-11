@@ -126,6 +126,7 @@ public class SearchFragment extends Fragment implements LoadSearchProfile {
         intent.putString(FormDataVariables.bReligion, person.getReligion());
         intent.putString(FormDataVariables.bMobile, person.getMobile());
         intent.putString(FormDataVariables.bProfilePicture, person.getPhotoLink());
+        intent.putString(FormDataVariables.bProfileID, person.getProfileID());
         Log.d(TAG, "onSearchSuccess: SEARCH LINK PHOTO=====> " +
                 "\n Mobile: "+person.getMobile()+"\nLink: "+person.getPhotoLink());
         userData.putExtra("bidiUser", intent);

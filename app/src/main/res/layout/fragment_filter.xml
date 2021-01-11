@@ -95,11 +95,11 @@
                             android:id="@+id/filterheight_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
+
                             android:fontFamily="@font/catamaran"
-                            android:focusable="false"
+
                             android:hint="Height*"
-                            android:inputType="none"
+                            android:inputType="numberDecimal"
                             android:tag="hgt"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />

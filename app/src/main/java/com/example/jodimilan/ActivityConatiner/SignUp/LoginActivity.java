@@ -1,11 +1,14 @@
 package com.example.jodimilan.ActivityConatiner.SignUp;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,12 +17,14 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.jodimilan.ActivityConatiner.Body.HomeActivity;
+import com.example.jodimilan.ActivityConatiner.Interfaces.LoadRegActivity;
 import com.example.jodimilan.ActivityConatiner.SignUp.RegisterUser.RegisterActivity;
+import com.example.jodimilan.HelperClasses.FormDataVariables;
+import com.example.jodimilan.HelperClasses.PrefVariables;
 import com.example.jodimilan.R;
 import com.example.jodimilan.ViewPagerAdapter.mViewPagerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -35,16 +39,20 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements  LoadRegActivity{
     private static final int RC_SIGN_IN = 9001;
+    public static final String CHANNEL_ID = "NotifyOreo";
+
     FirebaseAuth mAuth;
     ViewPager viewPager;
-    Button mLoginButton,mEmailLoginButton,mRegisterBtn, mGuestLoginBtn;
-    String TAG=getClass().getSimpleName();
+    Button mLoginButton, mEmailLoginButton, mRegisterBtn, mGuestLoginBtn;
+    String TAG = getClass().getSimpleName();
     private GoogleSignInClient mGoogleSignInClient;
-    public final String ISLOGIN = "isLogin";
-    public final String LOGIN_STATS = "loginJodiMilan";
+    LoadRegActivity loadRegActivity;
+
 
     SharedPreferences sharedPreferences;
 
@@ -54,32 +62,63 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                .addOnCompleteListener(task -> {
+                    String msg = "Enabled";
+                    if (!task.isSuccessful()) {
+                        msg = "Disabled";
+                    }
+                    Log.d("SETTER SUB: ", msg);
+                    //Toast.makeText(th, msg, Toast.LENGTH_SHORT).show();
+                });
+
+        createNotificationChannel();
+
+
         try {
             //Shared preferences is used to save login session after authentication on the same device
-            sharedPreferences = getSharedPreferences(LOGIN_STATS, Context.MODE_PRIVATE);
-            Boolean statusLogin = sharedPreferences.getBoolean(ISLOGIN, false);
+            sharedPreferences = getSharedPreferences(PrefVariables.LOGIN_STATS, Context.MODE_PRIVATE);
+            Boolean statusLogin = sharedPreferences.getBoolean(PrefVariables.ISLOGIN, false);
             if (statusLogin) {
                 //
-                startActivity(new Intent(this,HomeActivity.class));
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 return;
             }
         } catch (Exception e) {
-
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
         }
 
-
-        mLoginButton=findViewById(R.id.google_sign_in_btn);
-        mEmailLoginButton=findViewById(R.id.email_sign_in_btn);
-        mRegisterBtn=findViewById(R.id.emai_register_btn);
-        mGuestLoginBtn =findViewById(R.id.guest_sign_in_btn);
+        loadRegActivity=this;
+        mLoginButton = findViewById(R.id.google_sign_in_btn);
+        mEmailLoginButton = findViewById(R.id.email_sign_in_btn);
+        mRegisterBtn = findViewById(R.id.emai_register_btn);
+        mGuestLoginBtn = findViewById(R.id.guest_sign_in_btn);
         // Add a view pager for better UI/UX
         setMyViewPager();
         mAuth = FirebaseAuth.getInstance();
-        r=findViewById(R.id.basell);
+        r = findViewById(R.id.basell);
         // Configure Google Sign In
         configureGoogleSignIn();
 
 
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = "NotifyOreo";
+//            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, importance);
+//            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void configureGoogleSignIn() {
@@ -106,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed"+ e.getMessage());
+                Log.w(TAG, "Google sign in failed" + e.getMessage());
                 // ...
             }
         }
@@ -121,9 +160,9 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
 
-                        String a="Email: "+user.getEmail()
-                                +"\nName: "+user.getDisplayName()+"\nL= "+user.getProviderData();
-                        Log.d(TAG, "onComplete: USER DATA:\n"+a);
+                        String a = "Email: " + user.getEmail()
+                                + "\nName: " + user.getDisplayName() + "\nL= " + user.getProviderData();
+                        Log.d(TAG, "onComplete: USER DATA:\n" + a);
 
                         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
                         if (acct != null) {
@@ -133,14 +172,29 @@ public class LoginActivity extends AppCompatActivity {
                             String personEmail = acct.getEmail();
                             String personId = acct.getId();
                             Uri personPhoto = acct.getPhotoUrl();
-                            Log.d(TAG, "onComplete: RESULT--> "+"Name: "+personName+"\n"+
-                                    "Email: "+personEmail+"\n"+
-                                    "ID: "+personId+"\n"+
-                                    "Photo: "+personPhoto+"\n"+
-                                    "PersonGiven Name: "+personGivenName+"\n");
-                            startActivity(new Intent(this,RegisterActivity.class));
+                            Log.d(TAG, "onComplete: RESULT--> " + "Name: " + personName + "\n" +
+                                    "Email: " + personEmail + "\n" +
+                                    "ID: " + personId + "\n" +
+                                    "Photo: " + personPhoto + "\n" +
+                                    "PersonGiven Name: " + personGivenName + "\n");
+                            if (mAuth.getCurrentUser() != null) {
+                                FirebaseFirestore.getInstance()
+                                        .collection("Users")
+                                        .get()
+                                        .addOnCompleteListener(queryDocumentSnapshots -> {
+                                            Log.d(TAG, "firebaseAuthWithGoogle() called with: idToken = [" + queryDocumentSnapshots.getResult().getDocuments()   + "]");
+                                            if (queryDocumentSnapshots.getResult().getDocuments().contains(mAuth.getCurrentUser().getUid())) {
+                                                loadRegActivity.loadregAct();
+                                                Log.d(TAG, "firebaseAuthWithGoogle not having any such document");
+                                            }
+                                            else {
+                                                Intent intent = new Intent(this, RegisterActivity.class);
+                                                intent.putExtra("fromGoogleLogin", true);
+                                                startActivity(intent);
+                                            }
+                                        });
+                            }
                         }
-
 
 
 //                            updateUI(user);
@@ -157,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void setMyViewPager() {
-        viewPager=findViewById(R.id.startview_pager);
+        viewPager = findViewById(R.id.startview_pager);
         viewPager.setBackgroundColor(Color.TRANSPARENT);
         viewPager.setAdapter(new mViewPagerAdapter(getSupportFragmentManager()));
         viewPager.setOffscreenPageLimit(3);
@@ -168,8 +222,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
 
 
             }
@@ -193,6 +246,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signIn(View view) {
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -208,35 +262,46 @@ public class LoginActivity extends AppCompatActivity {
 //                     //   updateUI(null);
 //                    }
 //                });
-        startActivity(new Intent(this, HomeActivity.class));
+        Boolean statusLogin = sharedPreferences.getBoolean(PrefVariables.ISLOGIN, false);
+        if(!statusLogin)
+            startActivity(new Intent(this, HomeActivity.class));
     }
 
     public void loginPress(View view) {
-
         gotoActivity(UserLoginActivity.class);
     }
-private  void popupSelector(ArrayAdapter<String> shownAdapter){
-    AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
-    builderSingle.setIcon(R.drawable.jodi_milan_logo);
-    builderSingle.setTitle("Select One Name:-");
+
+    private void popupSelector(ArrayAdapter<String> shownAdapter) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setIcon(R.drawable.jodi_milan_logo);
+        builderSingle.setTitle("Select One Name:-");
 
 
-    final ArrayAdapter<String> arrayAdapter = shownAdapter;
+        final ArrayAdapter<String> arrayAdapter = shownAdapter;
 
-    builderSingle.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
-    builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-        String strName = arrayAdapter.getItem(which);
-        Toast.makeText(this, "Item selected: "+ strName, Toast.LENGTH_SHORT).show();
+        builderSingle.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            Toast.makeText(this, "Item selected: " + strName, Toast.LENGTH_SHORT).show();
 
-    });
-    builderSingle.show();
-}
-    private  void gotoActivity(Class<?> to){
-        Intent i=new Intent(LoginActivity.this,to);
+        });
+        builderSingle.show();
+    }
+
+    private void gotoActivity(Class<?> to) {
+        Intent i = new Intent(LoginActivity.this, to);
         startActivity(i);
     }
 
     public void registerMe(View view) {
         gotoActivity(RegisterActivity.class);
+    }
+
+    @Override
+    public void loadregAct() {
+        Intent i=new Intent(LoginActivity.this, HomeActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+
     }
 }

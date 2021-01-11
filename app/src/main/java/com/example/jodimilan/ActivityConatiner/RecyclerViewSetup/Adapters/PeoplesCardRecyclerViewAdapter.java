@@ -52,21 +52,18 @@ public class PeoplesCardRecyclerViewAdapter extends RecyclerView.Adapter<Peoples
     }
 
     private DialogInterface.OnClickListener performDialogOperations(String productID, String productName, String productCost) {
-        return new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
-                        Toast.makeText(context, "Yes Clicked", Toast.LENGTH_SHORT).show();
-                        break;
+        return (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    Toast.makeText(context, "Yes Clicked", Toast.LENGTH_SHORT).show();
+                    break;
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        Toast.makeText(context, "No Clicked", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                        break;
-                }
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    Toast.makeText(context, "No Clicked", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    break;
             }
         };
     }
@@ -127,6 +124,7 @@ public class PeoplesCardRecyclerViewAdapter extends RecyclerView.Adapter<Peoples
             intent.putString(FormDataVariables.bReligion, person.getReligion());
             intent.putString(FormDataVariables.bMobile, person.getMobile());
             intent.putString(FormDataVariables.bProfilePicture, person.getPhotoLink());
+            intent.putString(FormDataVariables.bProfileID, person.getProfileID());
             userData.putExtra("bidiUser", intent);
 
             v.getContext().startActivity(userData);

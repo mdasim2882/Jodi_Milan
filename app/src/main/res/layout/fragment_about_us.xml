@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About Us"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"
-        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- <TextView
+             android:id="@+id/subscriptionText"
+             android:layout_width="wrap_content"
+             android:layout_margin="20dp"
+             android:layout_height="wrap_content"
+             android:text="@string/nice_html"
+             android:textSize="24sp" />-->
+        <WebView
+            android:id="@+id/aboutUsWebView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp" />
+    </ScrollView>
+
+
 </RelativeLayout>

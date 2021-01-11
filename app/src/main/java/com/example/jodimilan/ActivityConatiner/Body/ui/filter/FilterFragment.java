@@ -396,7 +396,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
     private void setUpPopupLists() {
         setListeners();
         // Personal Details
-        setHeightPopupList();
+//        setHeightPopupList();
         setCounty_edt();
 //        setState_edt();
 
@@ -501,7 +501,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
     }
 
     private void setListeners() {
-        pHeight_edt.setOnClickListener(v -> heightStatus.show());
+//        pHeight_edt.setOnClickListener(v -> heightStatus.show());
         pCountry_edt.setOnClickListener(v -> countryStatus.show());
 //        pState_edt.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -582,8 +582,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
         status.add("Car 24");
         status.add("OLA");
         status.add("Uber");
-        status.add("Uipropitome");
-        status.add("Facebook");
+        status.add("Others");
 
         employedIn = new android.app.AlertDialog.Builder(getActivity());
         employedIn.setIcon(R.drawable.jodi_milan_logo);
@@ -625,6 +624,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
         status.add("Businessman");
         status.add("Builder");
         status.add("Enterpreneur");
+        status.add("Others");
 
         occupation = new android.app.AlertDialog.Builder(getActivity());
         occupation.setIcon(R.drawable.jodi_milan_logo);

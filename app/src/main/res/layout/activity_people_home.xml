@@ -14,7 +14,7 @@
         android:elevation="6dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/personal_details_toolbar"
+            android:id="@+id/subscription_details_toolbar"
             android:layout_width="match_parent"
             android:background="#36A13A"
             android:layout_height="?attr/actionBarSize"

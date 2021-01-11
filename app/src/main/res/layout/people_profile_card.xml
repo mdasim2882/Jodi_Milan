@@ -65,14 +65,14 @@
                         android:layout_weight="1.2"
                         android:fontFamily="@font/catamaran"
                         android:textSize="20sp"
-                        android:textColor="@color/dark_brown"
+                        android:textColor="@color/dark_green"
                         />
                     <TextView
                         android:id="@+id/product_validity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Fetching info..."
-                        android:textColor="@color/dark_brown"
+                        android:textColor="@color/dark_green"
                         android:layout_weight="1.8"
                         android:fontFamily="@font/catamaran"
                         android:textAlignment="textStart"
@@ -85,27 +85,28 @@
                     android:orientation="horizontal"
                     android:weightSum="3"
                     >
+
                     <TextView
                         android:id="@+id/lives_in_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Lives in: "
                         android:layout_weight="1.2"
                         android:fontFamily="@font/catamaran"
-                        android:textSize="20sp"
-                        android:textColor="@color/dark_brown"
-                        />
-                <TextView
-                    android:id="@+id/combinationPrice"
-                    android:layout_width="0dp"
-                    android:textColor="@color/dark_brown"
-                    android:layout_height="wrap_content"
-                    android:text="Location: "
-                    android:fontFamily="@font/catamaran"
-                    android:layout_weight="1.8"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
+                        android:text="Lives in: "
+                        android:textColor="@color/dark_green"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/combinationPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.8"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Location: "
+                        android:textAlignment="textStart"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textColor="@color/dark_green"
+                        android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
 

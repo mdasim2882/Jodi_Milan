@@ -66,8 +66,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/email_login_edt"
                             android:layout_width="match_parent"
-                            android:fontFamily="@font/catamaran"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/catamaran"
                             android:hint="Email Address"
                             android:inputType="textEmailAddress"
                             android:text=""
@@ -82,18 +82,18 @@
                         style="@style/Widget.JodiMilan.TextInputLayout."
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/purple_200"
-                        app:hintAnimationEnabled="true">
+                        app:hintAnimationEnabled="true"
+                        app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/login_pass_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/catamaran"
                             android:hint="Password"
                             android:inputType="textPassword"
-                            android:fontFamily="@font/catamaran"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
 
@@ -108,8 +108,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
-                    android:onClick="loginWithEmail"
                     android:fontFamily="@font/catamaran"
+                    android:onClick="loginWithEmail"
 
                     android:text="Login"
                     android:textSize="15sp" />
@@ -119,39 +119,82 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="#B4424242"
-                    android:fontFamily="@font/catamaran"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="15dp"
+                    android:fontFamily="@font/catamaran"
+                    android:gravity="center"
+                    android:onClick="forgotTextPass"
                     android:text="Forgot Password?"
+                    android:textColor="#B4424242"
                     android:textSize="15sp" />
             </LinearLayout>
 
         </ScrollView>
 
         <RelativeLayout
+            android:id="@+id/relFogot"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/google_sign_in_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="65dp"
-                        android:layout_margin="15dp"
-                        android:layout_alignParentBottom="true"
-                        android:onClick="sgnInwithGoogleButton"
-                        android:text="Sign in with Google"
-                        android:textColor="@color/pink"
-                        app:backgroundTint="@color/grey"
-                        app:cornerRadius="0dp"
-                        app:icon="@drawable/googlelogo"
-                        app:iconSize="30dp"
-                        app:iconTint="@android:color/transparent"
-                        app:iconTintMode="add" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/rel_forgot_email_ll"
+                style="@style/Widget.JodiMilan.TextInputLayout."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/purple_200"
+                app:hintAnimationEnabled="true">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/rel_forgot_email_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/catamaran"
+                    android:hint="Re-enter Email Address"
+                    android:inputType="textEmailAddress"
+                    android:text=""
+
+                    android:textColor="@color/purple_700"
+                    android:textColorHint="@color/purple_200" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/linksenttoEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rel_forgot_email_ll"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:onClick="forgotTextPass"
+                android:text="Password reset link will be sent via email."
+                android:textAlignment="center"
+                android:textColor="#B4424242"
+                android:textSize="15sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/createAdminAccount"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/catamaran"
+                android:onClick="sentResetLink"
+                android:text="SEND RESET LINK"
+                android:textSize="15sp" />
 
         </RelativeLayout>
 

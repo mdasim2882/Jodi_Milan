@@ -1,31 +1,36 @@
 package com.example.jodimilan.ActivityConatiner.Body;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.example.jodimilan.ActivityConatiner.SignUp.UserLoginActivity;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
 import com.example.jodimilan.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileDetailsActivity extends AppCompatActivity {
-    public  final String TAG = getClass().getSimpleName();
+    public final String TAG = getClass().getSimpleName();
     Bundle b;
-  CardView above,below;
+    CardView above, below;
     private String inputDob;
+    private String profileID;
     private String photoURL;
     private String inputheight;
     private String inputCountry;
@@ -49,23 +54,23 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private String inputPassword;
     private String inputEmailID;
 
-    TextView name,contacno,height,fathersName,dateOfBirth,
-            country,state,address,city,genderView,
-            colorView,bodyTypeView,edcationview,employedInView,occupationView,
-            incomeview,maritalStatusView,haveChildren,religionView,motherTongue;
+    TextView name, contacno, height, fathersName, dateOfBirth,
+            country, state, address, city, genderView,
+            colorView, bodyTypeView, edcationview, employedInView, occupationView,
+            incomeview, maritalStatusView, haveChildren, religionView, motherTongue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
 
-        Handler handler = new Handler(){
+        Handler handler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
-                if(msg.what == 0){
-                    Log.d(TAG, "handleMessage: Exucuted-===> "+formatterText());
+            public void handleMessage(Message msg) {
+                if (msg.what == 0) {
+                    Log.d(TAG, "handleMessage: Executed===> " + formatterText());
                     updateUI();
-                }else{
+                } else {
                     Log.d(TAG, "handleMessage: ERRRRRRROOOOOR");
                 }
             }
@@ -73,12 +78,12 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         Thread thread = new Thread() {
             @Override
-            public void run(){
+            public void run() {
 
-                if(doSomeWork()){
+                if (doSomeWork()) {
                     //we can't update the UI from here so we'll signal our handler and it will do it for us.
                     handler.sendEmptyMessage(0);
-                }else{
+                } else {
                     handler.sendEmptyMessage(1);
                 }
             }
@@ -89,33 +94,34 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void initializeViews(){
-        above=findViewById(R.id.pictureCard);
-        below=findViewById(R.id.details_card);
+    private void initializeViews() {
+        above = findViewById(R.id.pictureCard);
+        below = findViewById(R.id.details_card);
 
-        genderView=below.findViewById(R.id.genderData);
-        name=below.findViewById(R.id.name_data);
-        fathersName= below.findViewById(R.id.fath_name_data);
-        dateOfBirth=below.findViewById(R.id.dOB_data);
-        height=below.findViewById(R.id.height_data);
-        country=below.findViewById(R.id.countryData);
-        state=below.findViewById(R.id.stateData);
-        address=below.findViewById(R.id.addressData);
-        city=below.findViewById(R.id.cityData);
-        colorView=below.findViewById(R.id.colordata);
-        bodyTypeView=below.findViewById(R.id.bodydata);
-        edcationview=below.findViewById(R.id.education_data);
-        employedInView=below.findViewById(R.id.employeIn_data);
-        occupationView=below.findViewById(R.id.occupation_data);
-        incomeview=below.findViewById(R.id.incomeData);
+        genderView = below.findViewById(R.id.genderData);
+        name = below.findViewById(R.id.name_data);
+        fathersName = below.findViewById(R.id.fath_name_data);
+        dateOfBirth = below.findViewById(R.id.dOB_data);
+        height = below.findViewById(R.id.height_data);
+        country = below.findViewById(R.id.countryData);
+        state = below.findViewById(R.id.stateData);
+        address = below.findViewById(R.id.addressData);
+        city = below.findViewById(R.id.cityData);
+        colorView = below.findViewById(R.id.colordata);
+        bodyTypeView = below.findViewById(R.id.bodydata);
+        edcationview = below.findViewById(R.id.education_data);
+        employedInView = below.findViewById(R.id.employeIn_data);
+        occupationView = below.findViewById(R.id.occupation_data);
+        incomeview = below.findViewById(R.id.incomeData);
 
-        maritalStatusView=below.findViewById(R.id.maritalStatusData);
-        motherTongue=below.findViewById(R.id.motherTonguedata);
-        religionView=below.findViewById(R.id.religiondata);
-        haveChildren=below.findViewById(R.id.haveChildren_data);
+        maritalStatusView = below.findViewById(R.id.maritalStatusData);
+        motherTongue = below.findViewById(R.id.motherTonguedata);
+        religionView = below.findViewById(R.id.religiondata);
+        haveChildren = below.findViewById(R.id.haveChildren_data);
 
-        contacno=below.findViewById(R.id.mobno_data);
+        contacno = below.findViewById(R.id.mobno_data);
     }
+
     private void updateUI() {
         name.setText(inputFullName);
         fathersName.setText(inputFathersName);
@@ -142,16 +148,18 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         country.setText(inputCountry);
         address.setText(inputAddress);
 
-        ImageView profilePic=above.findViewById(R.id.userPicture);
-    Glide.with(this).load(Uri.parse(photoURL)).into(profilePic);
+        ImageView profilePic = above.findViewById(R.id.userPicture);
+        if (photoURL != null) {
+            Glide.with(this).load(Uri.parse(photoURL)).into(profilePic);
+        }
 
 
     }
 
     private boolean doSomeWork() {
-        Intent getter=getIntent();
-        b=getter.getBundleExtra("bidiUser");
-        Map<String, Serializable> map=bundleToMap(b);
+        Intent getter = getIntent();
+        b = getter.getBundleExtra("bidiUser");
+        Map<String, Serializable> map = bundleToMap(b);
 
         inputDob = (String) map.get(FormDataVariables.bDoB);
         inputheight = (String) map.get(FormDataVariables.bHeight);
@@ -164,23 +172,24 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         inputIncome = (String) map.get(FormDataVariables.bIncome);
         inputMaritalStatus = (String) map.get(FormDataVariables.bMaritalStatus);
         inputHaveChildren = (String) map.get(FormDataVariables.bHaveChildren);
-        inputMotherTongue =(String) map.get(FormDataVariables.bMotherTongue);
+        inputMotherTongue = (String) map.get(FormDataVariables.bMotherTongue);
         inputReligion = (String) map.get(FormDataVariables.bReligion);
-        inputFullName =(String) map.get(FormDataVariables.bFullName);
-        inputFathersName =(String) map.get(FormDataVariables.bFathersName);
-        inputAddress =(String) map.get(FormDataVariables.bAddress);
+        inputFullName = (String) map.get(FormDataVariables.bFullName);
+        inputFathersName = (String) map.get(FormDataVariables.bFathersName);
+        inputAddress = (String) map.get(FormDataVariables.bAddress);
         gender = (String) map.get(FormDataVariables.bGender);
-        colour=(String) map.get(FormDataVariables.bColor);
-        body=(String) map.get(FormDataVariables.bBody);
-        mobileno=(String) map.get(FormDataVariables.bMobile);
-        photoURL=(String)map.get(FormDataVariables.bProfilePicture);
+        colour = (String) map.get(FormDataVariables.bColor);
+        body = (String) map.get(FormDataVariables.bBody);
+        mobileno = (String) map.get(FormDataVariables.bMobile);
+        photoURL = (String) map.get(FormDataVariables.bProfilePicture);
+        profileID = (String) map.get(FormDataVariables.bProfileID);
 
         return true;
     }
 
     public String formatterText() {
-        Map map=bundleToMap(b);
-        return "ProfileDetailsActivity{"+"Bidi:"+map +
+        Map map = bundleToMap(b);
+        return "ProfileDetailsActivity{" + "Bidi:" + map +
                 "inputDob='" + inputDob + '\'' +
                 ", inputheight='" + inputheight + '\'' +
                 ", inputCountry='" + inputCountry + '\'' +
@@ -202,8 +211,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 ", inputFathersName='" + inputFathersName + '\'' +
                 ", PHOTO URL ='" + photoURL + '\'' +
                 ", inputAddress='" + inputAddress + '\'' +
+                ", profileID='" + profileID +
                 '}';
     }
+
     public static Map<String, Serializable> bundleToMap(Bundle bundle) {
         Map<String, Serializable> result = new HashMap<>();
         if (bundle == null)
@@ -215,4 +226,17 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         return result;
     }
 
+    public void expressIntrestPressed(View view) {
+        Intent intent = new Intent (Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{UserLoginActivity.ADMIN_EMAIL});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Express Interest In");
+        intent.putExtra(Intent.EXTRA_TEXT, "I'm interested in " + inputFullName + " having Id: " + profileID+"\n\nYour  UID: "+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        intent.setPackage("com.google.android.gm");
+        if (intent.resolveActivity(getPackageManager())!=null)
+            startActivity(intent);
+        else
+            Toast.makeText(this,"Gmail App is not installed",Toast.LENGTH_SHORT).show();
+
+    }
 }
