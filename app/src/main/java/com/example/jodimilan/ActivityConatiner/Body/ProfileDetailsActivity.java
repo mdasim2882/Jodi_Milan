@@ -1,5 +1,6 @@
 package com.example.jodimilan.ActivityConatiner.Body;
 
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,9 +18,10 @@ import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
 import com.example.jodimilan.ActivityConatiner.SignUp.UserLoginActivity;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
+import com.example.jodimilan.HelperClasses.PrefVariables;
 import com.example.jodimilan.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -54,7 +56,9 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private String inputPassword;
     private String inputEmailID;
 
-    TextView name, contacno, height, fathersName, dateOfBirth,
+    FloatingActionButton expressInterestButton;
+    TextView exprestext;
+    TextView name,profileID_edt, contacno, height, fathersName, dateOfBirth,
             country, state, address, city, genderView,
             colorView, bodyTypeView, edcationview, employedInView, occupationView,
             incomeview, maritalStatusView, haveChildren, religionView, motherTongue;
@@ -63,7 +67,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
-
+        expressInterestButton =findViewById(R.id.expressIntrest);
+        exprestext=findViewById(R.id.exTXT);
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -100,6 +105,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         genderView = below.findViewById(R.id.genderData);
         name = below.findViewById(R.id.name_data);
+        profileID_edt = below.findViewById(R.id.profileid_det_data);
         fathersName = below.findViewById(R.id.fath_name_data);
         dateOfBirth = below.findViewById(R.id.dOB_data);
         height = below.findViewById(R.id.height_data);
@@ -124,6 +130,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     private void updateUI() {
         name.setText(inputFullName);
+        profileID_edt.setText(profileID);
         fathersName.setText(inputFathersName);
         contacno.setText(mobileno);
         genderView.setText(gender);
@@ -183,6 +190,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         mobileno = (String) map.get(FormDataVariables.bMobile);
         photoURL = (String) map.get(FormDataVariables.bProfilePicture);
         profileID = (String) map.get(FormDataVariables.bProfileID);
+        Log.d(TAG, "doSomeWork() called "+profileID);
+        Log.d(TAG, "doSomeWork() called "+PrefVariables.PERSONAL_UID);
+        if(profileID.equals(PrefVariables.PERSONAL_UID)){
+                expressInterestButton.setVisibility(View.GONE);
+                exprestext.setVisibility(View.GONE);
+
+            Log.d(TAG, "CURRENT USER called: "+PrefVariables.PERSONAL_UID);
+        }
 
         return true;
     }
@@ -227,16 +242,30 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     }
 
     public void expressIntrestPressed(View view) {
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        String by="From,\n %Your Name% \nProfile ID: %Your Profile ID here%";
+        if (firebaseAuth.getCurrentUser() != null) {
+          by="From,\n "+firebaseAuth.getCurrentUser().getDisplayName()+"\nProfile ID: "+PrefVariables.PERSONAL_UID;
+
+        }
+
         Intent intent = new Intent (Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{UserLoginActivity.ADMIN_EMAIL});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Express Interest In");
-        intent.putExtra(Intent.EXTRA_TEXT, "I'm interested in " + inputFullName + " having Id: " + profileID+"\n\nYour  UID: "+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        intent.putExtra(Intent.EXTRA_TEXT, "I'm interested in " + inputFullName + " having Id: " + profileID+"\n\n\n"+by);
         intent.setPackage("com.google.android.gm");
         if (intent.resolveActivity(getPackageManager())!=null)
             startActivity(intent);
         else
             Toast.makeText(this,"Gmail App is not installed",Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void copyID(View view) {
+        ClipboardManager clipboard = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+        clipboard.setText(profileID);
+        Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show();
 
     }
 }

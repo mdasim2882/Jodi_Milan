@@ -16,10 +16,74 @@
         android:paddingEnd="@dimen/cardview_default_elevation"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/greetconceptsRecyclerView"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+
+                android:id="@+id/layoutInfoUser"
+                android:layout_width="match_parent"
+                android:layout_height="75dp">
+
+                <LinearLayout
+                    android:background="#424242"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="REGISTERED USERS"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/catamaran"
+                        android:gravity="center"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/registeredUserstxt"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:text="8"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/catamaran"
+                        android:gravity="center"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:id="@+id/showPaid_mem_btn"
+                    android:tag="show"
+                    android:background="#ffff00"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="SHOW PAID MEMBERS"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/catamaran"
+                    />
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userDataRecyclerView"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/greetconceptsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

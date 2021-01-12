@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jodimilan.ActivityConatiner.Body.ProfileDetailsActivity;
 import com.example.jodimilan.ActivityConatiner.RecyclerViewSetup.Holders.PeoplesCardItemsViewHolder;
 import com.example.jodimilan.HelperClasses.FormDataVariables;
+import com.example.jodimilan.HelperClasses.PrefVariables;
 import com.example.jodimilan.HelperClasses.ProductEntry;
 import com.example.jodimilan.R;
 import com.google.firebase.Timestamp;
@@ -45,10 +46,13 @@ public class PeoplesCardRecyclerViewAdapter extends RecyclerView.Adapter<Peoples
     private List<ProductEntry> productList;
     Activity activity;
 
+    FirebaseAuth fAuth;
+
     public PeoplesCardRecyclerViewAdapter(Context context, List<ProductEntry> actualCards) {
         this.productList = actualCards;
         this.context = context;
         activity = (Activity) context;
+        fAuth=FirebaseAuth.getInstance();
     }
 
     private DialogInterface.OnClickListener performDialogOperations(String productID, String productName, String productCost) {
@@ -88,6 +92,13 @@ public class PeoplesCardRecyclerViewAdapter extends RecyclerView.Adapter<Peoples
         String uid = productList.get(position).getUID();
         String profession = productList.get(position).getEmployedIn();
 
+
+        String personalUserID = productList.get(position).getProfileID();
+        Log.d(TAG, " doSomeWork() called with: holder = [" + personalUserID + "]");
+
+        if( fAuth.getCurrentUser()!=null && uid!=null && uid.equals(fAuth.getCurrentUser().getUid())){
+            PrefVariables.PERSONAL_UID=personalUserID;
+        }
 
             Picasso.get().load(productImage).into(holder.imgCard);
             holder.personName.setText(fullName);

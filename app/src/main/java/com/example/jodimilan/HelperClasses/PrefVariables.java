@@ -20,6 +20,8 @@ public class PrefVariables {
     public static final int TITANIUM_PLAN_USER = 5;
     public static final int PERSONAL_PLAN_USER = 6;
 
+    public static String PERSONAL_UID ;
+
 
 
 }

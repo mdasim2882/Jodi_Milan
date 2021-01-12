@@ -2,6 +2,9 @@ package com.example.jodimilan.HelperClasses;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.List;
+import java.util.Map;
+
 public class ProductEntry {
     String Address;
     String Body;
@@ -28,6 +31,41 @@ public class ProductEntry {
     String UID;
     String photoLink;
     String profileID;
+
+    String boughtBy;
+
+    public String getBoughtBy() {
+        return boughtBy;
+    }
+
+    public void setBoughtBy(String boughtBy) {
+        this.boughtBy = boughtBy;
+    }
+
+    public String getPlanBought() {
+        return planBought;
+    }
+
+    public void setPlanBought(String planBought) {
+        this.planBought = planBought;
+    }
+
+    String planBought;
+
+    private Map<String, Object> purchaseTime;
+
+
+
+
+
+    public Map<String, Object> getPurchaseTime() {
+        return purchaseTime;
+    }
+
+    public void setPurchaseTime(Map<String, Object> purchaseTime) {
+        this.purchaseTime = purchaseTime;
+    }
+
     public ProductEntry()
     {
 

@@ -60,6 +60,7 @@
                     app:maxImageSize="30dp"
                     />
                     <TextView
+                        android:id="@+id/exTXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Express Intrest"
@@ -94,6 +95,7 @@
                         android:gravity="center"
                         android:text="Robin"
                         android:textAlignment="center"
+                        android:textColor="#424242"
                         android:textSize="24sp" />
 
                     <TextView
@@ -104,7 +106,40 @@
                         android:textColor="@color/dark_brown"
                         android:textSize="18sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
+                        <TextView
+                            android:id="@+id/profileid_det"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.9"
+                            android:fontFamily="@font/catamaran"
+                            android:text="Profile ID: "
+                            android:textColor="@color/dark_green"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/profileid_det_data"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1.9"
+                            android:fontFamily="@font/catamaran"
+                            android:textColor="@color/dark_brown"
+                            android:textSize="18sp" />
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.2"
+                            android:onClick="copyID"
+                            android:src="@drawable/ic_round_content_copy_24"
+                            android:layout_height="match_parent"
+                            />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -116,9 +151,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Mobile: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/mobno_data"
@@ -142,9 +179,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Father's Name: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/fath_name_data"
@@ -168,9 +207,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="DOB: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/dOB_data"
@@ -179,7 +220,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1.8"
                             android:fontFamily="@font/catamaran"
-                            android:text=" 28/07/1981"
+                            android:text=""
                             android:textColor="@color/dark_brown"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -196,9 +237,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Gender: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/genderData"
@@ -222,9 +265,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Color: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/colordata"
@@ -248,9 +293,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Body: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/bodydata"
@@ -274,9 +321,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Height: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/height_data"
@@ -300,9 +349,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Address: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/addressData"
@@ -327,9 +378,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="City: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/cityData"
@@ -353,9 +406,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="State: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/stateData"
@@ -379,9 +434,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Country: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/countryData"
@@ -405,9 +462,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Education: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/education_data"
@@ -433,9 +492,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Employed In: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/employeIn_data"
@@ -459,9 +520,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Occupation: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/occupation_data"
@@ -485,9 +548,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Income: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/incomeData"
@@ -511,9 +576,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Marital Status: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/maritalStatusData"
@@ -537,9 +604,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Have Children: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/haveChildren_data"
@@ -563,9 +632,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Mother Tongue: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/motherTonguedata"
@@ -589,9 +660,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
+                            android:fontFamily="@font/catamaran"
                             android:text="Religion: "
                             android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
 
                         <TextView
