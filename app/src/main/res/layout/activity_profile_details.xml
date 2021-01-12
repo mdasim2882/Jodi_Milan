@@ -49,27 +49,26 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/expressIntrest"
-                    app:tint="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    android:onClick="expressIntrestPressed"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="25dp"
+                    android:onClick="expressIntrestPressed"
                     android:src="@drawable/ic_baseline_person_add_alt_1_24"
                     app:maxImageSize="30dp"
-                    />
-                    <TextView
-                        android:id="@+id/exTXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Express Intrest"
-                        android:layout_gravity="bottom|end"
-                        android:background="@color/white"
-                        android:fontFamily="@font/catamaran"
-                        android:textColor="@color/dark_brown"
-                        android:layout_marginRight="5dp"
-                        />
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/exTXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/catamaran"
+                    android:text="Express Intrest"
+                    android:textColor="@color/dark_brown" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -83,9 +82,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
-                    android:padding="5dp"
                     android:layout_marginTop="-2dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/name_data"
@@ -132,14 +131,15 @@
                             android:fontFamily="@font/catamaran"
                             android:textColor="@color/dark_brown"
                             android:textSize="18sp" />
+
                         <ImageView
                             android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="0.2"
                             android:onClick="copyID"
-                            android:src="@drawable/ic_round_content_copy_24"
-                            android:layout_height="match_parent"
-                            />
+                            android:src="@drawable/ic_round_content_copy_24" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -341,8 +341,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="3"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
                         <TextView
                             android:id="@+id/add_name_data_det"
