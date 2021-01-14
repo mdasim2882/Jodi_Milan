@@ -438,8 +438,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAllCaps="true"
-                            android:focusable="false"
-                            android:clickable="true"
+
                             android:hint="Employed In*"
                             android:inputType="textCapCharacters"
                             android:tag="cty"
@@ -460,8 +459,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/occupation_edt"
                             android:layout_width="match_parent"
-                            android:focusable="false"
-                            android:clickable="true"
+
                             android:layout_height="wrap_content"
                             android:textAllCaps="true"
                             android:fontFamily="@font/catamaran"

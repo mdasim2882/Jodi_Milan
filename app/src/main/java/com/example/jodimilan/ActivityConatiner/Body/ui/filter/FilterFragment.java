@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -128,10 +129,10 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
         Log.d(TAG, "queryAndAddtoList() called with: filterList = [" + filterList + "]" + "\nUSER ID: " + FirebaseAuth.getInstance().getUid());
 
         if (gender.equals("Male")) {
-
+            inputCountry=inputCountry.toUpperCase();
             database.collection("Users")
                     .whereEqualTo(FormDataVariables.bGender, gender)
-                    .whereEqualTo(FormDataVariables.bCountry, "INDIA")
+                    .whereEqualTo(FormDataVariables.bCountry, inputCountry)
                     .whereEqualTo(FormDataVariables.bHeight, inputheight)
                     .whereEqualTo(FormDataVariables.bEducation, inputEducation)
                     .whereEqualTo(FormDataVariables.bReligion, inputReligion)
@@ -154,7 +155,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
         } else {
             database.collection("Users")
                     .whereEqualTo(FormDataVariables.bGender, "Female")
-                    .whereEqualTo(FormDataVariables.bCountry, "INDIA")
+                    .whereEqualTo(FormDataVariables.bCountry, inputCountry)
                     .whereEqualTo(FormDataVariables.bEducation, inputEducation)
                     .whereEqualTo(FormDataVariables.bHeight, inputheight)
                     .whereEqualTo(FormDataVariables.bReligion, inputReligion)
@@ -515,9 +516,9 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
             highestEducation.show();
         });
 
-        cEmployedIn_edt.setOnClickListener(v -> employedIn.show());
+//        cEmployedIn_edt.setOnClickListener(v -> employedIn.show());
 
-        cOccupation_edt.setOnClickListener(v -> occupation.show());
+//        cOccupation_edt.setOnClickListener(v -> occupation.show());
 
         cIncome_edt.setOnClickListener(v -> income.show());
 
@@ -750,7 +751,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
                 filterList.add(inputCountry);
             }
             if (inputState != null && !inputState.equals("")) {
-                filterList.add(inputState);
+//                filterList.add(inputState);
             }
             if (inputCity != null && !inputCity.equals("")) {
                 filterList.add(inputCity);
@@ -759,7 +760,7 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
                 filterList.add(inputEducation);
             }
             if (inputEmployment != null && !inputEmployment.equals("")) {
-                filterList.add(inputEmployment);
+//                filterList.add(inputEmployment);
             }
             if (inputOccupation != null && !inputOccupation.equals("")) {
                 filterList.add(inputOccupation);
@@ -768,12 +769,16 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
                 filterList.add(inputIncome);
             }
             if (inputMaritalStatus != null && !inputMaritalStatus.equals("")) {
-                filterList.add(inputMaritalStatus);
+//                filterList.add(inputMaritalStatus);
             }
             if (inputReligion != null && !inputReligion.equals("")) {
                 filterList.add(inputReligion);
             }
-            queryAndAddtoList(filterList);
+            try {
+                queryAndAddtoList(filterList);
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
         });
 

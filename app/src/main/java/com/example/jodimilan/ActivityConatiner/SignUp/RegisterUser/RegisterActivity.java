@@ -150,10 +150,6 @@ public class RegisterActivity extends AppCompatActivity {
                     RadioButton colourradioButton = findViewById(colorSelectID);
 
 
-
-                    if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
-                            && socialDetailsCheckValidity() && loginDetailsCheckValidity()
-                            && selectedId != -1 && bodySelectID!= -1 &&  colorSelectID != -1) {
                         gender = genderradioButton.getText().toString();
                         body = bodyradioButton.getText().toString();
                         colour = colourradioButton.getText().toString();
@@ -182,20 +178,10 @@ public class RegisterActivity extends AppCompatActivity {
                         intent.putExtra(FormDataVariables.bEmail, inputEmailID);
                         intent.putExtra(FormDataVariables.bPassword, inputPassword);
                         intent.putExtra(FormDataVariables.bMobile, mobnp);
-
+//
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    } else {
-                        dialog.dismiss();
-                    }
-//                        String email=lregEmailId_edt.getText().toString();
-//                        String password=lregPassword_edt.getText().toString();
-//                        if (email.length()>0 && password.length()>0) {
-//                            createAccount(email,password);
-//                        }
-//                        else {
-//                            Toast.makeText(RegisterActivity.this, "Please enter login credentials", Toast.LENGTH_SHORT).show();
-//                        }
+
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -329,10 +315,10 @@ public class RegisterActivity extends AppCompatActivity {
 //                highestEducation.show();
             highestEducation.show();
         });
+//TODo: Start Here
 
-        cEmployedIn_edt.setOnClickListener(v -> employedIn.show());
-
-        cOccupation_edt.setOnClickListener(v -> occupation.show());
+//        cEmployedIn_edt.setOnClickListener(v -> employedIn.show());
+//        cOccupation_edt.setOnClickListener(v -> occupation.show());
 
         cIncome_edt.setOnClickListener(v -> income.show());
 
@@ -395,7 +381,17 @@ public class RegisterActivity extends AppCompatActivity {
 
             Log.d("TAG", "setListeners: Clicked with data: -->\n" + data);
 //            Snackbar.make(ll,"DATA:\n"+data, Snackbar.LENGTH_LONG).show();
-            builder.show();
+
+
+
+            if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
+                    && socialDetailsCheckValidity() && loginDetailsCheckValidity()) {
+                builder.show();
+            }
+            else{
+                showToaster("All fields are mandatory!");
+            }
+
 
         });
     }
@@ -403,12 +399,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void setUpToolbar() {
         toolbar = findViewById(R.id.personal_details_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     //--------------------------------Setting POPUP LIST---------------------------------//

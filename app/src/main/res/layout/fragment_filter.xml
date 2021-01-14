@@ -328,8 +328,7 @@
                             android:id="@+id/filteremployed_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
-                            android:focusable="false"
+
                             android:fontFamily="@font/catamaran"
 
                             android:hint="Employed In"
@@ -356,8 +355,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:clickable="false"
-                            android:focusable="false"
+
                             android:fontFamily="@font/catamaran"
                             android:hint="Occupation"
                             android:inputType="none"
