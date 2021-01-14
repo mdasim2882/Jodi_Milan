@@ -2,7 +2,6 @@ package com.example.jodimilan.HelperClasses;
 
 import com.google.firebase.firestore.GeoPoint;
 
-import java.util.List;
 import java.util.Map;
 
 public class ProductEntry {
@@ -31,8 +30,18 @@ public class ProductEntry {
     String UID;
     String photoLink;
     String profileID;
-
+    String expiryDaysLimit;
     String boughtBy;
+
+    public String getExpiryDaysLimit() {
+        return expiryDaysLimit;
+    }
+
+    public void setExpiryDaysLimit(String expiryDaysLimit) {
+        this.expiryDaysLimit = expiryDaysLimit;
+    }
+
+
 
     public String getBoughtBy() {
         return boughtBy;

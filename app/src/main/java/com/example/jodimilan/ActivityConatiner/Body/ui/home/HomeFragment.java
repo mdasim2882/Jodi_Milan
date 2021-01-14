@@ -184,6 +184,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
                         });
             }
         } else {
+            setUserPlansInfo(root);
             loadUsersAsPerSubscription(0);
         }
 
@@ -231,9 +232,12 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
 
                     ProductEntry product = bannerSnapshot.toObject(ProductEntry.class);
                     products.add(product);
-                    if (product.getUID() != null && product.getUID().equals(fAuth.getCurrentUser().getUid())) {
-                        statusSubscription.add(product);
-                        Log.d(TAG, "loadUsersAsPerSubscription() called with: IDENTITY = [" + product.getProfileID() + "\n" + product.getPlanBought() + "]");
+
+                    if (fAuth.getCurrentUser() != null) {
+                        if (product.getUID() != null && product.getUID().equals(fAuth.getCurrentUser().getUid())) {
+                            statusSubscription.add(product);
+                            Log.d(TAG, "loadUsersAsPerSubscription() called with: IDENTITY = [" + product.getProfileID() + "\n" + product.getPlanBought() + "]");
+                        }
                     }
 
 
@@ -255,8 +259,21 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
                     c += 1;
                 }
                 loadMyConcepts.onProfilesLoadSuccess(products);
-                loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
+//                loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
+                Log.d(TAG, "loadUsersAsPerSubscription() called with: LIST S=\n = [" + statusSubscription + "]");
+                if (statusSubscription.size() > 0) {
+                    loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
+                } else {
+                    ProductEntry p = new ProductEntry();
+                    p.setUID("xxxxxxxxx");
+                    p.setProfileID("Not Registered Yet");
+                    p.setPlanBought("No Plan Purchased");
+                    statusSubscription.add(p);
+                    Log.d(TAG, "loadUsersAsPerSubscription() called with: IDENTITY = [" + p + "]");
+                    loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
+                }
             }
+
         }).addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
     }
 
@@ -287,6 +304,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
 
     @Override
     public void onPaidMembersLoadSuccess(List<ProductEntry> templates) {
+        Log.d(TAG, "onPaidMembersLoadSuccess() called with: templates = [" + templates + "]");
         PaidMembersRecyclerViewAdapter adapter = new PaidMembersRecyclerViewAdapter(getActivity(), templates);
         userDataRecyclerView.setAdapter(adapter);
         int largePadding = 4;

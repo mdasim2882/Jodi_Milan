@@ -65,7 +65,11 @@ public class PaidMembersRecyclerViewAdapter extends RecyclerView.Adapter<PaidUse
     public void onBindViewHolder(@NonNull PaidUsersCardItemsViewHolder holder, int position) {
         // TODO: Put Recycler ViewHolder Cards binding code here in MDC-102
         String profileId = productList.get(position).getProfileID();
+        String uid = productList.get(position).getUID();
         String planName=productList.get(position).getPlanBought();
+        Log.d(TAG, "onBindViewHolder() called with: Profile ID: = [" + profileId + "], Plan Name = [" + planName + "]+\n" +
+                "Profile ID: = [" +uid+"]");
+
         if(planName!=null && !planName.equals("")){
             Log.d(TAG, "onBindViewHolder() called with: Profile ID: = [" + profileId + "], Plan Name = [" + planName + "]");
             holder.planName.setText(planName);
@@ -76,9 +80,19 @@ public class PaidMembersRecyclerViewAdapter extends RecyclerView.Adapter<PaidUse
                 Toast.makeText(v.getContext(), "Copied", Toast.LENGTH_SHORT).show();});
 
         }
-        if(productList.get(position).getUID()!=null && planName==null){
+
+        if(uid !=null && planName==null){
             holder.profileUID.setText(profileId);
             holder.planName.setText("No Plan Purchased");
+            holder.copypaidUserID.setOnClickListener(v -> {
+                ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(CLIPBOARD_SERVICE);
+                clipboard.setText(profileId);
+                Toast.makeText(v.getContext(), "Copied", Toast.LENGTH_SHORT).show();});
+
+        }else if(uid==null){
+            holder.profileUID.setText("Not Registered Yet");
+            holder.planName.setText("No Plan Purchased");
+
         }
 
 
