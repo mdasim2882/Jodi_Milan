@@ -76,6 +76,10 @@ public class PaidMembersRecyclerViewAdapter extends RecyclerView.Adapter<PaidUse
                 Toast.makeText(v.getContext(), "Copied", Toast.LENGTH_SHORT).show();});
 
         }
+        if(productList.get(position).getUID()!=null && planName==null){
+            holder.profileUID.setText(profileId);
+            holder.planName.setText("No Plan Purchased");
+        }
 
 
     }

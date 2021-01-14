@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -130,7 +131,11 @@ public class SearchFragment extends Fragment implements LoadSearchProfile {
         Log.d(TAG, "onSearchSuccess: SEARCH LINK PHOTO=====> " +
                 "\n Mobile: "+person.getMobile()+"\nLink: "+person.getPhotoLink());
         userData.putExtra("bidiUser", intent);
-        startActivity(userData);
+        if (person.getProfileID()!=null)
+            startActivity(userData);
+        else{
+            Toast.makeText(getActivity(), "User doesn't exist", Toast.LENGTH_SHORT).show();
+        }
 
 
     }

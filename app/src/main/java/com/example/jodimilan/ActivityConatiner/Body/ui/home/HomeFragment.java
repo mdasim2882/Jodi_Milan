@@ -36,10 +36,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMembers {
+public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidMembers {
     private RecyclerView recyclerView;
     LoadAllProfiles loadMyConcepts;
     LoadPaidMembers loadPaidMembers;
+    public final String TAG = getClass().getSimpleName();
     public static final String ADMIN_EMAIL = "jodimilanmatrimoni@gmail.com";
     public static final String DIAMOND_HEADING = "Diamond Plan (12 Months)";
     public static final String PLATINUM_PLAN_18_MONTHS = "Platinum Plan(18 Months)";
@@ -50,11 +51,11 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
     CollectionReference databaseUsers;
     private FirebaseAuth fAuth;
 
-    LinearLayout adminData;
+    boolean isAdmin = false;
+    LinearLayout adminData, userStats;
     RecyclerView userDataRecyclerView;
     TextView totalRegisteredUsers;
     Button showPaidMembersbtn;
-
 
 
     @Override
@@ -79,9 +80,10 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
          * ImageView productImage
          * TextView productName, productCost;
          * */
-        adminData=view.findViewById(R.id.layoutInfoUser);
-        totalRegisteredUsers=view.findViewById(R.id.registeredUserstxt);
-        showPaidMembersbtn=view.findViewById(R.id.showPaid_mem_btn);
+        adminData = view.findViewById(R.id.layoutInfoUser);
+        userStats = view.findViewById(R.id.userStats);
+        totalRegisteredUsers = view.findViewById(R.id.registeredUserstxt);
+        showPaidMembersbtn = view.findViewById(R.id.showPaid_mem_btn);
     }
 
     private void setAdminInfoView(View view) {
@@ -91,14 +93,13 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
         userDataRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
 
 
-
-        showPaidMembersbtn.setOnClickListener(v->{
+        showPaidMembersbtn.setOnClickListener(v -> {
             if (v.getTag().equals("show")) {
                 userDataRecyclerView.setVisibility(View.VISIBLE);
                 loadPaidUsers();
                 v.setTag("hide");
                 showPaidMembersbtn.setText("HIDE PAID MEMBERS");
-            }else if(v.getTag().equals("hide")){
+            } else if (v.getTag().equals("hide")) {
                 userDataRecyclerView.setVisibility(View.GONE);
                 showPaidMembersbtn.setText("SHOW PAID MEMBERS");
                 v.setTag("show");
@@ -116,7 +117,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot bannerSnapshot : task.getResult()) {
                     ProductEntry product = bannerSnapshot.toObject(ProductEntry.class);
-                    if(product.getUID()!=null && !product.getUID().equals("") && product.getPlanBought()!=null)
+                    if (product.getUID() != null && !product.getUID().equals("") && product.getPlanBought() != null)
                         products.add(product);
                 }
                 loadPaidMembers.onPaidMembersLoadSuccess(products);
@@ -133,47 +134,54 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
         fAuth = FirebaseAuth.getInstance();
 
 
-
         if (fAuth.getCurrentUser() != null) {
             if (fAuth.getCurrentUser().getEmail() != null && fAuth.getCurrentUser().getEmail().equals(ADMIN_EMAIL)) {
 
                 adminData.setVisibility(View.VISIBLE);
+                isAdmin = true;
                 setAdminInfoView(root);
                 loadEveryUsers();
 
 
-
             } else {
-                FirebaseFirestore privateDatabase = FirebaseFirestore.getInstance();
-                privateDatabase.collection("Users").document(fAuth.getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        String plan = (String) documentSnapshot.get("planBought");
+                //Set user plans here at the top of HomeFragment by setting recyclerView visibility to View.VISIBLE
+                setUserPlansInfo(root);
 
 
-                        Log.d("HomeFragment", "onCreateView() called with: plan = [" + plan + "], container = [" + container + "], savedInstanceState = [" + savedInstanceState + "]");
-                        if (plan != null) {
-                            if (plan.equals(PLATINUM_PLAN_18_MONTHS)) {
-                                loadUsersAsPerSubscription(PrefVariables.PLATINUM_PLAN_USER);
-                            } else if (plan.equals(GOLD_PLAN_6_MONTHS)) {
-                                loadUsersAsPerSubscription(PrefVariables.GOLD_PLAN_USER);
-                            } else if (plan.equals(DIAMOND_HEADING)) {
-                                loadUsersAsPerSubscription(PrefVariables.DIAMOND_PLAN_USER);
+                FirebaseFirestore privateDatabase = FirebaseFirestore
+                        .getInstance();
+                privateDatabase.collection("Users")
+                        .document(fAuth.getCurrentUser().getUid())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot documentSnapshot = task.getResult();
+                                String plan = (String) documentSnapshot.get("planBought");
 
-                            } else if (plan.equals(SILVER_PLAN_3_MONTHS)) {
-                                loadUsersAsPerSubscription(PrefVariables.SILVER_PLAN_USER);
-                            } else if (plan.equals(TITANIUM_PLAN_28_MONTHS)) {
-                                loadUsersAsPerSubscription(PrefVariables.TITANIUM_PLAN_USER);
-                            } else if (plan.equals(PERSONAL_PLAN_36_MONTHS)) {
-                                loadUsersAsPerSubscription(PrefVariables.PERSONAL_PLAN_USER);
+
+                                Log.d("HomeFragment", "onCreateView() called with: plan = [" + plan + "], container = [" + container + "], savedInstanceState = [" + savedInstanceState + "]");
+                                if (plan != null) {
+                                    if (plan.equals(PLATINUM_PLAN_18_MONTHS)) {
+                                        loadUsersAsPerSubscription(PrefVariables.PLATINUM_PLAN_USER);
+                                    } else if (plan.equals(GOLD_PLAN_6_MONTHS)) {
+                                        loadUsersAsPerSubscription(PrefVariables.GOLD_PLAN_USER);
+                                    } else if (plan.equals(DIAMOND_HEADING)) {
+                                        loadUsersAsPerSubscription(PrefVariables.DIAMOND_PLAN_USER);
+
+                                    } else if (plan.equals(SILVER_PLAN_3_MONTHS)) {
+                                        loadUsersAsPerSubscription(PrefVariables.SILVER_PLAN_USER);
+                                    } else if (plan.equals(TITANIUM_PLAN_28_MONTHS)) {
+                                        loadUsersAsPerSubscription(PrefVariables.TITANIUM_PLAN_USER);
+                                    } else if (plan.equals(PERSONAL_PLAN_36_MONTHS)) {
+                                        loadUsersAsPerSubscription(PrefVariables.PERSONAL_PLAN_USER);
+                                    }
+                                } else {
+                                    loadUsersAsPerSubscription(0);
+                                }
                             }
-                        } else {
-                            loadUsersAsPerSubscription(0);
-                        }
-                    }
 
 
-                });
+                        });
             }
         } else {
             loadUsersAsPerSubscription(0);
@@ -186,6 +194,17 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
         return root;
     }
 
+    private void setUserPlansInfo(View view) {
+        userStats.setVisibility(View.GONE);
+        showPaidMembersbtn.setVisibility(View.GONE);
+
+        userDataRecyclerView = view.findViewById(R.id.userDataRecyclerView);
+        userDataRecyclerView.setVisibility(View.VISIBLE);
+        userDataRecyclerView.setHasFixedSize(true);
+        userDataRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
+
+    }
+
     private void loadEveryUsers() {
 
         databaseUsers.get().addOnCompleteListener(task -> {
@@ -193,8 +212,8 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot bannerSnapshot : task.getResult()) {
                     ProductEntry product = bannerSnapshot.toObject(ProductEntry.class);
-                    if(product.getUID()!=null && !product.getUID().equals(""))
-                    products.add(product);
+                    if (product.getUID() != null && !product.getUID().equals(""))
+                        products.add(product);
                 }
                 loadMyConcepts.onProfilesLoadSuccess(products);
             }
@@ -205,12 +224,18 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
 
         databaseUsers.get().addOnCompleteListener(task -> {
             List<ProductEntry> products = new ArrayList<>();
+            List<ProductEntry> statusSubscription = new ArrayList<>();
             if (task.isSuccessful()) {
                 int c = 0;
                 for (QueryDocumentSnapshot bannerSnapshot : task.getResult()) {
 
                     ProductEntry product = bannerSnapshot.toObject(ProductEntry.class);
                     products.add(product);
+                    if (product.getUID() != null && product.getUID().equals(fAuth.getCurrentUser().getUid())) {
+                        statusSubscription.add(product);
+                        Log.d(TAG, "loadUsersAsPerSubscription() called with: IDENTITY = [" + product.getProfileID() + "\n" + product.getPlanBought() + "]");
+                    }
+
 
                     if (IDENTITY == 0 && c == 50) {
                         break;
@@ -230,6 +255,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
                     c += 1;
                 }
                 loadMyConcepts.onProfilesLoadSuccess(products);
+                loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
             }
         }).addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
     }
@@ -243,11 +269,13 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
         recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
 
         try {
-            if(adminData.getVisibility()==View.VISIBLE)
-                totalRegisteredUsers.setText(""+templates.size());
+            if (adminData.getVisibility() == View.VISIBLE && isAdmin)
+                totalRegisteredUsers.setText("" + templates.size());
+
+
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Exception:\n"+e.getMessage()+"\nTotal User count: "+templates.size(), Toast.LENGTH_SHORT).show();
-            Log.d("HomeFragment", "Exception:\n"+e.getMessage());
+            Toast.makeText(getActivity(), "Exception:\n" + e.getMessage() + "\nTotal User count: " + templates.size(), Toast.LENGTH_SHORT).show();
+            Log.d("HomeFragment", "Exception:\n" + e.getMessage());
         }
 
     }
@@ -264,6 +292,11 @@ public class HomeFragment extends Fragment implements LoadAllProfiles,LoadPaidMe
         int largePadding = 4;
         int smallPadding = 3;
         userDataRecyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
+
+
+        Log.d("Member Stats", "onPaidMembersLoadSuccess() called with: templates = [" + templates + "]");
+
+
     }
 
     @Override

@@ -62,6 +62,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             country, state, address, city, genderView,
             colorView, bodyTypeView, edcationview, employedInView, occupationView,
             incomeview, maritalStatusView, haveChildren, religionView, motherTongue;
+    private Handler handler;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_details);
         expressInterestButton =findViewById(R.id.expressIntrest);
         exprestext=findViewById(R.id.exTXT);
-        Handler handler = new Handler() {
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 0) {
@@ -81,7 +83,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             }
         };
 
-        Thread thread = new Thread() {
+        thread = new Thread() {
             @Override
             public void run() {
 
@@ -192,11 +194,17 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         profileID = (String) map.get(FormDataVariables.bProfileID);
         Log.d(TAG, "doSomeWork() called "+profileID);
         Log.d(TAG, "doSomeWork() called "+PrefVariables.PERSONAL_UID);
-        if(profileID.equals(PrefVariables.PERSONAL_UID)){
-                expressInterestButton.setVisibility(View.GONE);
-                exprestext.setVisibility(View.GONE);
+        try{
+            if(profileID!=null && profileID.equals(PrefVariables.PERSONAL_UID)){
+                    expressInterestButton.setVisibility(View.GONE);
+                    exprestext.setVisibility(View.GONE);
 
-            Log.d(TAG, "CURRENT USER called: "+PrefVariables.PERSONAL_UID);
+                Log.d(TAG, "CURRENT USER called: "+PrefVariables.PERSONAL_UID);
+            }
+        } catch (Exception e) {
+            handler.removeCallbacksAndMessages(null);
+            Toast.makeText(this, "It must not contain spaces. \nError: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         return true;
