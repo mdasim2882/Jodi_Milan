@@ -124,7 +124,7 @@ LinearLayout linearLayout;
 
             }   else if(item.equals(PERSONAL_PLAN_36_MONTHS)){
                 heading.setText(PERSONAL_PLAN_36_MONTHS);
-                featureOne.setText(Html.fromHtml("&#8226; Total access to contacts"+ 620));
+                featureOne.setText(Html.fromHtml("&#8888; Total access to contacts "+ 620));
 
             }
         }
@@ -179,7 +179,7 @@ LinearLayout linearLayout;
 //        prefill.put("email", "mohdasim2882@gmail.com");
 //        prefill.put("contact","+919580130679");
 //            options.put("prefill.email", "mohdasim2882@gmail.com");
-            options.put("prefill.contact",  "+9123456789");
+            options.put("prefill.contact",  "");
 
 //        options.put("prefill", prefill);
             checkout.open(activity, options);

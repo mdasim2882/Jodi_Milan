@@ -25,19 +25,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //this will bind your MainActivity.class file with activity_main.
         Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(MainActivity.this,
-                        LoginActivity.class);
-                //Intent is used to switch from one activity to another.
+        h.postDelayed(() -> {
+            Intent i = new Intent(MainActivity.this,
+                    LoginActivity.class);
+            //Intent is used to switch from one activity to another.
 
-                startActivity(i);
-                //invoke the SecondActivity.
+            startActivity(i);
+            //invoke the SecondActivity.
 
-                finish();
-                //the current activity will get finished.
-            }
+            finish();
+            //the current activity will get finished.
         }, SPLASH_SCREEN_TIME_OUT);
     }
 }
