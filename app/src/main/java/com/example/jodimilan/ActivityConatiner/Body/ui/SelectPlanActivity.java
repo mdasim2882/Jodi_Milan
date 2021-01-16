@@ -148,7 +148,7 @@ LinearLayout linearLayout;
          * Instantiate Checkout
          */
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_puvvJbslTM7CKw");
+        checkout.setKeyID("rzp_live_tgZYShI6k1VrMG");
         /**
          * Set your logo here
          */
