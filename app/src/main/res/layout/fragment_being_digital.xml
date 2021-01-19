@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:padding="15dp"
-    tools:context=".ViewPagerAdapter.FragmentsStartUp.BeingDigital">
+    tools:context="com.jodimilans.matrimonial.ViewPagerAdapter.FragmentsStartUp.BeingDigital">
 
     <!-- TODO: Update blank fragment layout -->
          />

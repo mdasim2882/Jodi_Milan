@@ -6,7 +6,7 @@
     android:id="@+id/basell"
     android:layout_height="match_parent"
     android:background="@drawable/home_jodi_jogu"
-    tools:context=".ActivityConatiner.SignUp.LoginActivity">
+    tools:context="com.jodimilans.matrimonial.ActivityConatiner.SignUp.LoginActivity">
 
     <ImageView
         android:id="@+id/imageLogo"

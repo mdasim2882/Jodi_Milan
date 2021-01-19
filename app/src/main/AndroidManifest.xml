@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jodimilan">
+    package="com.jodimilans.matrimonial">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -11,29 +11,30 @@
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
+
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JodiMilan">
-        <activity android:name=".ActivityConatiner.Body.ui.filter.FilterResultsActivity"></activity>
-        <activity android:name=".ActivityConatiner.Body.Settings" />
-        <activity android:name=".ActivityConatiner.Body.ProfileDetailsActivity" />
-        <activity android:name=".ActivityConatiner.Body.ui.SelectPlanActivity" />
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.ui.filter.FilterResultsActivity"></activity>
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.Settings" />
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.ProfileDetailsActivity" />
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.ui.SelectPlanActivity" />
         <activity
-            android:name=".ActivityConatiner.Body.HomeActivity"
+            android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.JodiMilan.NoActionBar" />
-        <activity android:name=".ActivityConatiner.Body.PictureSetter" />
-        <activity android:name=".ActivityConatiner.SignUp.RegisterUser.OTPVerificationActivity" />
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.Body.PictureSetter" />
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.SignUp.RegisterUser.OTPVerificationActivity" />
         <activity
-            android:name=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity"
+            android:name="com.jodimilans.matrimonial.ActivityConatiner.SignUp.RegisterUser.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ActivityConatiner.SignUp.UserLoginActivity"
+            android:name="com.jodimilans.matrimonial.ActivityConatiner.SignUp.UserLoginActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ActivityConatiner.SignUp.LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.jodimilans.matrimonial.ActivityConatiner.SignUp.LoginActivity" />
+        <activity android:name="com.jodimilans.matrimonial.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +47,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".Service.MyNotificationService"
+            android:name="com.jodimilans.matrimonial.Service.MyNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -5,7 +5,7 @@
     android:id="@+id/root_rel_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityConatiner.Body.PictureSetter">
+    tools:context="com.jodimilans.matrimonial.ActivityConatiner.Body.PictureSetter">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

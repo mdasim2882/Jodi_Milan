@@ -5,7 +5,7 @@
     android:id="@+id/root_rel_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityConatiner.SignUp.RegisterUser.RegisterActivity">
+    tools:context="com.jodimilans.matrimonial.ActivityConatiner.SignUp.RegisterUser.RegisterActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
