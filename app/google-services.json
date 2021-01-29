@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "418534357603-038cgghm0lhq4e8js549g270hc4vohfi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jodimilans.matrimonial",
+            "certificate_hash": "aeaadec13204fe548c0a12b9f51b96c119f05b6a"
+          }
+        },
+        {
           "client_id": "418534357603-gd5gs785l9u13bffiitc6nmk0j6348m7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.jodimilans.matrimonial",
             "certificate_hash": "92868152e3738fb39da6b0ebf03e095b3a396d0a"
+          }
+        },
+        {
+          "client_id": "418534357603-o0t6j8lnfuq5t1kki09h5j9l93ics7js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jodimilans.matrimonial",
+            "certificate_hash": "73b488dc52cd47f338f3c5e47a453cdb310a28db"
           }
         },
         {
