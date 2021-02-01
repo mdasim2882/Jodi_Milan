@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.jodimilans.matrimonial.ActivityConatiner.Body.HomeActivity;
 import com.jodimilans.matrimonial.ActivityConatiner.Interfaces.LoadAllProfiles;
 import com.jodimilans.matrimonial.ActivityConatiner.RecyclerViewSetup.Adapters.PeoplesCardRecyclerViewAdapter;
@@ -150,6 +151,11 @@ public class FilterFragment extends Fragment implements LoadAllProfiles {
                     }
                     loadAllProfiles.onProfilesLoadSuccess(filteredUsers);
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    loadAllProfiles.onProfilesLoadFailure(e.getMessage());
                 }
             });
         } else {

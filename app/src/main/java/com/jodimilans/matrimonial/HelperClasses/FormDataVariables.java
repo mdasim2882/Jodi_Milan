@@ -1,7 +1,10 @@
 package com.jodimilans.matrimonial.HelperClasses;
 
+import androidx.annotation.Keep;
+
 import com.google.firebase.firestore.GeoPoint;
 
+@Keep
 public class FormDataVariables {
 
     public static final String bGender="Gender";

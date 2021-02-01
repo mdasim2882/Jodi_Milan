@@ -1,37 +1,40 @@
 package com.jodimilans.matrimonial.HelperClasses;
 
+import androidx.annotation.Keep;
+
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Map;
 
+@Keep
 public class ProductEntry {
-    String Address;
-    String Body;
-    String City;
-    String Colour;
-    String Country;
-    String DOB;
-    String Education;
-    String EmailID;
-    String EmployedIn;
-    String FathersName;
-    String FullName;
-    String Gender;
-    GeoPoint Geopoint;
-    String HaveChildren;
-    String Height;
-    String Income;
-    String MaritalStatus;
-    String Mobile;
-    String MotherTongue;
-    String Occupation;
-    String Religion;
-    String State;
-    String UID;
-    String photoLink;
-    String profileID;
-    String expiryDaysLimit;
-    String boughtBy;
+    private String Address;
+    private String Body;
+    private String City;
+    private String Colour;
+    private String Country;
+    private String DOB;
+    private String Education;
+    private String EmailID;
+    private String EmployedIn;
+    private String FathersName;
+    private String FullName;
+    private String Gender;
+    private GeoPoint Geopoint;
+    private String HaveChildren;
+    private String Height;
+    private String Income;
+    private String MaritalStatus;
+    private String Mobile;
+    private String MotherTongue;
+    private String Occupation;
+    private String Religion;
+    private String State;
+    private  String UID;
+    private String photoLink;
+    private String profileID;
+    private String expiryDaysLimit;
+    private String boughtBy;
 
     public String getExpiryDaysLimit() {
         return expiryDaysLimit;

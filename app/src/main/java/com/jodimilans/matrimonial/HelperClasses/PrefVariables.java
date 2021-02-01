@@ -1,5 +1,9 @@
 package com.jodimilans.matrimonial.HelperClasses;
 
+import androidx.annotation.Keep;
+
+
+@Keep
 public class PrefVariables {
 
     public static  final String ISLOGIN = "isLogin";

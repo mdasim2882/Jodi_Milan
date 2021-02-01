@@ -274,11 +274,13 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
                 }
             }
 
-        }).addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
+        })
+                .addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
     }
 
     @Override
     public void onProfilesLoadSuccess(List<ProductEntry> templates) {
+        Log.d(TAG, "onProfilesLoadSuccess() called with: \n Size: "+templates.size()+"\n templates = [" + templates + "]" );
         PeoplesCardRecyclerViewAdapter adapter = new PeoplesCardRecyclerViewAdapter(getActivity(), templates);
         recyclerView.setAdapter(adapter);
         int largePadding = 4;
@@ -299,7 +301,8 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
 
     @Override
     public void onProfilesLoadFailure(String message) {
-
+        Toast.makeText(getActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, "Error loading:  "+message);
     }
 
     @Override
