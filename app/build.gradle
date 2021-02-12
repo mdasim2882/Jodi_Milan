@@ -18,8 +18,8 @@ android {
         applicationId "com.jodimilans.matrimonial"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 5
-        versionName '1.02'
+        versionCode 7
+        versionName '1.04'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.'RELEASE SHA1'
@@ -28,6 +28,8 @@ android {
     buildTypes {
         release {
             shrinkResources true
+//            useProguard true
+
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
