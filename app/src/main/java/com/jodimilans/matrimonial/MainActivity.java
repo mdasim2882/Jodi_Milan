@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        findTimeUniqueId();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //This method is used so that your splash activity
@@ -38,5 +39,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
             //the current activity will get finished.
         }, SPLASH_SCREEN_TIME_OUT);
+    }
+
+    private void findTimeUniqueId() {
+        for(int i=1;i<=20;i++){
+            System.out.println(System.currentTimeMillis());
+        }
     }
 }

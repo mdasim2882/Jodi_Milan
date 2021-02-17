@@ -18,8 +18,8 @@ android {
         applicationId "com.jodimilans.matrimonial"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 7
-        versionName '1.04'
+        versionCode 9
+        versionName '1.06'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.'RELEASE SHA1'
@@ -63,6 +63,8 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+
 
     // Declare the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -71,7 +73,7 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-storage'
-
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'

@@ -21,14 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                    app:cardCornerRadius="2dp"
                    android:elevation="5dp"
                     android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:visibility="gone"
                 android:background="@color/white"
                 android:id="@+id/layoutInfoUser"
                 android:layout_width="match_parent"
@@ -38,12 +37,13 @@
                     android:id="@+id/userStats"
                     android:background="#424242"
                     android:layout_margin="2dp"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="3"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/text_limit"
                         android:layout_width="match_parent"
                         android:textColor="@color/white"
                         android:layout_weight="1"
@@ -67,9 +67,10 @@
                         android:layout_height="0dp" />
                 </LinearLayout>
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:id="@+id/showPaid_mem_btn"
                     android:tag="show"
+                    android:visibility="gone"
                     android:layout_margin="2dp"
                     android:background="#ffff00"
                     android:layout_height="match_parent"

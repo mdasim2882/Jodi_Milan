@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
     LoadAllProfiles loadMyConcepts;
     LoadPaidMembers loadPaidMembers;
     public final String TAG = getClass().getSimpleName();
+    public static final String USER_LIMIT = "USERS LIMIT";
     public static final String ADMIN_EMAIL = "jodimilanmatrimoni@gmail.com";
     public static final String DIAMOND_HEADING = "Diamond Plan (12 Months)";
     public static final String PLATINUM_PLAN_18_MONTHS = "Platinum Plan(18 Months)";
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
     boolean isAdmin = false;
     LinearLayout adminData, userStats;
     RecyclerView userDataRecyclerView;
-    TextView totalRegisteredUsers;
+    TextView totalRegisteredUsers,textRegTitle;
     Button showPaidMembersbtn;
 
 
@@ -81,8 +82,9 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
          * TextView productName, productCost;
          * */
         adminData = view.findViewById(R.id.layoutInfoUser);
-        userStats = view.findViewById(R.id.userStats);
+//        userStats = view.findViewById(R.id.userStats);
         totalRegisteredUsers = view.findViewById(R.id.registeredUserstxt);
+        textRegTitle = view.findViewById(R.id.text_limit);
         showPaidMembersbtn = view.findViewById(R.id.showPaid_mem_btn);
     }
 
@@ -122,8 +124,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
                 }
                 loadPaidMembers.onPaidMembersLoadSuccess(products);
             }
-        })
-                .addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
+        }).addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -138,6 +139,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
             if (fAuth.getCurrentUser().getEmail() != null && fAuth.getCurrentUser().getEmail().equals(ADMIN_EMAIL)) {
 
                 adminData.setVisibility(View.VISIBLE);
+                showPaidMembersbtn.setVisibility(View.VISIBLE);
                 isAdmin = true;
                 setAdminInfoView(root);
                 loadEveryUsers();
@@ -146,7 +148,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
             } else {
                 //Set user plans here at the top of HomeFragment by setting recyclerView visibility to View.VISIBLE
                 setUserPlansInfo(root);
-
+                textRegTitle.setText(USER_LIMIT);
 
                 FirebaseFirestore privateDatabase = FirebaseFirestore
                         .getInstance();
@@ -183,9 +185,13 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
 
                         });
             }
-        } else {
+        }
+        else {
             setUserPlansInfo(root);
+            textRegTitle.setText(USER_LIMIT);
             loadUsersAsPerSubscription(0);
+            totalRegisteredUsers.setText("50");
+
         }
 
         FloatingActionButton floatingActionButton = ((HomeActivity) getActivity()).getFloatingActionButton();
@@ -196,7 +202,7 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
     }
 
     private void setUserPlansInfo(View view) {
-        userStats.setVisibility(View.GONE);
+//        userStats.setVisibility(View.GONE);
         showPaidMembersbtn.setVisibility(View.GONE);
 
         userDataRecyclerView = view.findViewById(R.id.userDataRecyclerView);
@@ -242,25 +248,32 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
 
 
                     if (IDENTITY == 0 && c == 50) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == 1 && c == 120) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == 2 && c == 160) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == 3 && c == 200) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == 4 && c == 300) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == PrefVariables.PERSONAL_PLAN_USER && c == 620) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     } else if (IDENTITY == PrefVariables.TITANIUM_PLAN_USER && c == 450) {
+                        totalRegisteredUsers.setText(""+c);
                         break;
                     }
                     c += 1;
                 }
                 loadMyConcepts.onProfilesLoadSuccess(products);
 //                loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
-                Log.d(TAG, "loadUsersAsPerSubscription() called with: LIST S=\n = [" + statusSubscription + "]");
+                Log.e(TAG, "loadUsersAsPerSubscription() called with: LIST S=\n = [" + statusSubscription +":" +IDENTITY+","+c+ "]");
                 if (statusSubscription.size() > 0) {
                     loadPaidMembers.onPaidMembersLoadSuccess(statusSubscription);
                 } else {
@@ -274,8 +287,24 @@ public class HomeFragment extends Fragment implements LoadAllProfiles, LoadPaidM
                 }
             }
 
-        })
-                .addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
+        }).addOnFailureListener(e -> loadMyConcepts.onProfilesLoadFailure(e.getMessage()));
+        if (IDENTITY == 0 ) {
+            totalRegisteredUsers.setText("50");
+        } else if (IDENTITY == 1) {
+            totalRegisteredUsers.setText("120");
+        } else if (IDENTITY == 2) {
+            totalRegisteredUsers.setText("160");
+
+        } else if (IDENTITY == 3 ) {
+            totalRegisteredUsers.setText("200");
+        } else if (IDENTITY == 4 ) {
+            totalRegisteredUsers.setText("300");
+        } else if (IDENTITY == PrefVariables.PERSONAL_PLAN_USER ) {
+            totalRegisteredUsers.setText("620");
+        } else if (IDENTITY == PrefVariables.TITANIUM_PLAN_USER ) {
+            totalRegisteredUsers.setText("450");
+
+        }
     }
 
     @Override

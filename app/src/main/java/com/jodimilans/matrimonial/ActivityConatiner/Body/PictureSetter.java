@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.UUID;
 
 import com.jodimilans.matrimonial.ActivityConatiner.SignUp.UserLoginActivity;
@@ -549,10 +550,19 @@ public class PictureSetter extends AppCompatActivity {
         );
 
     }
+    public static String getRandomNumberString() {
+        // It will generate 6 digit random Number.
+        // from 0 to 999999
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
 
+        // this will convert any number sequence into 6 character.
+        return String.format("%06d", number);
+    }
     private void savedToStorageDatabase(String userdp) {
 
-        String uniqueID = UUID.randomUUID().toString();
+//        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = getRandomNumberString();
         //Extracting user inputs
 //        retrieveInputs();
         HashMap<String, Object> userNAME = new HashMap<>();

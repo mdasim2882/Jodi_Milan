@@ -191,9 +191,10 @@
                             android:id="@+id/height_edt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:clickable="false"
+                            android:focusable="false"
                             android:hint="Height(in ft)*"
-                            android:inputType="numberDecimal"
+                            android:inputType="none"
                             android:tag="hgt"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />
@@ -459,12 +460,13 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/occupation_edt"
                             android:layout_width="match_parent"
-
+                            android:clickable="false"
+                            android:focusable="false"
                             android:layout_height="wrap_content"
                             android:textAllCaps="true"
                             android:fontFamily="@font/catamaran"
                             android:hint="Occupation*"
-                            android:inputType="textCapCharacters"
+                            android:inputType="none"
                             android:tag="cty"
                             android:textColor="@color/purple_700"
                             android:textColorHint="@color/purple_200" />

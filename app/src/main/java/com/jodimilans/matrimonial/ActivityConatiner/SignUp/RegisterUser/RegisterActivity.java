@@ -20,11 +20,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.jodimilans.matrimonial.HelperClasses.FormDataVariables;
-import com.jodimilans.matrimonial.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jodimilans.matrimonial.HelperClasses.FormDataVariables;
+import com.jodimilans.matrimonial.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -136,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
                 case DialogInterface.BUTTON_POSITIVE:
                     //Yes button clicked
                     //  Toast.makeText(RegisterActivity.this, "USER DATA \n" + data, Toast.LENGTH_SHORT).show();
-                    String gender,body,colour;
+                    String gender, body, colour;
                     int selectedId = rGender.getCheckedRadioButtonId();
                     int colorSelectID = rColour.getCheckedRadioButtonId();
                     int bodySelectID = rBody.getCheckedRadioButtonId();
@@ -145,37 +145,37 @@ public class RegisterActivity extends AppCompatActivity {
                     RadioButton colourradioButton = findViewById(colorSelectID);
 
 
-                        gender = genderradioButton.getText().toString();
-                        body = bodyradioButton.getText().toString();
-                        colour = colourradioButton.getText().toString();
-                        String mobnp = lMobileno_edt.getText().toString();
+                    gender = genderradioButton.getText().toString();
+                    body = bodyradioButton.getText().toString();
+                    colour = colourradioButton.getText().toString();
+                    String mobnp = lMobileno_edt.getText().toString();
 
-                        Intent intent = new Intent(RegisterActivity.this, OTPVerificationActivity.class);
-                        intent.putExtra(FormDataVariables.bGender, gender);
-                        intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
-                        intent.putExtra(FormDataVariables.bFullName, inputFullName);
-                        intent.putExtra(FormDataVariables.bDoB, inputDob);
-                        intent.putExtra(FormDataVariables.bHeight, inputheight);
-                        intent.putExtra(FormDataVariables.bState, inputState);
-                        intent.putExtra(FormDataVariables.bCountry, inputCountry);
-                        intent.putExtra(FormDataVariables.bCity, inputCity);
-                        intent.putExtra(FormDataVariables.bAddress, inputAddress);
-                        intent.putExtra(FormDataVariables.bColor, colour);
-                        intent.putExtra(FormDataVariables.bBody, body);
-                        intent.putExtra(FormDataVariables.bEducation, inputEducation);
-                        intent.putExtra(FormDataVariables.bEmployedIn, inputEmployment);
-                        intent.putExtra(FormDataVariables.bOccupation, inputOccupation);
-                        intent.putExtra(FormDataVariables.bIncome, inputIncome);
-                        intent.putExtra(FormDataVariables.bMaritalStatus, inputMaritalStatus);
-                        intent.putExtra(FormDataVariables.bHaveChildren, inputHaveChildren);
-                        intent.putExtra(FormDataVariables.bMotherTongue, inputMotherTongue);
-                        intent.putExtra(FormDataVariables.bReligion, inputReligion);
-                        intent.putExtra(FormDataVariables.bEmail, inputEmailID);
-                        intent.putExtra(FormDataVariables.bPassword, inputPassword);
-                        intent.putExtra(FormDataVariables.bMobile, mobnp);
+                    Intent intent = new Intent(RegisterActivity.this, OTPVerificationActivity.class);
+                    intent.putExtra(FormDataVariables.bGender, gender);
+                    intent.putExtra(FormDataVariables.bFathersName, inputFathersName);
+                    intent.putExtra(FormDataVariables.bFullName, inputFullName);
+                    intent.putExtra(FormDataVariables.bDoB, inputDob);
+                    intent.putExtra(FormDataVariables.bHeight, inputheight);
+                    intent.putExtra(FormDataVariables.bState, inputState);
+                    intent.putExtra(FormDataVariables.bCountry, inputCountry);
+                    intent.putExtra(FormDataVariables.bCity, inputCity);
+                    intent.putExtra(FormDataVariables.bAddress, inputAddress);
+                    intent.putExtra(FormDataVariables.bColor, colour);
+                    intent.putExtra(FormDataVariables.bBody, body);
+                    intent.putExtra(FormDataVariables.bEducation, inputEducation);
+                    intent.putExtra(FormDataVariables.bEmployedIn, inputEmployment);
+                    intent.putExtra(FormDataVariables.bOccupation, inputOccupation);
+                    intent.putExtra(FormDataVariables.bIncome, inputIncome);
+                    intent.putExtra(FormDataVariables.bMaritalStatus, inputMaritalStatus);
+                    intent.putExtra(FormDataVariables.bHaveChildren, inputHaveChildren);
+                    intent.putExtra(FormDataVariables.bMotherTongue, inputMotherTongue);
+                    intent.putExtra(FormDataVariables.bReligion, inputReligion);
+                    intent.putExtra(FormDataVariables.bEmail, inputEmailID);
+                    intent.putExtra(FormDataVariables.bPassword, inputPassword);
+                    intent.putExtra(FormDataVariables.bMobile, mobnp);
 //
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
 
                     break;
 
@@ -233,7 +233,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         emailIdLayout = findViewById(R.id.reg_emailId_ll);
         passwordLayout = findViewById(R.id.reg_pass_ll);
-       mobnoLayout = findViewById(R.id.regMobile_ll);
+        mobnoLayout = findViewById(R.id.regMobile_ll);
 
 
     }
@@ -324,6 +324,8 @@ public class RegisterActivity extends AppCompatActivity {
         sMotherTongue_edt.setOnClickListener(v -> motherTongue.show());
 
         sReligion_edt.setOnClickListener(v -> religion.show());
+        pHeight_edt.setOnClickListener(v -> heightStatus.show());
+        cOccupation_edt.setOnClickListener(v -> occupation.show());
 
         Button nextbtn = findViewById(R.id.nextbtn);
         nextbtn.setOnClickListener(v -> {
@@ -345,11 +347,11 @@ public class RegisterActivity extends AppCompatActivity {
             inputHaveChildren = sChildren_edt.getText().toString();
             inputMotherTongue = sMotherTongue_edt.getText().toString().toUpperCase();
             inputReligion = sReligion_edt.getText().toString();
-            inputFullName =lregFullName_edt.getText().toString();
-            inputFathersName =fathersName_edt.getText().toString();
-            inputAddress =address_edt.getText().toString();
-            inputEmailID =lregEmailId_edt.getText().toString();
-            inputPassword =lregPassword_edt.getText().toString();
+            inputFullName = lregFullName_edt.getText().toString();
+            inputFathersName = fathersName_edt.getText().toString();
+            inputAddress = address_edt.getText().toString();
+            inputEmailID = lregEmailId_edt.getText().toString();
+            inputPassword = lregPassword_edt.getText().toString();
 
             data = "Gender: " + gender + "\n" +
                     "Full Name: " + inputFullName + "\n" +
@@ -368,9 +370,9 @@ public class RegisterActivity extends AppCompatActivity {
                     "Colour: " + colour + "\n" +
                     "Marital Status: " + inputMaritalStatus + "\n" +
                     "Have Children: " + inputHaveChildren + "\n" +
-                    "Mother Tongue: " + inputMotherTongue +"\n" +
-                    "Religion: " + inputReligion+"\n" +
-                    "Email_Id: " + inputEmailID+"\n"+
+                    "Mother Tongue: " + inputMotherTongue + "\n" +
+                    "Religion: " + inputReligion + "\n" +
+                    "Email_Id: " + inputEmailID + "\n" +
                     "Password: " + inputPassword;
 
 
@@ -378,12 +380,10 @@ public class RegisterActivity extends AppCompatActivity {
 //            Snackbar.make(ll,"DATA:\n"+data, Snackbar.LENGTH_LONG).show();
 
 
-
             if (personalDetailsCheckValidity() && careerDetailsCheckValidity()
                     && socialDetailsCheckValidity() && loginDetailsCheckValidity()) {
                 builder.show();
-            }
-            else{
+            } else {
                 showToaster("All fields are mandatory!");
             }
 
@@ -624,11 +624,12 @@ public class RegisterActivity extends AppCompatActivity {
         status.add("Businessman");
         status.add("Builder");
         status.add("Enterpreneur");
+        status.add("Self Employed");
         status.add("Others");
 
         occupation = new android.app.AlertDialog.Builder(this);
         occupation.setIcon(R.drawable.jodi_milan_logo);
-        occupation.setTitle("Select State-");
+        occupation.setTitle("Select Occupation-");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, status);
 
@@ -1208,7 +1209,7 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean passwordValidityInputs() {
         boolean contactStatus;
 
-        if (TextUtils.isEmpty(lregPassword_edt.getText().toString()) && lregPassword_edt.getText().toString().length()<7 ) {
+        if (TextUtils.isEmpty(lregPassword_edt.getText().toString()) && lregPassword_edt.getText().toString().length() < 7) {
 
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("Password should be atleast 7 characters long.");

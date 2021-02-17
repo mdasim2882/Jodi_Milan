@@ -9,13 +9,20 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jodimilans.matrimonial.ActivityConatiner.SignUp.UserLoginActivity;
 import com.jodimilans.matrimonial.HelperClasses.FormDataVariables;
 import com.jodimilans.matrimonial.HelperClasses.PrefVariables;
@@ -26,6 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.jodimilans.matrimonial.ActivityConatiner.Body.ui.home.HomeFragment.ADMIN_EMAIL;
 
 public class ProfileDetailsActivity extends AppCompatActivity {
     public final String TAG = getClass().getSimpleName();
@@ -58,6 +67,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     FloatingActionButton expressInterestButton;
     TextView exprestext;
+    LinearLayout smartphoneLayout;
     TextView name,profileID_edt, contacno, height, fathersName, dateOfBirth,
             country, state, address, city, genderView,
             colorView, bodyTypeView, edcationview, employedInView, occupationView,
@@ -104,6 +114,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private void initializeViews() {
         above = findViewById(R.id.pictureCard);
         below = findViewById(R.id.details_card);
+        smartphoneLayout=below.findViewById(R.id.smartphone_layout);
 
         genderView = below.findViewById(R.id.genderData);
         name = below.findViewById(R.id.name_data);
@@ -126,8 +137,28 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         motherTongue = below.findViewById(R.id.motherTonguedata);
         religionView = below.findViewById(R.id.religiondata);
         haveChildren = below.findViewById(R.id.haveChildren_data);
-
+        FirebaseFirestore database=FirebaseFirestore.getInstance();
         contacno = below.findViewById(R.id.mobno_data);
+        FirebaseAuth fAuth=FirebaseAuth.getInstance();
+        if (fAuth.getCurrentUser() != null) {
+            if (fAuth.getCurrentUser().getEmail() != null && fAuth.getCurrentUser().getEmail().equals(ADMIN_EMAIL)) {
+                smartphoneLayout.setVisibility(View.VISIBLE);
+            }
+        }
+
+        else if (fAuth.getCurrentUser() != null) {
+            database.collection("Users").document().get()
+                    .addOnCompleteListener(task -> {
+                String paid=task.getResult().getString("planBought");
+                if(paid!=null){
+                    smartphoneLayout.setVisibility(View.VISIBLE);
+                }
+                        Log.e(TAG, "Membership status: "+paid);
+                    }).addOnFailureListener(e -> {
+                Log.e(TAG, "Membership status: "+e.getMessage());
+Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG);
+            });
+        }
     }
 
     private void updateUI() {
